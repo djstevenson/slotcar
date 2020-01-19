@@ -33,3 +33,7 @@ inc/
 /MANIFEST.bak
 /pm_to_blib
 /*.zip
+
+# temp stuff in example dir
+example/cpanfile.snapshot
+example/local
