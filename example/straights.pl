@@ -28,4 +28,7 @@ my $track = [
 # So, expect 1_215_500
 
 my $length = sum map { $_->length } @$track;
-print $length, "\n";
+print 'Length=', int($length/1000), "mm\n";
+use Data::Dumper;
+print "Standard joins = ", Dumper($track->[0]->joins);
+print "Start Grid joins = ", Dumper($track->[3]->joins);
