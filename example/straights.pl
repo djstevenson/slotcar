@@ -34,3 +34,10 @@ print 'Length=', $length/1000, "mm\n";
 use Data::Dumper;
 print "Standard joins = ", Dumper($track->[0]->joins);
 print "Start Grid joins = ", Dumper($track->[3]->joins);
+
+# Can we invent a DSL for describing tracks?
+# c8425 <=> C8205 <=> C8205 <=> C8207 etc?
+# <=> means connect right join of first item to 
+#     left join of second.
+#
+# Not yet sure how we'd do crossroads etc.
