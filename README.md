@@ -34,6 +34,7 @@ Angles available are:
 Radius of outer edge of track is 370mm, so these can fit flush between R1 and R3 curves for multi-lane layouts.
 
 Angles available are:
+
 * 22.5˚ - C8234
 * 45˚ - C8206
 * 45˚ banked - C8296
@@ -44,10 +45,19 @@ Angles available are:
 Radius of outer edge of track is 526mm, so these can fit flush between R2 and R4 curves for multi-lane layouts.
 
 Angles available are:
+
 * 22.5˚ - C8204
 * 45˚ banked - C8297
 * 22.5˚ single-lane = C7017
 
+
+#### Radius 4
+
+Radius of outer edge of track is 682mm, so these can fit flush outside R3 curves for multi-lane layouts.
+
+Angles available are:
+
+* 22.5˚ - C8235
 
 ### Straights
 
