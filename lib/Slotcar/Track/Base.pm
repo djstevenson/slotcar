@@ -13,6 +13,18 @@ has lanes => (
     required    => 1,
 );
 
+has sku => (
+    is          => 'ro',
+    isa         => 'Str',
+    required    => 1,
+);
+
+has description => (
+    is          => 'ro',
+    isa         => 'Str',
+    required    => 1,
+);
+
 # Units are µm
 # Obviously we don't need that fine-grained level
 # of accuracy, but it allows us to declare quarter

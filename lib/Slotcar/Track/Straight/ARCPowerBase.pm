@@ -8,5 +8,8 @@ extends 'Slotcar::Track::Straight::Standard';
 # Will render differently though as it has the power
 # interface and finish line.
 
+has '+sku'         => (default => 'C8435');
+has '+description' => (default => 'ARC PRO Power Base');
+
 __PACKAGE__->meta->make_immutable;
 1;

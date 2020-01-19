@@ -8,7 +8,9 @@ extends 'Slotcar::Track::Straight::Base';
 # POD docs will follow once the design is a bit
 # more settled.
 
-has '+length' => ( default => 87_500);    # 87.5mm
+has '+length'      => ( default => 87_500);    # 87.5mm
+has '+sku'         => (default => 'C8200');
+has '+description' => (default => 'Quarter Straight');
 
 __PACKAGE__->meta->make_immutable;
 1;

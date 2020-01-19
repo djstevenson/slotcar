@@ -9,6 +9,8 @@ extends 'Slotcar::Track::Straight::Base';
 # more settled.
 
 has '+length' => ( default => 78_000);    # 78mm
+has '+sku'         => (default => 'C8236');
+has '+description' => (default => 'Short Straight');
 
 __PACKAGE__->meta->make_immutable;
 1;
