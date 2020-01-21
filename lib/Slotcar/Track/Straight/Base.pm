@@ -12,7 +12,14 @@ use Slotcar::Track::Join::Double;
 has '+lanes' => ( default => 2);
 has '+width' => ( default => 156_000);  # 156mm
 
-# Override length in a subclass.
+# Override this to set a length
+# e.g. has '+length' => (default => 350_000);
+has length => (
+    is          => 'ro',
+    isa         => 'Int',
+    required    => 1,
+);
+
 
 override define_joins => sub {
     my $self = shift;

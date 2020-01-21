@@ -36,15 +36,6 @@ has width => (
     required    => 1,
 );
 
-# Units are µm
-# Override this to set a length
-# e.g. has '+length' => (default => 350_000);
-has length => (
-    is          => 'ro',
-    isa         => 'Int',
-    required    => 1,
-);
-
 # You'll want to override the builder to setup
 # your joins.
 has joins => (
