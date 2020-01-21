@@ -13,6 +13,10 @@ use Slotcar::Track::Straight::Half;
 use Slotcar::Track::Straight::StartingGrid;
 use Slotcar::Track::Straight::Quarter;
 use Slotcar::Track::Straight::Short;
+use Slotcar::Track::Curve::R1::C16;
+use Slotcar::Track::Curve::R2::C8;
+use Slotcar::Track::Curve::R3::C16;
+use Slotcar::Track::Curve::R4::C16;
 
 my $track = [
     Slotcar::Track::Straight::ARCPowerBase->new,
@@ -22,18 +26,16 @@ my $track = [
     Slotcar::Track::Straight::StartingGrid->new,
     Slotcar::Track::Straight::Quarter->new,
     Slotcar::Track::Straight::Short->new,
+    Slotcar::Track::Curve::R1::C16->new,
+    Slotcar::Track::Curve::R2::C8->new,
+    Slotcar::Track::Curve::R3::C16->new,
+    Slotcar::Track::Curve::R4::C16->new,
 ];
 
-# Length should be 350x3 + 175x2 + 87.5 + 78mm
-# = 1565.5
-# Working dims are in µm
-# So, expect 1_565_500
-
-my $length = sum map { $_->length } @$track;
-print 'Length=', $length/1000, "mm\n";
 use Data::Dumper;
 print "Standard joins = ", Dumper($track->[0]->joins);
 print "Start Grid joins = ", Dumper($track->[3]->joins);
+print "R1 22.5˚ curve joins = ", Dumper($track->[6]->joins);
 
 # Can we invent a DSL for describing tracks?
 # c8425 <=> C8205 <=> C8205 <=> C8207 etc?
