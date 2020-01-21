@@ -25,9 +25,9 @@ The angles available in single pieces depend on the radius, e.g. there are piece
 Radius of outer edge of track is 214mm.
 
 Angles available are:
-* 22.5˚ - C8278
-* 45˚ - C8202
-* 90˚ - C8201 - has lanes closer together than standard, to match with the narrow ends of "side-swipe" straights
+* 22.5˚ = C8278
+* 45˚ = C8202
+* 90˚ = C8201 - has lanes closer together than standard, to match with the narrow ends of "side-swipe" straights
 
 #### Radius 2
 
@@ -35,11 +35,11 @@ Radius of outer edge of track is 370mm, so these can fit flush between R1 and R3
 
 Angles available are:
 
-* 22.5˚ - C8234
-* 45˚ - C8206
-* 45˚ banked - C8296
-* 90˚ flat curve - only seems to be supplied in sets. Model this as two x C8206
-* 90˚ "diamond" crossover - C8203. Only to be used in pairs in older ARC Pro sets that powered the two lanes separately. More recent power units apply the same power to both lanes, so a single curve crossover is ok.
+* 22.5˚ = C8234
+* 45˚ = C8206
+* 45˚ banked = C8296
+* 90˚ flat = only seems to be supplied in sets. Model this as two x C8206
+* 90˚ "diamond" crossover = C8203. Only to be used in pairs in older ARC Pro sets that powered the two lanes separately. More recent power units apply the same power to both lanes, so a single curve crossover is ok.
 
 #### Radius 3
 
@@ -47,8 +47,8 @@ Radius of outer edge of track is 526mm, so these can fit flush between R2 and R4
 
 Angles available are:
 
-* 22.5˚ - C8204
-* 45˚ banked - C8297
+* 22.5˚ = C8204
+* 45˚ banked = C8297
 * 22.5˚ single-lane = C7017
 
 
@@ -58,7 +58,7 @@ Radius of outer edge of track is 682mm, so these can fit flush outside R3 curves
 
 Angles available are:
 
-* 22.5˚ - C8235
+* 22.5˚ = C8235
 
 ### Straights
 
@@ -66,25 +66,29 @@ Angles available are:
 
 Length = 350mm.
 
-Two-lane piece = C8205
-Arc Pro power section = C????
-Two-lane side-swipe straights (pair) = C8246, total length = 700mm
+* Two-lane piece = C8205
+* Arc Pro power section = C????
+* Two-lane side-swipe straights (pair) = C8246, total length = 700mm
 
 #### Half straight
 
 Length = 175mm.
 
-Two-lane piece = C8207
-Two-lane piece with start-grid markings = C7018
-One-lane piece = C7016
+* Two-lane piece = C8207
+* Two-lane piece with start-grid markings = C7018
+* One-lane piece = C7016
 
 #### Quarter straight
 
-C8200, length = 87.5mm
+Length = 87.5mm
+
+* Two-lane piece = C8200
 
 #### Short straight
 
-C8236, length = 78mm
+Length = 78mm
+
+* Two-lane piece = C8236
 
 
 ### Special pieces
@@ -95,20 +99,19 @@ Details to follow, basically they are 1-lane-in/2-lanes-out, and 2-lanes-in/1-la
 
 #### 90˚ crossroads
 
-C8210. TODO: Add dimensions
+* C8210. TODO: Add dimensions
 
 #### 90˚ flyover
 
-C8295. TODO: Add dimensions
+* C8295. TODO: Add dimensions
 
 #### Straight lane-changer
 
-C7036, straight lane-changer, 1.5 standard straights in length, ie length of 525mm
+* C7036, straight lane-changer, 1.5 standard straights in length, ie length of 525mm
 
 #### Curve lane-changer
 
-C7007, half-straight detector, plus 45˚ radius 2 lane changer, to be used as a pair. Not part of current catalogue.
-
+* C7007, half-straight detector, plus 45˚ radius 2 lane changer, to be used as a pair. Not part of current catalogue.
 
 # Trade Marks
 
