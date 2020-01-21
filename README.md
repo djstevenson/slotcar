@@ -27,7 +27,7 @@ Radius of outer edge of track is 214mm.
 Angles available are:
 * 22.5˚ - C8278
 * 45˚ - C8202
-* 90˚ - C8201
+* 90˚ - C8201 - has lanes closer together than standard, to match with the narrow ends of "side-swipe" straights
 
 #### Radius 2
 
@@ -38,6 +38,7 @@ Angles available are:
 * 22.5˚ - C8234
 * 45˚ - C8206
 * 45˚ banked - C8296
+* 90˚ flat curve - only seems to be supplied in sets. Model this as two x C8206
 * 90˚ "diamond" crossover - C8203. Only to be used in pairs in older ARC Pro sets that powered the two lanes separately. More recent power units apply the same power to both lanes, so a single curve crossover is ok.
 
 #### Radius 3
