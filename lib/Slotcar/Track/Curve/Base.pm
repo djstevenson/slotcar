@@ -9,6 +9,10 @@ use Slotcar::Track::Join::Double;
 # POD docs will follow once the design is a bit
 # more settled.
 
+# Note - we're going to need to record which way
+# around an instance of a curve piece is. Does
+# it curve to left or right?
+
 has '+lanes' => ( default => 2);
 has '+width' => ( default => 156_000);  # 156mm
 
