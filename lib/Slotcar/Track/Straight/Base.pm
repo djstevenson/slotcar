@@ -9,14 +9,16 @@ use Slotcar::Track::Join::Double;
 # POD docs will follow once the design is a bit
 # more settled.
 
+use SVG (-inline => 1);
+
 has '+lanes' => ( default => 2);
-has '+width' => ( default => 156_000);  # 156mm
+has '+width' => ( default => 156);
 
 # Override this to set a length
-# e.g. has '+length' => (default => 350_000);
+# e.g. has '+length' => (default => 350);
 has length => (
     is          => 'ro',
-    isa         => 'Int',
+    isa         => 'Num',
     required    => 1,
 );
 
@@ -33,6 +35,50 @@ override define_joins => sub {
         ),
     };
 };
+
+sub render {
+    my $self = shift;
+    # Will need args/attrs for position/orientation/etc
+
+    # Render to SVG at top-left = 10,10.  Units are mm
+
+    my $svg = SVG->new(
+        width  => 1_000,
+        height => 1_000,
+    );
+
+    my $base = $svg->group(
+        style => {
+            stroke => 'black',
+            fill   => 'grey',
+        },
+    );
+
+    $base->rectangle(
+        x => 10,
+        y => 10,
+        width => $self->length,
+        height => $self->width,
+    );
+
+    my $groove = $svg->group(
+    );
+    my $groove_y = $self->joins->{left}->offset_1;
+    my $groove_l = $self->length;
+    $groove->rectangle(
+        style => {
+            stroke => 'black',
+            fill   => 'lightgrey',
+        },
+        x => 10,
+        y => $groove_y - 5,
+        width => $self->length,
+        height => 10,
+    );
+
+    return $svg->xmlify;
+}
+
 
 no Moose;
 1;

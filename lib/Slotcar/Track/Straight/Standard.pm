@@ -8,7 +8,7 @@ extends 'Slotcar::Track::Straight::Base';
 # POD docs will follow once the design is a bit
 # more settled.
 
-has '+length'      => ( default => 350_000);  # 350mm
+has '+length'      => ( default => 350);
 has '+sku'         => (default => 'C8205');
 has '+description' => (default => 'Standard Straight');
 

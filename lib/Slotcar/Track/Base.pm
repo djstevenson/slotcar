@@ -25,14 +25,10 @@ has description => (
     required    => 1,
 );
 
-# Units are µm
-# Obviously we don't need that fine-grained level
-# of accuracy, but it allows us to declare quarter
-# straights (87.5mm), for example, without going
-# to floating point
+# Units are mm
 has width => (
     is          => 'ro',
-    isa         => 'Int',
+    isa         => 'Num',
     required    => 1,
 );
 
@@ -48,6 +44,13 @@ has joins => (
 # Default = no joins, not very useful, override it
 sub define_joins {
     return {};
+}
+
+sub render {
+    my $self = shift;
+    # Will need args/attrs for position/orientation/etc
+
+    die 'Base class must override render method';
 }
 
 no Moose;

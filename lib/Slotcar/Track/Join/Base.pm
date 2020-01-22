@@ -37,16 +37,16 @@ has lanes => (
     required    => 1,
 );
 
-# Units are µm
-has offset_x => (
+# Units are mm
+has offset_1 => (
     is          => 'ro',
-    isa         => 'Int',
+    isa         => 'Num',
     required    => 1,
 );
 
-has offset_y => (
+has offset_2 => (
     is          => 'ro',
-    isa         => 'Int',
+    isa         => 'Num',
     required    => 1,
 );
 
