@@ -12,7 +12,7 @@ Standard two-lane track width is 156mm.
 
 Curves are radius 1 thru 4, at 214, 370, 526, 682mm radii respectively. The measurement is to the outside of the track piece.
 
-Slots are speced at the 1/4 and 3/4 width points, i.e. 39mm from each edge, with a 78mm central span (except where reduces for chicanes/crossovers/etc of course).
+Slots are spaced at the 1/4 and 3/4 width points, i.e. 39mm from each edge, with a 78mm central span (except where reduces for chicanes/crossovers/etc of course).
 
 Single-lane pieces are half of the width of a two-lane piece, at 78mm with a central slot.  Therefore, two single-lane pieces match exactly up to a dual-lane piece.
 
