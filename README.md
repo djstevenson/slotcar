@@ -18,7 +18,7 @@ Single-lane pieces are half of the width of a two-lane piece, at 78mm with a cen
 
 Modelling of border pieces etc will come later.
 
-The angles available in single pieces depend on the radius, e.g. there are pieces up to 90˚ for R1, 45˚ for R2, but no pieces larger than 22.5˚ for R3/R4.
+The angles available in single pieces depend on the radius. Generally, pieces at 90˚, where available are specials only (for R1, it's narrowed lanes as part of the hairpin bend pack, for R2 there is a 90˚ piece but only in sets - it is not sold separately). There are no pieces larger than 22.5˚ for R3 and R4.
 
 #### Radius 1
 
