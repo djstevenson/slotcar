@@ -53,5 +53,29 @@ sub render {
     die 'Base class must override render method';
 }
 
+has track_base_colour => (
+    is          => 'ro',
+    isa         => 'Str',
+    default     => '#333333'
+);
+
+has track_edge_colour => (
+    is          => 'ro',
+    isa         => 'Str',
+    default     => '#000000'
+);
+
+has conductor_colour => (
+    is          => 'ro',
+    isa         => 'Str',
+    default     => '#cccccc'
+);
+
+has groove_colour => (
+    is          => 'ro',
+    isa         => 'Str',
+    default     => '#000000'
+);
+
 no Moose;
 1;
