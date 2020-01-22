@@ -32,10 +32,7 @@ my $track = [
     Slotcar::Track::Curve::R4::C16->new,
 ];
 
-use Data::Dumper;
-print "Standard joins = ", Dumper($track->[0]->joins);
-print "Start Grid joins = ", Dumper($track->[3]->joins);
-print "R1 22.5˚ curve joins = ", Dumper($track->[6]->joins);
+print $track->[1]->render;
 
 # Can we invent a DSL for describing tracks?
 # c8425 <=> C8205 <=> C8205 <=> C8207 etc?

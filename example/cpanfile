@@ -2,3 +2,4 @@ requires 'Moose';
 requires 'namespace::autoclean';
 requires 'FindBin::libs';
 requires 'List::Util';
+requires 'SVG';
