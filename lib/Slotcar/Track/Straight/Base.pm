@@ -100,6 +100,8 @@ sub render {
         height => 3,
     );
 
+    # Temporarily render four times, to test rendering
+    # an object multiple times from a single definition
     $svg->use(
         x => 0,
         y => 0,
