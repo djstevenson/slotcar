@@ -18,24 +18,31 @@ use Slotcar::Track::Curve::R2::C8;
 use Slotcar::Track::Curve::R3::C16;
 use Slotcar::Track::Curve::R4::C16;
 
+use SVG (-inline => 1, -nocredits => 1);
+
+my $svg = SVG->new(  # 1m square base board
+    width  => 1_000,
+    height => 1_000,
+);
+
 my $track = [
-    Slotcar::Track::Straight::ARCPowerBase->new,
-    Slotcar::Track::Straight::Standard->new,
-    Slotcar::Track::Straight::Standard->new,
-    Slotcar::Track::Straight::Half->new,
-    Slotcar::Track::Straight::StartingGrid->new,
-    Slotcar::Track::Straight::Quarter->new,
-    Slotcar::Track::Straight::Short->new,
-    Slotcar::Track::Curve::R1::C16->new,
-    Slotcar::Track::Curve::R2::C8->new,
-    Slotcar::Track::Curve::R3::C16->new,
-    Slotcar::Track::Curve::R4::C16->new,
+    Slotcar::Track::Straight::ARCPowerBase->new(svg => $svg),
+    Slotcar::Track::Straight::Standard->new(svg => $svg),
+    Slotcar::Track::Straight::Standard->new(svg => $svg),
+    Slotcar::Track::Straight::Half->new(svg => $svg),
+    Slotcar::Track::Straight::StartingGrid->new(svg => $svg),
+    Slotcar::Track::Straight::Quarter->new(svg => $svg),
+    Slotcar::Track::Straight::Short->new(svg => $svg),
+    Slotcar::Track::Curve::R1::C16->new(svg => $svg),
+    Slotcar::Track::Curve::R2::C8->new(svg => $svg),
+    Slotcar::Track::Curve::R3::C16->new(svg => $svg),
+    Slotcar::Track::Curve::R4::C16->new(svg => $svg),
 ];
 
-use Data::Dumper;
-print "Standard joins = ", Dumper($track->[0]->joins);
-print "Start Grid joins = ", Dumper($track->[3]->joins);
-print "R1 22.5˚ curve joins = ", Dumper($track->[6]->joins);
+# Can currently only render one piece
+$track->[1]->render;
+# $track->[5]->render;
+print $svg->xmlify;
 
 # Can we invent a DSL for describing tracks?
 # c8425 <=> C8205 <=> C8205 <=> C8207 etc?

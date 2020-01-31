@@ -25,14 +25,10 @@ has description => (
     required    => 1,
 );
 
-# Units are µm
-# Obviously we don't need that fine-grained level
-# of accuracy, but it allows us to declare quarter
-# straights (87.5mm), for example, without going
-# to floating point
+# Units are mm
 has width => (
     is          => 'ro',
-    isa         => 'Int',
+    isa         => 'Num',
     required    => 1,
 );
 
@@ -49,6 +45,44 @@ has joins => (
 sub define_joins {
     return {};
 }
+
+# TODO Renderer in different classes?
+has svg => (
+    is          => 'ro',
+    isa         => 'SVG',
+    required    => 1,
+);
+
+sub render {
+    my $self = shift;
+    # Will need args/attrs for position/orientation/etc
+
+    die 'Base class must override render method';
+}
+
+has track_base_colour => (
+    is          => 'ro',
+    isa         => 'Str',
+    default     => '#333333'
+);
+
+has track_edge_colour => (
+    is          => 'ro',
+    isa         => 'Str',
+    default     => '#000000'
+);
+
+has conductor_colour => (
+    is          => 'ro',
+    isa         => 'Str',
+    default     => '#cccccc'
+);
+
+has groove_colour => (
+    is          => 'ro',
+    isa         => 'Str',
+    default     => '#000000'
+);
 
 no Moose;
 1;

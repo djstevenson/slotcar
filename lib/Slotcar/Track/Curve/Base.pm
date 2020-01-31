@@ -14,12 +14,12 @@ use Slotcar::Track::Join::Double;
 # it curve to left or right?
 
 has '+lanes' => ( default => 2);
-has '+width' => ( default => 156_000);  # 156mm
+has '+width' => ( default => 156);
 
-# Units = µm
+# Units = mm
 has radius => (
     is          => 'ro',
-    isa         => 'Int',
+    isa         => 'Num',
     required    => 1,
 );
 

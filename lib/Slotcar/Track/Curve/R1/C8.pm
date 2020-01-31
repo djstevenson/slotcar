@@ -5,7 +5,7 @@ use Moose;
 
 extends 'Slotcar::Track::Curve::R1::Base';
 
-# Units = µm
+# Units = mm
 has '+angle'       => ( default => 8 );
 
 has '+sku'         => (default => 'C8202');

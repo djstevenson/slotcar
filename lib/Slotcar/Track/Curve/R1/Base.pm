@@ -3,8 +3,8 @@ use Moose;
 
 extends 'Slotcar::Track::Curve::Base';
 
-# Units = µm
-has '+radius' => ( default => 214_000 );
+# Units = mm
+has '+radius' => ( default => 214 );
 
 no Moose;
 1;
