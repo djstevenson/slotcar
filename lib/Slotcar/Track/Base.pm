@@ -46,6 +46,13 @@ sub define_joins {
     return {};
 }
 
+# TODO Renderer in different classes?
+has svg => (
+    is          => 'ro',
+    isa         => 'SVG',
+    required    => 1,
+);
+
 sub render {
     my $self = shift;
     # Will need args/attrs for position/orientation/etc

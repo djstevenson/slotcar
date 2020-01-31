@@ -9,8 +9,6 @@ use Slotcar::Track::Join::Double;
 # POD docs will follow once the design is a bit
 # more settled.
 
-use SVG (-inline => 1, -nocredits => 1);
-
 has '+lanes' => ( default => 2);
 has '+width' => ( default => 156);
 
@@ -36,17 +34,15 @@ override define_joins => sub {
     };
 };
 
+# Probably want to organise this so that we render
+# all objects, then $svg_obj->use to add visual
+# instances to the SVG doc. Or something.
 sub render {
     my $self = shift;
     # Will need args/attrs for position/orientation/etc
 
-    # Render to SVG at top-left = 10,10.  Units are mm
-
-    my $svg = SVG->new(
-        width  => 1_000,
-        height => 1_000,
-    );
-
+    my $svg = $self->svg;
+    
     my $defs = $svg->defs(id => 'defs');
     my $standard = $defs->group(id => 'standard-straight');
 
@@ -100,29 +96,12 @@ sub render {
         height => 3,
     );
 
-    # Temporarily render four times, to test rendering
-    # an object multiple times from a single definition
+    # The actual render
     $svg->use(
         x => 0,
         y => 0,
         '-href' => '#standard-straight',
     );
-    $svg->use(
-        x => 350,
-        y => 0,
-        '-href' => '#standard-straight',
-    );
-    $svg->use(
-        x => 0,
-        y => 156,
-        '-href' => '#standard-straight',
-    );
-    $svg->use(
-        x => 350,
-        y => 156,
-        '-href' => '#standard-straight',
-    );
-    return $svg->xmlify;
 }
 
 
