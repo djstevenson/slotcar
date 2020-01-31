@@ -2,6 +2,8 @@
 
 An experimental module for modelling slotcar-racing tracks.  Will initially support just Scalextric Sport track.
 
+*NOT YET USABLE* The design is in flux.
+
 This module is not connected in any way with the Scalextric brand, its owners Hornby Hobbies, or any other "official" entity.  
 
 ## Geometry
