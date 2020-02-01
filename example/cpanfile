@@ -1,3 +1,5 @@
+requires 'Class::Load';
+requires 'Try::Tiny';
 requires 'Moose';
 requires 'namespace::autoclean';
 requires 'FindBin::libs';
