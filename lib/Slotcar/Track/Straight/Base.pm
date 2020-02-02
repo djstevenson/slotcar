@@ -34,17 +34,12 @@ override define_joins => sub {
     };
 };
 
-# Probably want to organise this so that we render
-# all objects, then $svg_obj->use to add visual
-# instances to the SVG doc. Or something.
-sub render {
-    my $self = shift;
-    # Will need args/attrs for position/orientation/etc
+sub render_def {
+    my ($self, $defs) = @_;
 
     my $svg = $self->svg;
     
-    my $defs = $svg->defs(id => 'defs');
-    my $standard = $defs->group(id => 'standard-straight');
+    my $standard = $defs->group(id => $self->sku);
 
     $standard->rectangle(
         fill => $self->track_base_colour,
@@ -94,13 +89,6 @@ sub render {
         y => $groove_y2 - 1.5,
         width => $self->length,
         height => 3,
-    );
-
-    # The actual render
-    $svg->use(
-        x => 0,
-        y => 0,
-        '-href' => '#standard-straight',
     );
 }
 
