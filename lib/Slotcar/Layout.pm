@@ -18,6 +18,14 @@ has pieces => (
     isa         => 'ArrayRef[Slotcar::Piece]',
     lazy        => 1,
     default     => sub { return []; },
+    traits      => ['Array'],
+    handles     => {
+        piece_count   => 'count',
+        all_pieces    => 'elements',
+        append_piece  => 'push',
+        append_pieces => 'push',
+        map_pieces    => 'map',
+    },
 );
 
 has _factory => (
@@ -39,15 +47,15 @@ sub add_piece {
     my ($self, $sku) = @_;
 
     my $piece = $self->_factory->piece($sku);
-    push @{ $self->pieces }, $piece;
+    $self->append_piece($piece);
 }
 
 sub add_pieces {
     my ($self, $skus) = @_;
 
-    foreach my $sku ( @{ $skus } ) {
-        $self->add_piece($sku);
-    }
+    map {
+        $self->add_piece($_)
+    } @{ $skus };
 }
 
 sub render {
@@ -58,10 +66,10 @@ sub render {
     $self->_factory->render_defs;
 
     # Now render the actual instances in our layout.
-    my $piece = $self->pieces->[0] or die 'No pieces to render';
+    $self->map_pieces( sub {
+        $_->render;
+    });
 
-    $piece->render;
-    
     return $self->_svg->xmlify;
 }
 
