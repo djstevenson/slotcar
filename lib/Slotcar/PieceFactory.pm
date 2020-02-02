@@ -6,6 +6,8 @@ use namespace::autoclean;
 use Try::Tiny;
 use Class::Load;
 
+use Slotcar::Piece;
+
 has _parts => (
     is          => 'ro',
     isa         => 'HashRef[Slotcar::Track::Base]',
@@ -26,12 +28,15 @@ sub piece {
 
     my $parts = $self->_parts;
 
-    die "Part ${part_sku} not found" unless exists $parts->{$part_sku};
+    die "SKU '${part_sku}' not found"
+        unless exists $parts->{$part_sku};
 
-    # Currently returns a cached part object. But will need to
-    # return something else, so we can have two different C8205 objects
-    # for example.
-    return $parts->{$part_sku};
+    return Slotcar::Piece->new(
+        x        => 0,  # Parameter x/y/r
+        y        => 0,
+        rotation => 0,
+        part     => $parts->{$part_sku},
+    );
 }
 
 sub _build_parts {

@@ -21,13 +21,21 @@ has rotation => (
     required    => 1,
 );
 
-# Defines the dimensions etc of the track piece
-has track => (
+# Defines the dimensions etc of the track part
+has part => (
     is          => 'ro',
     isa         => 'Slotcar::Track::Base',
     required    => 1,
 );
 
+# Render an svg 'use' tag to reference
+# the definition that's already in the library
+# of track elements in the defs section.
+sub render {
+    my $self = shift;
 
+    my $part = $self->part;
+    
+}
 __PACKAGE__->meta->make_immutable;
 1;
