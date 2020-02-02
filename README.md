@@ -40,8 +40,10 @@ Angles available are:
 * 22.5˚ = C8234
 * 45˚ = C8206
 * 45˚ banked = C8296
-* 90˚ flat = only seems to be supplied in sets. Model this as two x C8206
-* 90˚ "diamond" crossover = C8203. Only to be used in pairs in older ARC Pro sets that powered the two lanes separately. More recent power units apply the same power to both lanes, so a single curve crossover is ok.
+* 90˚ flat = C8529. Only seems to be supplied in sets.
+* 90˚ "diamond" crossover = C8203. Only to be used in pairs in older ARC Pro sets that powered the two lanes with opposite polarity. More recent power units apply the same polarity to both lanes, so a single curve crossover is ok.
+
+Will also need to add curved lane change pieces - they're not in the current catalogue but are still available on ebay etc.
 
 #### Radius 3
 
