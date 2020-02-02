@@ -34,8 +34,13 @@ has part => (
 sub render {
     my $self = shift;
 
-    my $part = $self->part;
-    
+    $self->part->svg->use(
+        x => 0,
+        y => 0,
+        # transform => 'rotate(-45)',
+        '-href' => '#' . $self->part->sku,
+    );
 }
+
 __PACKAGE__->meta->make_immutable;
 1;
