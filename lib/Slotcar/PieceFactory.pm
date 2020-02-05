@@ -49,13 +49,13 @@ sub _build_parts {
         'Straight::StartingGrid',
         'Straight::Quarter',
         'Straight::Short',
-        # 'Curve::R1::C8',
-        # 'Curve::R1::C16',
-        # 'Curve::R2::C4',
-        # 'Curve::R2::C8',
-        # 'Curve::R2::C16',
-        # 'Curve::R3::C16',
-        # 'Curve::R4::C16',
+        'Curve::R1::C8',
+        'Curve::R1::C16',
+        'Curve::R2::C4',
+        'Curve::R2::C8',
+        'Curve::R2::C16',
+        'Curve::R3::C16',
+        'Curve::R4::C16',
     );
 
     my $svg = $self->svg;

@@ -39,9 +39,9 @@ sub render_def {
 
     my $svg = $self->svg;
     
-    my $standard = $defs->group(id => $self->sku);
+    my $track = $defs->group(id => $self->sku);
 
-    $standard->rectangle(
+    $track->rectangle(
         fill => $self->track_base_colour,
         stroke => $self->track_edge_colour,
         'stroke-width' => 2,
@@ -55,7 +55,7 @@ sub render_def {
     my $groove_y2 = $self->joins->{left}->offset_2;
     my $groove_l = $self->length;
 
-    my $groove_1 = $standard->group;
+    my $groove_1 = $track->group;
     # Conductors
     $groove_1->rectangle(
         fill => $self->conductor_colour,
@@ -73,7 +73,7 @@ sub render_def {
         height => 3,
     );
 
-    my $groove_2 = $standard->group;
+    my $groove_2 = $track->group;
     # Conductors
     $groove_2->rectangle(
         fill => $self->conductor_colour,
