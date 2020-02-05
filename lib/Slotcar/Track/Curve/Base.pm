@@ -43,16 +43,15 @@ has angle => (
 override define_joins => sub {
     my $self = shift;
 
-    die 'Implement joins for curved pieces';
-
-    # return {
-    #     left  => Slotcar::Track::Join::Double->new,
-    #     right => Slotcar::Track::Join::Double->new(
-    #         offset_x    => $self->length,
-    #         offset_y    => $self->width,
-    #         is_inverted => 1,
-    #     ),
-    # };
+    return {
+        left  => Slotcar::Track::Join::Double->new,
+        # TODO Work oout angles etc for right join
+        # right => Slotcar::Track::Join::Double->new(
+        #     offset_x    => $self->length,
+        #     offset_y    => $self->width,
+        #     is_inverted => 1,
+        # ),
+    };
 };
 
 sub render_def {
@@ -68,58 +67,46 @@ sub render_def {
     # Outer lane radius = 370-39 = 331
     # Inner lane radius = 331-78 = 253
 
+    my $track_outer_radius = $self->radius;
+    my $track_inner_radius = $self->radius - $self->width;
     $track->path(
-        d => $self->_curve_to_path(370, 214),
+        d => $self->_curve_to_path($track_outer_radius, $track_inner_radius),
         fill => $self->track_base_colour,
         stroke => $self->track_edge_colour,
         'stroke-width' => 2,
     );
 
-    # my $groove_y1 = $self->joins->{left}->offset_1;
-    # my $groove_y2 = $self->joins->{left}->offset_2;
-    # my $groove_l = $self->length;
+    my $groove1_radius = $track_outer_radius - $self->joins->{left}->offset_1;
+    my $groove2_radius = $track_outer_radius - $self->joins->{left}->offset_2;
 
-    # my $groove_1 = $track->group;
-    # # Conductors
-    # $groove_1->rectangle(
-    #     fill => $self->conductor_colour,
-    #     x => 0,
-    #     y => $groove_y1 - 5,
-    #     width => $self->length,
-    #     height => 10,
-    # );
-    # # Slot
-    # $groove_1->rectangle(
-    #     fill => $self->groove_colour,
-    #     x => 0,
-    #     y => $groove_y1 - 1.5,
-    #     width => $self->length,
-    #     height => 3,
-    # );
+    # Parameterise conductor/groove width
+    $track->path(
+        d => $self->_curve_to_path($groove1_radius + 5, $groove1_radius - 5),
+        fill => $self->conductor_colour,
+    );
 
-    # my $groove_2 = $track->group;
-    # # Conductors
-    # $groove_2->rectangle(
-    #     fill => $self->conductor_colour,
-    #     x => 0,
-    #     y => $groove_y2 - 5,
-    #     width => $self->length,
-    #     height => 10,
-    # );
-    # # Slot
-    # $groove_2->rectangle(
-    #     fill  => $self->groove_colour,
-    #     x => 0,
-    #     y => $groove_y2 - 1.5,
-    #     width => $self->length,
-    #     height => 3,
-    # );
+    $track->path(
+        d => $self->_curve_to_path($groove1_radius + 1.5, $groove1_radius - 1.5),
+        fill => $self->groove_colour,
+    );
+
+    $track->path(
+        d => $self->_curve_to_path($groove2_radius + 5, $groove2_radius - 5),
+        fill => $self->conductor_colour,
+    );
+
+    $track->path(
+        d => $self->_curve_to_path($groove2_radius + 1.5, $groove2_radius - 1.5),
+        fill => $self->groove_colour,
+    );
+
 }
 
 # Generate SVG path for drawing an arc.
 # The arc has a thickness (e.g. drawing
 # a curved track is an arc with a 
 # thickness - track width - of 156mm).
+# $start_y = y of start coordinate (x is 0)
 # $outer_radius = radius of outside edge
 # $inner_radius = radius of inner edge
 sub _curve_to_path {
@@ -128,40 +115,33 @@ sub _curve_to_path {
     # Angle in degrees
     my $theta = 2 * pi / $self->angle;
 
-    # 	d="M 0 0
-    # 	   a 370 370 0 0 1 141.593 28.165
-    # 	   l -59.699 144.125
-    # 	   A 214 214 0 0 0 0 156
-    # 	   Z
-    # 	   "
-    # 	stroke="#000000"
-    # 	fill="#333333"
-    # 	stroke-width="2"
-    # />
     my $thickness = $outer_radius - $inner_radius;
+
+    my $start_y = $self->radius - $outer_radius;
 
     # x = radius * sin(θ)
     # y = radius * (1 - cos(θ))
     my $s = sin($theta);
     my $c = cos($theta);
-    my $end_point_x = $outer_radius * $s;
-    my $end_point_y = $outer_radius * (1 - $c);
+    my $outer_end_point_x = $outer_radius * $s;
+    my $outer_end_point_y = $outer_radius * (1 - $c);
 
     # -w * sin(θ), w * cos(θ) - w=thickness
-    my $inner_end_point_x = -($thickness * $s);
-    my $inner_end_point_y = $thickness * $c;
+    my $inner_end_delta_x = -$thickness * $s;
+    my $inner_end_delta_y = $thickness * $c;
 
-    return sprintf("M 0 0
+    return sprintf("M 0 %f
         a %f %f 0 0 1 %f %f
         l %f %f
         A %f %f 0 0 0 0 %f
         Z
         ",
+        $start_y,
         $outer_radius, $outer_radius,
-        $end_point_x, $end_point_y,
-        $inner_end_point_x, $inner_end_point_y,
+        $outer_end_point_x, $outer_end_point_y,
+        $inner_end_delta_x, $inner_end_delta_y,
         $inner_radius, $inner_radius,
-        $outer_radius - $inner_radius
+        $start_y + $outer_radius - $inner_radius
     );
 }
 
