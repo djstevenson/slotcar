@@ -28,6 +28,20 @@ has pieces => (
     },
 );
 
+# Board width/height in mm.
+has width => (
+    is          => 'ro',
+    isa         => 'Num',
+    required    => 1,
+);
+
+has height => (
+    is          => 'ro',
+    isa         => 'Num',
+    required    => 1,
+);
+
+
 has _factory => (
     is          => 'ro',
     isa         => 'Slotcar::PieceFactory',
@@ -74,11 +88,11 @@ sub render {
 }
 
 sub _build_svg {
-    # TODO parameterise base board dimensions
+    my $self = shift;
 
-    return SVG->new(  # 1m square base board
-        width  => 1_000,
-        height => 1_000,
+    return SVG->new(
+        width  => $self->width,
+        height => $self->height,
     );
 }
 
