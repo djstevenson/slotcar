@@ -8,7 +8,10 @@ use List::Util qw( sum );
 
 use Slotcar::Layout;
 
-my $layout = Slotcar::Layout->new;
+my $layout = Slotcar::Layout->new(
+    width => 1_000,
+    height => 500,
+);
 
 my @track = qw/
     C8278
