@@ -79,24 +79,23 @@ sub render_def {
     my $groove1_radius = $track_outer_radius - $self->joins->{left}->offset_1;
     my $groove2_radius = $track_outer_radius - $self->joins->{left}->offset_2;
 
-    # Parameterise conductor/groove width
     $track->path(
-        d => $self->_curve_to_path($groove1_radius + 5, $groove1_radius - 5),
+        d => $self->_curve_to_path($groove1_radius + 5, $groove1_radius - $self->conductor_width/2.0),
         fill => $self->conductor_colour,
     );
 
     $track->path(
-        d => $self->_curve_to_path($groove1_radius + 1.5, $groove1_radius - 1.5),
+        d => $self->_curve_to_path($groove1_radius + 1.5, $groove1_radius - $self->groove_width/2.0),
         fill => $self->groove_colour,
     );
 
     $track->path(
-        d => $self->_curve_to_path($groove2_radius + 5, $groove2_radius - 5),
+        d => $self->_curve_to_path($groove2_radius + 5, $groove2_radius - $self->conductor_width/2.0),
         fill => $self->conductor_colour,
     );
 
     $track->path(
-        d => $self->_curve_to_path($groove2_radius + 1.5, $groove2_radius - 1.5),
+        d => $self->_curve_to_path($groove2_radius + 1.5, $groove2_radius - $self->groove_width/2.0),
         fill => $self->groove_colour,
     );
 

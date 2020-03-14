@@ -57,6 +57,18 @@ sub render_def {
     die 'Override render_def';
 }
 
+has conductor_width => (
+    is          => 'ro',
+    isa         => 'Num',
+    default     => '11.0',
+);
+
+has groove_width => (
+    is          => 'ro',
+    isa         => 'Num',
+    default     => '3.0',
+);
+
 has track_base_colour => (
     is          => 'ro',
     isa         => 'Str',
@@ -85,6 +97,18 @@ has white_paint => (
     is          => 'ro',
     isa         => 'Str',
     default     => '#b0b0b0',
+);
+
+has sensor_hole_dummy => (
+    is          => 'ro',
+    isa         => 'Str',
+    default     => '#000000',
+);
+
+has sensor_hole_active => (
+    is          => 'ro',
+    isa         => 'Str',
+    default     => '#005000',
 );
 
 

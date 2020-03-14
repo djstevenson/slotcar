@@ -63,17 +63,17 @@ override render_def => sub {
     $groove_1->rectangle(
         fill => $self->conductor_colour,
         x => 0,
-        y => $groove_y1 - 5.5,
+        y => $groove_y1 - $self->conductor_width/2.0,
         width => $self->length,
-        height => 10,
+        height => $self->conductor_width,
     );
     # Slot
     $groove_1->rectangle(
         fill => $self->groove_colour,
         x => 0,
-        y => $groove_y1 - 2,
+        y => $groove_y1 - $self->groove_width/2.0,
         width => $self->length,
-        height => 3,
+        height => $self->groove_width,
     );
 
     my $groove_2 = $track->group;
@@ -81,17 +81,17 @@ override render_def => sub {
     $groove_2->rectangle(
         fill => $self->conductor_colour,
         x => 0,
-        y => $groove_y2 - 5.5,
+        y => $groove_y2 - $self->conductor_width/2.0,
         width => $self->length,
-        height => 10,
+        height => $self->conductor_width,
     );
     # Slot
     $groove_2->rectangle(
         fill  => $self->groove_colour,
         x => 0,
-        y => $groove_y2 - 2,
+        y => $groove_y2 - $self->groove_width/2.0,
         width => $self->length,
-        height => 3,
+        height => $self->groove_width,
     );
 
     # Add anything that renders over conductors,
