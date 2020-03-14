@@ -54,64 +54,20 @@ has svg => (
 );
 
 sub render_def {
-    my ($self, $defs) = @_;
-
-    # Renders a definition of this object that isn't visible.
-    # We can later instantiate ('use' in SVG) instances with
-    # different locations etc.
-    
-    my $object = $defs->group(id => $self->sku);
-
-    $object->rectangle(
-        fill => $self->track_base_colour,
-        stroke => $self->track_edge_colour,
-        'stroke-width' => 2,
-        x => 0,
-        y => 0,
-        width => $self->length,
-        height => $self->width,
-    );
-
-    my $groove_y1 = $self->joins->{left}->offset_1;
-    my $groove_y2 = $self->joins->{left}->offset_2;
-    my $groove_l = $self->length;
-
-    my $groove_1 = $object->group;
-    # Conductors
-    $groove_1->rectangle(
-        fill => $self->conductor_colour,
-        x => 0,
-        y => $groove_y1 - 5,
-        width => $self->length,
-        height => 10,
-    );
-    # Slot
-    $groove_1->rectangle(
-        fill => $self->groove_colour,
-        x => 0,
-        y => $groove_y1 - 1.5,
-        width => $self->length,
-        height => 3,
-    );
-
-    my $groove_2 = $object->group;
-    # Conductors
-    $groove_2->rectangle(
-        fill => $self->conductor_colour,
-        x => 0,
-        y => $groove_y2 - 5,
-        width => $self->length,
-        height => 10,
-    );
-    # Slot
-    $groove_2->rectangle(
-        fill  => $self->groove_colour,
-        x => 0,
-        y => $groove_y2 - 1.5,
-        width => $self->length,
-        height => 3,
-    );
+    die 'Override render_def';
 }
+
+has conductor_width => (
+    is          => 'ro',
+    isa         => 'Num',
+    default     => '11.0',
+);
+
+has groove_width => (
+    is          => 'ro',
+    isa         => 'Num',
+    default     => '3.0',
+);
 
 has track_base_colour => (
     is          => 'ro',
@@ -141,6 +97,18 @@ has white_paint => (
     is          => 'ro',
     isa         => 'Str',
     default     => '#b0b0b0',
+);
+
+has sensor_hole_dummy => (
+    is          => 'ro',
+    isa         => 'Str',
+    default     => '#000000',
+);
+
+has sensor_hole_active => (
+    is          => 'ro',
+    isa         => 'Str',
+    default     => '#005000',
 );
 
 

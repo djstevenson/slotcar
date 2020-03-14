@@ -10,18 +10,6 @@ extends 'Slotcar::Track::Straight::Half';
 has '+sku'         => (default => 'C7018');
 has '+description' => (default => 'Starting Grid Straight');
 
-override markings => sub {
-    my ($self, $track) = @_;
-
-    super();
-
-    $self->_starting_position($track, 15,  39);
-    $self->_starting_position($track, 75, 117);
-};
-
-# $x = offset from end of track to start of paint line
-# $y = width-wise centre of paint line (i.e centre of groove)
-
 use Readonly;
 
 # Dimensions in mm
@@ -32,6 +20,17 @@ Readonly my $GRID_LINE_TAIL_SIZE  => 20.0;
 Readonly my $GRID_LINE_WIDTH      => 65.0;
 Readonly my $GRID_BLANK_WIDTH     => 15.0;
 
+override render_markings => sub {
+    my ($self, $track) = @_;
+
+    super();
+
+    $self->_starting_position($track, $X_OFFSET_1,  $self->joins->{left}->offset_1);
+    $self->_starting_position($track, $X_OFFSET_2,  $self->joins->{left}->offset_2);
+};
+
+# $x = offset from end of track to start of paint line
+# $y = width-wise centre of paint line (i.e centre of groove)
 sub _starting_position {
     my ($self, $track, $x, $y) = @_;
 

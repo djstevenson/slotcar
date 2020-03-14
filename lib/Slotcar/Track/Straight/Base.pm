@@ -34,7 +34,7 @@ override define_joins => sub {
     };
 };
 
-sub render_def {
+override render_def => sub {
     my ($self, $defs) = @_;
 
     my $svg = $self->svg;
@@ -52,7 +52,7 @@ sub render_def {
     );
 
     # Add any track base paint markings
-    $self->markings($track);
+    $self->render_markings($track);
 
     my $groove_y1 = $self->joins->{left}->offset_1;
     my $groove_y2 = $self->joins->{left}->offset_2;
@@ -63,17 +63,17 @@ sub render_def {
     $groove_1->rectangle(
         fill => $self->conductor_colour,
         x => 0,
-        y => $groove_y1 - 5.5,
+        y => $groove_y1 - $self->conductor_width/2.0,
         width => $self->length,
-        height => 10,
+        height => $self->conductor_width,
     );
     # Slot
     $groove_1->rectangle(
         fill => $self->groove_colour,
         x => 0,
-        y => $groove_y1 - 2,
+        y => $groove_y1 - $self->groove_width/2.0,
         width => $self->length,
-        height => 3,
+        height => $self->groove_width,
     );
 
     my $groove_2 = $track->group;
@@ -81,26 +81,39 @@ sub render_def {
     $groove_2->rectangle(
         fill => $self->conductor_colour,
         x => 0,
-        y => $groove_y2 - 5.5,
+        y => $groove_y2 - $self->conductor_width/2.0,
         width => $self->length,
-        height => 10,
+        height => $self->conductor_width,
     );
     # Slot
     $groove_2->rectangle(
         fill  => $self->groove_colour,
         x => 0,
-        y => $groove_y2 - 2,
+        y => $groove_y2 - $self->groove_width/2.0,
         width => $self->length,
-        height => 3,
+        height => $self->groove_width,
     );
-}
+
+    # Add anything that renders over conductors,
+    # e.g. detector holes
+    $self->render_conductor_mods($track);
+};
 
 # Render markings - paint applied to the road
 # plasic that does NOT appear over the 
 # conductors/slots.  Default is to paint
 # nothing, override it if required.
 # 
-sub markings {
+sub render_markings {
+    # my ($self, $track) = @_;
+}
+
+# Render things that go 'over' the conductors,
+# is things that should be rendered AFTER the
+# conductor/groove. Example is the hole for
+# the car detectors.
+# 
+sub render_conductor_mods {
     # my ($self, $track) = @_;
 }
 

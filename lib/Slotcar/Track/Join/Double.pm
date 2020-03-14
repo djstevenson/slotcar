@@ -9,8 +9,8 @@ extends 'Slotcar::Track::Join::Base';
 # and a gap of 78mm between lanes.
 
 has '+lanes'    => ( default => 2 );
-has '+offset_1' => ( default =>  39 );
-has '+offset_2' => ( default => 117 );
+has '+offset_1' => ( default => 39.0 );
+has '+offset_2' => ( default => 117.0 );
 
 __PACKAGE__->meta->make_immutable;
 1;
