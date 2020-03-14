@@ -8,7 +8,7 @@ extends 'Slotcar::Track::Straight::Half';
 # render different
 
 has '+sku'         => (default => 'C7018');
-has '+description' => (default => 'Stater Grid');
+has '+description' => (default => 'Starting Grid Straight');
 
 __PACKAGE__->meta->make_immutable;
 1;
