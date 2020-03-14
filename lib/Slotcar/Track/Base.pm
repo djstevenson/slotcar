@@ -116,26 +116,33 @@ sub render_def {
 has track_base_colour => (
     is          => 'ro',
     isa         => 'Str',
-    default     => '#333333'
+    default     => '#333333',
 );
 
 has track_edge_colour => (
     is          => 'ro',
     isa         => 'Str',
-    default     => '#000000'
+    default     => '#000000',
 );
 
 has conductor_colour => (
     is          => 'ro',
     isa         => 'Str',
-    default     => '#cccccc'
+    default     => '#c0c0c0', # HTML silver
 );
 
 has groove_colour => (
     is          => 'ro',
     isa         => 'Str',
-    default     => '#000000'
+    default     => '#000000',
 );
+
+has white_paint => (
+    is          => 'ro',
+    isa         => 'Str',
+    default     => '#b0b0b0',
+);
+
 
 no Moose;
 1;
