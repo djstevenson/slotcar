@@ -60,7 +60,7 @@ sub render_def {
     $groove_1->rectangle(
         fill => $self->conductor_colour,
         x => 0,
-        y => $groove_y1 - 5,
+        y => $groove_y1 - 5.5,
         width => $self->length,
         height => 10,
     );
@@ -68,7 +68,7 @@ sub render_def {
     $groove_1->rectangle(
         fill => $self->groove_colour,
         x => 0,
-        y => $groove_y1 - 1.5,
+        y => $groove_y1 - 2,
         width => $self->length,
         height => 3,
     );
@@ -78,7 +78,7 @@ sub render_def {
     $groove_2->rectangle(
         fill => $self->conductor_colour,
         x => 0,
-        y => $groove_y2 - 5,
+        y => $groove_y2 - 5.5,
         width => $self->length,
         height => 10,
     );
@@ -86,7 +86,7 @@ sub render_def {
     $groove_2->rectangle(
         fill  => $self->groove_colour,
         x => 0,
-        y => $groove_y2 - 1.5,
+        y => $groove_y2 - 2,
         width => $self->length,
         height => 3,
     );
