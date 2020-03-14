@@ -51,6 +51,9 @@ sub render_def {
         height => $self->width,
     );
 
+    # Add any track base paint markings
+    $self->markings($track);
+
     my $groove_y1 = $self->joins->{left}->offset_1;
     my $groove_y2 = $self->joins->{left}->offset_2;
     my $groove_l = $self->length;
@@ -60,7 +63,7 @@ sub render_def {
     $groove_1->rectangle(
         fill => $self->conductor_colour,
         x => 0,
-        y => $groove_y1 - 5,
+        y => $groove_y1 - 5.5,
         width => $self->length,
         height => 10,
     );
@@ -68,7 +71,7 @@ sub render_def {
     $groove_1->rectangle(
         fill => $self->groove_colour,
         x => 0,
-        y => $groove_y1 - 1.5,
+        y => $groove_y1 - 2,
         width => $self->length,
         height => 3,
     );
@@ -78,7 +81,7 @@ sub render_def {
     $groove_2->rectangle(
         fill => $self->conductor_colour,
         x => 0,
-        y => $groove_y2 - 5,
+        y => $groove_y2 - 5.5,
         width => $self->length,
         height => 10,
     );
@@ -86,12 +89,20 @@ sub render_def {
     $groove_2->rectangle(
         fill  => $self->groove_colour,
         x => 0,
-        y => $groove_y2 - 1.5,
+        y => $groove_y2 - 2,
         width => $self->length,
         height => 3,
     );
 }
 
+# Render markings - paint applied to the road
+# plasic that does NOT appear over the 
+# conductors/slots.  Default is to paint
+# nothing, override it if required.
+# 
+sub markings {
+    # my ($self, $track) = @_;
+}
 
 no Moose;
 1;

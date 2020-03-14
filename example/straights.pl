@@ -14,7 +14,7 @@ my $layout = Slotcar::Layout->new(
 );
 
 my @track = qw/
-    C8278
+    C7018
 /;
     # C8205
     # C8207
