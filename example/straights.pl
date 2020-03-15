@@ -14,7 +14,7 @@ my $layout = Slotcar::Layout->new(
 );
 
 my @track = qw/
-    C8435
+    C7036
 /;
     # C7000
     # C7018
@@ -28,6 +28,7 @@ my @track = qw/
     # C8204
     # C8235
     # C8529
+    # C7036
 $layout->add_pieces( \@track );
 
 # Can currently only render one piece
