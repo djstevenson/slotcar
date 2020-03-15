@@ -14,12 +14,8 @@ has '+description' => (default => 'ARC PRO Power Base');
 
 
 # The markings on the ARC PRO power base track are kinda:
-# |||[ ARCPRO ]|||
-#
-# The |[ symbols are oblique. The ARCPRO is without
-# spaces, and is set vertically, but black on white, and
-# the white background is a rounded-rect that is set
-# obliquely.
+# |||| ARCPRO |||| in oblique (the actual text is 
+# inverted, black on white)
 #
 # The above symbolism isn't quite centred. There is a 
 # checkered "finish line" at the left end (cars
@@ -79,8 +75,11 @@ sub _render_checkered_finish_line {
 Readonly my $OBLIQUE_X_OFFSET =>  8.0;
 Readonly my $OBLIQUE_HEIGHT   => 38.0;
 Readonly my $STROKE_WIDTH     =>  6.0;
+Readonly my $TEXT_X           => 120.0;
+Readonly my $TEXT_Y           =>  90.0;
+Readonly my $TEXT_FONT        =>  'italic 26px sans-serif';
 
-Readonly my @LINE_OFFSETS     => ( 50.0, 63.0, 76.0, 269.0, 282.0, 295.0 );
+Readonly my @LINE_OFFSETS     => ( 50.0, 63.0, 76.0, 89.0, 256.0, 269.0, 282.0, 295.0 );
 
 sub _render_arc_pro_logo {
     my ($self, $track) = @_;
@@ -88,6 +87,15 @@ sub _render_arc_pro_logo {
     foreach my $offset (@LINE_OFFSETS) {
         $self->_render_oblique_line($track, $offset);
     }
+
+    $track->text(
+        x => $TEXT_X,
+        y => $TEXT_Y,
+        style => {
+            font => $TEXT_FONT,
+            fill => $self->white_paint,
+        }
+    )->cdata('ARCPRO');
 }
 
 sub _render_oblique_line {
@@ -107,5 +115,7 @@ sub _render_oblique_line {
         fill => $self->white_paint,
     );
 }
+
+
 __PACKAGE__->meta->make_immutable;
 1;
