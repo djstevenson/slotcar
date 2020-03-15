@@ -54,12 +54,8 @@ override define_joins => sub {
     };
 };
 
-sub render_def {
-    my ($self, $defs) = @_;
-
-    my $svg = $self->svg;
-    
-    my $track = $defs->group(id => $self->sku);
+override render_base => sub {
+    my ($self, $track) = @_;
 
     # Radius 2 sample dimentions:
     # Outer radius = 370, width = 156
@@ -75,7 +71,12 @@ sub render_def {
         stroke => $self->track_edge_colour,
         'stroke-width' => 2,
     );
+};
 
+override render_conductors => sub {
+    my ($self, $track) = @_;
+
+    my $track_outer_radius = $self->radius;
     my $groove1_radius = $track_outer_radius - $self->joins->{left}->offset_1;
     my $groove2_radius = $track_outer_radius - $self->joins->{left}->offset_2;
 
@@ -98,8 +99,7 @@ sub render_def {
         d => $self->_curve_to_path($groove2_radius + 1.5, $groove2_radius - $self->groove_width/2.0),
         fill => $self->groove_colour,
     );
-
-}
+};
 
 # Generate SVG path for drawing an arc.
 # The arc has a thickness (e.g. drawing

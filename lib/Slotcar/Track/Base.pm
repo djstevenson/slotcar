@@ -54,19 +54,51 @@ has svg => (
 );
 
 sub render_def {
-    die 'Override render_def';
+    my ($self, $defs) = @_;
+
+    my $svg = $self->svg;
+    
+    my $track = $defs->group(id => $self->sku);
+
+    # Override any or all of the following render
+    # methods. If you don't need to draw one or
+    # more of those things, don't bother overriding
+    # the specific method
+    $self->render_base($track);
+    $self->render_markings($track);
+    $self->render_conductors($track);
+    $self->render_conductor_mods($track);
 }
+
+# Override to draw track base
+sub render_base {}  # args = $self, $track
+
+# Override to draw any paint markings - paint applied to the
+# road plasic. Default is to paint nothing, override it if required.
+# 
+sub render_markings {}  # args = $self, $track
+
+# Override to draw the conductors and grooves.
+# 
+sub render_conductors {}  # args = $self, $track
+
+# Render things that go 'over' the conductors,
+# i.e. things that should be rendered AFTER the
+# conductor/groove. Example is the hole for
+# the car detectors.
+# 
+sub render_conductor_mods {}  # args = $self, $track
 
 has conductor_width => (
     is          => 'ro',
     isa         => 'Num',
-    default     => '11.0',
+    default     => 11.0,
 );
 
 has groove_width => (
     is          => 'ro',
     isa         => 'Num',
-    default     => '3.0',
+    default     => 3.0,
 );
 
 has track_base_colour => (
