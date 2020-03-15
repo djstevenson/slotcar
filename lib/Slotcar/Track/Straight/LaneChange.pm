@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 extends 'Slotcar::Track::Straight::Base';
 
-use utf8;
+use Math::Trig;
 
 # Not really sure how these need to look yet.
 # POD docs will follow once the design is a bit
@@ -25,14 +25,11 @@ Readonly my $INNER_GROOVE_MIDDLE_STRAIGHT => 140.0;
 Readonly my $FLIPPER_X                    => 223.0;
 Readonly my $FLIPPER_LENGTH               => 104.0;
 Readonly my $FLIPPER_HEIGHT               =>  14.0;
-Readonly my $FLIPPER_END_RADIUS_X         =>  14.0;
-Readonly my $FLIPPER_END_RADIUS_Y         =>  21.0;
+Readonly my $FLIPPER_END_RADIUS           =>  42.0;
 Readonly my $FLIPPER_SIDE_RADIUS          => 458.0;
-Readonly my $FLIPPER_ARC_ANGLE            =>   0.14; # 8˚
-Readonly my $FLIPPER_ARC_X                => $FLIPPER_END_RADIUS_X * sin($FLIPPER_ARC_ANGLE);
-Readonly my $FLIPPER_ARC_Y                => $FLIPPER_END_RADIUS_X * cos($FLIPPER_ARC_ANGLE);
-
-print STDERR "x=$FLIPPER_ARC_X y=$FLIPPER_ARC_Y\n";
+Readonly my $FLIPPER_ARC_ANGLE            => deg2rad(8);
+Readonly my $FLIPPER_ARC_X                => $FLIPPER_HEIGHT * sin($FLIPPER_ARC_ANGLE);
+Readonly my $FLIPPER_ARC_Y                => $FLIPPER_HEIGHT * cos($FLIPPER_ARC_ANGLE);
 
 override render_conductors => sub {
     my ($self, $track) = @_;
@@ -92,16 +89,11 @@ override render_conductors => sub {
     );
     $groove_3->rectangle(
         fill => $self->conductor_colour,
-        x => $FLIPPER_X + $FLIPPER_LENGTH + 4.0,
+        x => $FLIPPER_X + $FLIPPER_LENGTH + 2.0,
         y => $groove_y1 + $self->groove_width / 2.0,
         width => $INNER_GROOVE_MIDDLE_STRAIGHT,
         height => ($self->conductor_width - $self->groove_width) / 2.0,
     );
-    # $groove_3->path(
-    #     d => $self->_curve_to_path($INNER_GROOVE_CURVE1_RADIUS + $self->groove_width / 2.0, $INNER_GROOVE_CURVE1_RADIUS - $self->groove_width / 2.0, $INNER_GROOVE_CURVE1_ANGLE),
-    #     fill => $self->conductor_colour,
-    # );
-
 
     # Lane 1 flipper
     $groove_3->path(
@@ -122,15 +114,16 @@ sub flipper_path {
     );
 
     my $end_curve = sprintf('a %f %f 0 0 1 %f %f',
-        $FLIPPER_END_RADIUS_X, $FLIPPER_END_RADIUS_Y,
-        -$FLIPPER_ARC_X, $FLIPPER_ARC_Y,
+        $FLIPPER_END_RADIUS, $FLIPPER_END_RADIUS,
+        - $FLIPPER_ARC_X, $FLIPPER_ARC_Y,
     );
 
     my $side_curve = sprintf('A %f %f 0 0 0 %f %f',
         $FLIPPER_SIDE_RADIUS, $FLIPPER_SIDE_RADIUS,
         $FLIPPER_X, $y,
     );
-    return join(' ', $straight_edge, $end_curve, $side_curve, 'Z');
+
+    return  join(' ', $straight_edge, $end_curve, $side_curve, 'Z');
 }
 
 __PACKAGE__->meta->make_immutable;
