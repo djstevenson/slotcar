@@ -112,7 +112,7 @@ sub _render_arc_pro_logo {
 sub _render_oblique_line {
     my ($self, $track, $offset) = @_;
 
-    my $half_w = $OBLIQUE_HEIGHT/2.0;
+    my $half_w = $OBLIQUE_HEIGHT / 2.0;
 
     my $y1 = $self->width/2 + $half_w;
 

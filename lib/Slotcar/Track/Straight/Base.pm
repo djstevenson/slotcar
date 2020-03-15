@@ -10,7 +10,6 @@ use Slotcar::Track::Join::Double;
 # more settled.
 
 has '+lanes' => ( default => 2);
-has '+width' => ( default => 156);
 
 # Override this to set a length
 # e.g. has '+length' => (default => 350);
@@ -34,12 +33,8 @@ override define_joins => sub {
     };
 };
 
-override render_def => sub {
-    my ($self, $defs) = @_;
-
-    my $svg = $self->svg;
-    
-    my $track = $defs->group(id => $self->sku);
+override render_base => sub {
+    my ($self, $track) = @_;
 
     $track->rectangle(
         fill => $self->track_base_colour,
@@ -50,9 +45,10 @@ override render_def => sub {
         width => $self->length,
         height => $self->width,
     );
+};
 
-    # Add any track base paint markings
-    $self->render_markings($track);
+override render_conductors => sub {
+    my ($self, $track) = @_;
 
     my $groove_y1 = $self->joins->{left}->offset_1;
     my $groove_y2 = $self->joins->{left}->offset_2;
@@ -63,7 +59,7 @@ override render_def => sub {
     $groove_1->rectangle(
         fill => $self->conductor_colour,
         x => 0,
-        y => $groove_y1 - $self->conductor_width/2.0,
+        y => $groove_y1 - $self->conductor_width / 2.0,
         width => $self->length,
         height => $self->conductor_width,
     );
@@ -71,7 +67,7 @@ override render_def => sub {
     $groove_1->rectangle(
         fill => $self->groove_colour,
         x => 0,
-        y => $groove_y1 - $self->groove_width/2.0,
+        y => $groove_y1 - $self->groove_width / 2.0,
         width => $self->length,
         height => $self->groove_width,
     );
@@ -81,7 +77,7 @@ override render_def => sub {
     $groove_2->rectangle(
         fill => $self->conductor_colour,
         x => 0,
-        y => $groove_y2 - $self->conductor_width/2.0,
+        y => $groove_y2 - $self->conductor_width / 2.0,
         width => $self->length,
         height => $self->conductor_width,
     );
@@ -89,33 +85,12 @@ override render_def => sub {
     $groove_2->rectangle(
         fill  => $self->groove_colour,
         x => 0,
-        y => $groove_y2 - $self->groove_width/2.0,
+        y => $groove_y2 - $self->groove_width / 2.0,
         width => $self->length,
         height => $self->groove_width,
     );
-
-    # Add anything that renders over conductors,
-    # e.g. detector holes
-    $self->render_conductor_mods($track);
 };
 
-# Render markings - paint applied to the road
-# plasic that does NOT appear over the 
-# conductors/slots.  Default is to paint
-# nothing, override it if required.
-# 
-sub render_markings {
-    # my ($self, $track) = @_;
-}
-
-# Render things that go 'over' the conductors,
-# is things that should be rendered AFTER the
-# conductor/groove. Example is the hole for
-# the car detectors.
-# 
-sub render_conductor_mods {
-    # my ($self, $track) = @_;
-}
 
 no Moose;
 1;

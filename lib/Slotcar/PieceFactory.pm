@@ -47,6 +47,7 @@ sub _build_parts {
         'Straight::Standard',
         'Straight::Half',
         'Straight::StartingGrid',
+        'Straight::LaneChange',
         'Straight::LaneChangeSensor',
         'Straight::Quarter',
         'Straight::Short',
