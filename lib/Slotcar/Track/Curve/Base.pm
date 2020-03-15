@@ -81,26 +81,28 @@ override render_conductors => sub {
     my $groove2_radius = $track_outer_radius - $self->joins->{left}->offset_2;
 
     $track->path(
-        d => $self->_curve_to_path($groove1_radius + 5, $groove1_radius - $self->conductor_width/2.0),
+        d => $self->_curve_to_path($groove1_radius + $self->conductor_width / 2.0, $groove1_radius - $self->conductor_width / 2.0),
         fill => $self->conductor_colour,
     );
 
     $track->path(
-        d => $self->_curve_to_path($groove1_radius + 1.5, $groove1_radius - $self->groove_width/2.0),
+        d => $self->_curve_to_path($groove1_radius + $self->groove_width / 2.0, $groove1_radius - $self->groove_width / 2.0),
         fill => $self->groove_colour,
     );
 
     $track->path(
-        d => $self->_curve_to_path($groove2_radius + 5, $groove2_radius - $self->conductor_width/2.0),
+        d => $self->_curve_to_path($groove2_radius + $self->conductor_width / 2.0, $groove2_radius - $self->conductor_width / 2.0),
         fill => $self->conductor_colour,
     );
 
     $track->path(
-        d => $self->_curve_to_path($groove2_radius + 1.5, $groove2_radius - $self->groove_width/2.0),
+        d => $self->_curve_to_path($groove2_radius + $self->groove_width / 2.0, $groove2_radius - $self->groove_width / 2.0),
         fill => $self->groove_colour,
     );
 };
 
+# Helper method for renderers.
+#
 # Generate SVG path for drawing an arc.
 # The arc has a thickness (e.g. drawing
 # a curved track is an arc with a 
