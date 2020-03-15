@@ -88,13 +88,24 @@ sub _render_arc_pro_logo {
         $self->_render_oblique_line($track, $offset);
     }
 
+    $track->rectangle(
+        x => 125,
+        y => 59,
+        width => 141,
+        height => 38,
+        fill => $self->white_paint,
+        rx => 10, ry => 10,
+        transform => 'skewX(-12)',
+    );
+
     $track->text(
         x => $TEXT_X,
         y => $TEXT_Y,
         style => {
             font => $TEXT_FONT,
-            fill => $self->white_paint,
-        }
+            fill => $self->track_base_colour,
+        },
+        transform => 'rotate(180, 178, 80)',
     )->cdata('ARCPRO');
 }
 
