@@ -60,7 +60,7 @@ override render_conductors => sub {
     $groove_1->rectangle(
         fill => $self->conductor_colour,
         x => 0,
-        y => $groove_y1 - $self->conductor_width/2.0,
+        y => $groove_y1 - $self->conductor_width / 2.0,
         width => $self->length,
         height => $self->conductor_width,
     );
@@ -68,7 +68,7 @@ override render_conductors => sub {
     $groove_1->rectangle(
         fill => $self->groove_colour,
         x => 0,
-        y => $groove_y1 - $self->groove_width/2.0,
+        y => $groove_y1 - $self->groove_width / 2.0,
         width => $self->length,
         height => $self->groove_width,
     );
@@ -78,7 +78,7 @@ override render_conductors => sub {
     $groove_2->rectangle(
         fill => $self->conductor_colour,
         x => 0,
-        y => $groove_y2 - $self->conductor_width/2.0,
+        y => $groove_y2 - $self->conductor_width / 2.0,
         width => $self->length,
         height => $self->conductor_width,
     );
@@ -86,7 +86,7 @@ override render_conductors => sub {
     $groove_2->rectangle(
         fill  => $self->groove_colour,
         x => 0,
-        y => $groove_y2 - $self->groove_width/2.0,
+        y => $groove_y2 - $self->groove_width / 2.0,
         width => $self->length,
         height => $self->groove_width,
     );
