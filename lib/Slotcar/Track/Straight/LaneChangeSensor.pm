@@ -31,22 +31,15 @@ override render_conductor_mods => sub {
     my $x2 = $self->length - $X_OFFSET;
     my $y1 = $self->joins->{left}->offset_1;
     my $y2 = $self->joins->{left}->offset_2;
-    my @holes = (
-        { x => $x1, y => $y1, fill => $self->sensor_hole_dummy  },
-        { x => $x1, y => $y2, fill => $self->sensor_hole_dummy  },
-        { x => $x2, y => $y1, fill => $self->sensor_hole_active },
-        { x => $x2, y => $y2, fill => $self->sensor_hole_active },
+    my @sensors = (
+        { x => $x1, y => $y1, type => 'dummy'  },
+        { x => $x1, y => $y2, type => 'dummy'  },
+        { x => $x2, y => $y1, type => 'active' },
+        { x => $x2, y => $y2, type => 'active' },
     );
 
-    foreach my $hole ( @holes ) {
-        $track->circle(
-            cx => $hole->{x},
-            cy => $hole->{y},
-            r  => $RADIUS,
-            fill => $hole->{fill},
-            stroke => $self->track_base_colour,
-            'stroke-width' => 0.5,
-        );
+    foreach my $sensor ( @sensors ) {
+        $self->render_sensor($track, $sensor);
     }
 };
 

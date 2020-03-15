@@ -6,6 +6,8 @@ use Moose;
 
 use Slotcar::Track::Join::Base;
 
+use Readonly;
+
 # Override these with values for each piece type
 has lanes => (
     is          => 'ro',
@@ -143,6 +145,25 @@ has sensor_hole_active => (
     default     => '#005000',
 );
 
+Readonly my $RADIUS   =>  4.0;
+sub render_sensor {
+    my ($self, $track, $sensor) = @_;
+
+    # $sensor is a hash 
+    # x, y = centre coords
+    # type = dummy or active (changes colour)
+
+    my $fill_attr_name = 'sensor_hole_' . $sensor->{type};
+    my $fill_attr = $self->$fill_attr_name;
+    $track->circle(
+        cx => $sensor->{x},
+        cy => $sensor->{y},
+        r  => $RADIUS,
+        fill => $fill_attr,
+        stroke => $self->track_base_colour,
+        'stroke-width' => 0.5,
+    );
+}
 
 no Moose;
 1;
