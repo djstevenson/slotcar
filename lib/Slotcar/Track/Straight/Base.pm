@@ -10,7 +10,6 @@ use Slotcar::Track::Join::Double;
 # more settled.
 
 has '+lanes' => ( default => 2);
-has '+width' => ( default => 156);
 
 # Override this to set a length
 # e.g. has '+length' => (default => 350);

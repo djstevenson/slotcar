@@ -29,7 +29,7 @@ has description => (
 has width => (
     is          => 'ro',
     isa         => 'Num',
-    required    => 1,
+    default     => 156,
 );
 
 # You'll want to override the builder to setup

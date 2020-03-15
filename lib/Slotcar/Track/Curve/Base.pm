@@ -16,7 +16,6 @@ use Math::Trig;
 # it curve to left or right?
 
 has '+lanes' => ( default => 2);
-has '+width' => ( default => 156);
 
 # Units = mm
 has radius => (
