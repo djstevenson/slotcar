@@ -39,7 +39,7 @@ sub _starting_position {
     $track->rectangle(
         fill   => $self->white_paint,
         x      => $x,
-        y      => $y - ($GRID_LINE_WIDTH/2.0),
+        y      => $y - ($GRID_LINE_WIDTH / 2.0),
         width  => $GRID_LINE_THICKNESS,
         height => ($GRID_LINE_WIDTH - $GRID_BLANK_WIDTH) / 2.0,
     );
@@ -47,7 +47,7 @@ sub _starting_position {
     $track->rectangle(
         fill   => $self->white_paint,
         x      => $x,
-        y      => $y + ($GRID_BLANK_WIDTH/2.0),
+        y      => $y + ($GRID_BLANK_WIDTH / 2.0),
         width  => $GRID_LINE_THICKNESS,
         height => ($GRID_LINE_WIDTH - $GRID_BLANK_WIDTH) / 2.0,
     );
@@ -56,7 +56,7 @@ sub _starting_position {
     $track->rectangle(
         fill   => $self->white_paint,
         x      => $x,
-        y      => $y - ($GRID_LINE_WIDTH/2.0),
+        y      => $y - ($GRID_LINE_WIDTH / 2.0),
         width  => $GRID_LINE_TAIL_SIZE,
         height => $GRID_LINE_THICKNESS,
     );
@@ -66,7 +66,7 @@ sub _starting_position {
     $track->rectangle(
         fill   => $self->white_paint,
         x      => $x,
-        y      => $y + ($GRID_LINE_WIDTH/2.0) - $GRID_LINE_THICKNESS,
+        y      => $y + ($GRID_LINE_WIDTH / 2.0) - $GRID_LINE_THICKNESS,
         width  => $GRID_LINE_TAIL_SIZE,
         height => $GRID_LINE_THICKNESS,
     );
