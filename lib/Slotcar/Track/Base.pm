@@ -8,13 +8,6 @@ use Slotcar::Track::Join::Base;
 
 use Readonly;
 
-# Override these with values for each piece type
-has lanes => (
-    is          => 'ro',
-    isa         => 'Int',
-    required    => 1,
-);
-
 has sku => (
     is          => 'ro',
     isa         => 'Str',
@@ -33,20 +26,6 @@ has width => (
     isa         => 'Num',
     default     => 156,
 );
-
-# You'll want to override the builder to setup
-# your joins.
-has joins => (
-    is          => 'ro',
-    isa         => 'HashRef[Slotcar::Track::Join::Base]',
-    lazy        => 1,
-    builder     => 'define_joins',
-);
-
-# Default = no joins, not very useful, override it
-sub define_joins {
-    return {};
-}
 
 # TODO Renderer in different classes?
 has svg => (

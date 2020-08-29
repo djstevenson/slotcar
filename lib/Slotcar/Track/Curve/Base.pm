@@ -38,20 +38,6 @@ has angle => (
     required    => 1,
 );
 
-override define_joins => sub {
-    my $self = shift;
-
-    return {
-        left  => Slotcar::Track::Join::Double->new,
-        # TODO Work oout angles etc for right join
-        # right => Slotcar::Track::Join::Double->new(
-        #     offset_x    => $self->length,
-        #     offset_y    => $self->width,
-        #     is_inverted => 1,
-        # ),
-    };
-};
-
 override render_base => sub {
     my ($self, $track) = @_;
 

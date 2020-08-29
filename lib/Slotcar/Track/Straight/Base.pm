@@ -14,19 +14,6 @@ has length => (
 );
 
 
-override define_joins => sub {
-    my $self = shift;
-
-    return {
-        left  => Slotcar::Track::Join::Double->new,
-        right => Slotcar::Track::Join::Double->new(
-            offset_x    => $self->length,
-            offset_y    => $self->width,
-            is_inverted => 1,
-        ),
-    };
-};
-
 override render_base => sub {
     my ($self, $track) = @_;
 
