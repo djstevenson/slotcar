@@ -31,12 +31,6 @@ use Moose;
 # so 90˚ is represented as 4 (1/4 circle), 45˚ as 8,
 # 22.5˚ as 16, etc.
 
-has lanes => (
-    is          => 'ro',
-    isa         => 'Int',
-    required    => 1,
-);
-
 # Units are mm
 has offset_1 => (
     is          => 'ro',

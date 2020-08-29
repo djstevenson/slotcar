@@ -5,12 +5,6 @@ extends 'Slotcar::Track::Base';
 
 use Slotcar::Track::Join::Double;
 
-# Not really sure how these need to look yet.
-# POD docs will follow once the design is a bit
-# more settled.
-
-has '+lanes' => ( default => 2);
-
 # Override this to set a length
 # e.g. has '+length' => (default => 350);
 has length => (

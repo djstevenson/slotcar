@@ -13,9 +13,8 @@ use Math::Trig;
 
 # Note - we're going to need to record which way
 # around an instance of a curve piece is. Does
-# it curve to left or right?
-
-has '+lanes' => ( default => 2);
+# it curve to left or right? Current plan is to have
+# two "fake" SKUs, e.g. C8206L and C8206R
 
 # Units = mm
 has radius => (

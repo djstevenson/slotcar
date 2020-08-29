@@ -99,7 +99,7 @@ Length = 78mm
 
 #### Pit-lane entry/exit
 
-Details to follow, basically they are 1-lane-in/2-lanes-out, and 2-lanes-in/1-lane-out, and are 1.5 standard straights in length, ie length of 525mm
+Details to follow, basically they are 1-lane-in/2-lanes-out, and 2-lanes-in/1-lane-out, and are 1.5 standard straights in length, ie length of 525mm. Currently, only 2-in 2-out pieces are going to be supported here.
 
 #### 90˚ crossroads
 
