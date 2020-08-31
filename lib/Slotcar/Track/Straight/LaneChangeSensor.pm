@@ -29,6 +29,7 @@ override render_conductor_mods => sub {
 
     my $x1 = $X_OFFSET;
     my $x2 = $self->length - $X_OFFSET;
+    
     # Grooves at 1/4 and 3/4 width
     my $groove_y1 = 1 * $self->lane_offset;
     my $groove_y2 = 3 * $self->lane_offset;
