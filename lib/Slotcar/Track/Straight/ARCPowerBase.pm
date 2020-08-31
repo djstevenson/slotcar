@@ -11,8 +11,6 @@ extends 'Slotcar::Track::Straight::Standard';
 has '+sku'         => (default => 'C8435');
 has '+description' => (default => 'ARC PRO Power Base');
 
-# TODO Lap detectors are not being rendered
-
 # The markings on the ARC PRO power base track are kinda:
 # |||| ARCPRO |||| in oblique (the actual text is 
 # inverted, black on white)
