@@ -11,8 +11,6 @@ extends 'Slotcar::Track::Straight::Standard';
 has '+sku'         => (default => 'C8435');
 has '+description' => (default => 'ARC PRO Power Base');
 
-
-
 # The markings on the ARC PRO power base track are kinda:
 # |||| ARCPRO |||| in oblique (the actual text is 
 # inverted, black on white)
@@ -23,7 +21,6 @@ has '+description' => (default => 'ARC PRO Power Base');
 # baseline-centred in what's left after that line.
 
 use Readonly;
-
 
 override render_markings => sub {
     my ($self, $track) = @_;
@@ -41,11 +38,40 @@ Readonly my $FINISH_Y_OFFSET3  =>  7.0;
 Readonly my $FINISH_BOX_WIDTH  =>  8.0;
 Readonly my $FINISH_BOX_HEIGHT => 16.0;
 
+# Parameters for lap detectors
+# Dimensions in mm
+Readonly my $LAP_X_OFFSET => 11.0;
+
+# TODO This is used in a few places. DRY it
+override render_conductor_mods => sub {
+    my ($self, $track) = @_;
+
+    # Real holes at 'left' end
+    # (cars travelling from origin end)
+
+    my $x1 = $LAP_X_OFFSET;
+    my $x2 = $self->length - $LAP_X_OFFSET;
+
+    # Grooves at 1/4 and 3/4 width
+    my $groove_y1 = 1 * $self->lane_offset;
+    my $groove_y2 = 3 * $self->lane_offset;
+    my @sensors = (
+        { x => $x1, y => $groove_y1, type => 'active'  },
+        { x => $x1, y => $groove_y2, type => 'active'  },
+    );
+
+    foreach my $sensor ( @sensors ) {
+        $self->render_sensor($track, $sensor);
+    }
+};
+
+
 sub _render_checkered_finish_line {
     my ($self, $track) = @_;
 
-    my $j1 = $self->joins->{left}->offset_1;
-    my $j2 = $self->joins->{left}->offset_2;
+    # Grooves at 1/4 and 3/4 width
+    my $j1 = 1 * $self->lane_offset;
+    my $j2 = 3 * $self->lane_offset;
     my @boxes = (
         { x => $FINISH_X_OFFSET,                     y => $FINISH_Y_OFFSET1                       },
         { x => $FINISH_X_OFFSET + $FINISH_BOX_WIDTH, y => $FINISH_Y_OFFSET1  + $FINISH_BOX_HEIGHT },

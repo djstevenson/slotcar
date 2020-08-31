@@ -3,8 +3,6 @@ use Moose;
 
 extends 'Slotcar::Track::Base';
 
-use Slotcar::Track::Join::Double;
-
 use Math::Trig;
 
 # Not really sure how these need to look yet.
@@ -13,9 +11,8 @@ use Math::Trig;
 
 # Note - we're going to need to record which way
 # around an instance of a curve piece is. Does
-# it curve to left or right?
-
-has '+lanes' => ( default => 2);
+# it curve to left or right? Current plan is to have
+# two "fake" SKUs, e.g. C8206L and C8206R
 
 # Units = mm
 has radius => (
@@ -38,20 +35,6 @@ has angle => (
     isa         => 'Int',
     required    => 1,
 );
-
-override define_joins => sub {
-    my $self = shift;
-
-    return {
-        left  => Slotcar::Track::Join::Double->new,
-        # TODO Work oout angles etc for right join
-        # right => Slotcar::Track::Join::Double->new(
-        #     offset_x    => $self->length,
-        #     offset_y    => $self->width,
-        #     is_inverted => 1,
-        # ),
-    };
-};
 
 override render_base => sub {
     my ($self, $track) = @_;
@@ -76,8 +59,8 @@ override render_conductors => sub {
     my ($self, $track) = @_;
 
     my $track_outer_radius = $self->radius;
-    my $groove1_radius = $track_outer_radius - $self->joins->{left}->offset_1;
-    my $groove2_radius = $track_outer_radius - $self->joins->{left}->offset_2;
+    my $groove1_radius = $track_outer_radius - 1 * $self->lane_offset;
+    my $groove2_radius = $track_outer_radius - 3 * $self->lane_offset;
 
     $track->path(
         d => $self->_curve_to_path($groove1_radius + $self->conductor_width / 2.0, $groove1_radius - $self->conductor_width / 2.0),

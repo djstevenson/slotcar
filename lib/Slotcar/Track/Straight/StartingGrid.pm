@@ -25,8 +25,12 @@ override render_markings => sub {
 
     super();
 
-    $self->_starting_position($track, $X_OFFSET_1,  $self->joins->{left}->offset_1);
-    $self->_starting_position($track, $X_OFFSET_2,  $self->joins->{left}->offset_2);
+    # Grooves at 1/4 and 3/4 width
+    my $groove_y1 = 1 * $self->lane_offset;
+    my $groove_y2 = 3 * $self->lane_offset;
+
+    $self->_starting_position($track, $X_OFFSET_1,  $groove_y1);
+    $self->_starting_position($track, $X_OFFSET_2,  $groove_y2);
 };
 
 # $x = offset from end of track to start of paint line

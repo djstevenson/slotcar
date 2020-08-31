@@ -18,24 +18,26 @@ use Readonly;
 
 # Dimensions in mm
 Readonly my $X_OFFSET => 46.0;
-Readonly my $RADIUS   =>  4.0;
 
+# TODO This is used in a few places. DRY it
 override render_conductor_mods => sub {
     my ($self, $track) = @_;
 
     # Dummy holes at 'left' end
     # Real sensors at 'right' end
-    # (cars travelling left to right)
+    # (cars travelling from origin end)
 
     my $x1 = $X_OFFSET;
     my $x2 = $self->length - $X_OFFSET;
-    my $y1 = $self->joins->{left}->offset_1;
-    my $y2 = $self->joins->{left}->offset_2;
+    
+    # Grooves at 1/4 and 3/4 width
+    my $groove_y1 = 1 * $self->lane_offset;
+    my $groove_y2 = 3 * $self->lane_offset;
     my @sensors = (
-        { x => $x1, y => $y1, type => 'dummy'  },
-        { x => $x1, y => $y2, type => 'dummy'  },
-        { x => $x2, y => $y1, type => 'active' },
-        { x => $x2, y => $y2, type => 'active' },
+        { x => $x1, y => $groove_y1, type => 'dummy'  },
+        { x => $x1, y => $groove_y2, type => 'dummy'  },
+        { x => $x2, y => $groove_y1, type => 'active' },
+        { x => $x2, y => $groove_y2, type => 'active' },
     );
 
     foreach my $sensor ( @sensors ) {

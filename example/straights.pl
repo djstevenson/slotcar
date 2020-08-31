@@ -9,12 +9,12 @@ use List::Util qw( sum );
 use Slotcar::Layout;
 
 my $layout = Slotcar::Layout->new(
-    width => 1_000,
-    height => 500,
+    width  => 1_000,
+    height =>   500,
 );
 
 my @track = qw/
-    C7036
+    C8435
 /;
     # C7000
     # C7018

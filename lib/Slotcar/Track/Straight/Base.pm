@@ -3,14 +3,6 @@ use Moose;
 
 extends 'Slotcar::Track::Base';
 
-use Slotcar::Track::Join::Double;
-
-# Not really sure how these need to look yet.
-# POD docs will follow once the design is a bit
-# more settled.
-
-has '+lanes' => ( default => 2);
-
 # Override this to set a length
 # e.g. has '+length' => (default => 350);
 has length => (
@@ -19,19 +11,6 @@ has length => (
     required    => 1,
 );
 
-
-override define_joins => sub {
-    my $self = shift;
-
-    return {
-        left  => Slotcar::Track::Join::Double->new,
-        right => Slotcar::Track::Join::Double->new(
-            offset_x    => $self->length,
-            offset_y    => $self->width,
-            is_inverted => 1,
-        ),
-    };
-};
 
 override render_base => sub {
     my ($self, $track) = @_;
@@ -50,8 +29,10 @@ override render_base => sub {
 override render_conductors => sub {
     my ($self, $track) = @_;
 
-    my $groove_y1 = $self->joins->{left}->offset_1;
-    my $groove_y2 = $self->joins->{left}->offset_2;
+    # Grooves at 1/4 and 3/4 width
+    my $groove_y1 = 1 * $self->lane_offset;
+    my $groove_y2 = 3 * $self->lane_offset;
+
     my $groove_l = $self->length;
 
     my $groove_1 = $track->group;

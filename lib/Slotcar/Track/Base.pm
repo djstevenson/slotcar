@@ -4,16 +4,7 @@ use Moose;
 # POD docs will follow once the design is a bit
 # more settled.
 
-use Slotcar::Track::Join::Base;
-
 use Readonly;
-
-# Override these with values for each piece type
-has lanes => (
-    is          => 'ro',
-    isa         => 'Int',
-    required    => 1,
-);
 
 has sku => (
     is          => 'ro',
@@ -27,6 +18,8 @@ has description => (
     required    => 1,
 );
 
+# These are attributes rather than constants
+# so that pieces can override them.
 # Units are mm
 has width => (
     is          => 'ro',
@@ -34,19 +27,14 @@ has width => (
     default     => 156,
 );
 
-# You'll want to override the builder to setup
-# your joins.
-has joins => (
+# Distance from origin (centre) to
+# each lane centre.
+# Units are mm
+has lane_offset => (
     is          => 'ro',
-    isa         => 'HashRef[Slotcar::Track::Join::Base]',
-    lazy        => 1,
-    builder     => 'define_joins',
+    isa         => 'Num',
+    default     => 39,
 );
-
-# Default = no joins, not very useful, override it
-sub define_joins {
-    return {};
-}
 
 # TODO Renderer in different classes?
 has svg => (
@@ -103,6 +91,7 @@ has groove_width => (
     default     => 3.0,
 );
 
+# Readonly const rather than attribute?
 has track_base_colour => (
     is          => 'ro',
     isa         => 'Str',
@@ -145,7 +134,7 @@ has sensor_hole_active => (
     default     => '#005000',
 );
 
-Readonly my $RADIUS   =>  4.0;
+Readonly my $RADIUS   =>  3.5;
 sub render_sensor {
     my ($self, $track, $sensor) = @_;
 
@@ -160,8 +149,8 @@ sub render_sensor {
         cy => $sensor->{y},
         r  => $RADIUS,
         fill => $fill_attr,
-        stroke => $self->track_base_colour,
-        'stroke-width' => 0.5,
+        stroke => $self->track_edge_colour,
+        'stroke-width' => 1.0,
     );
 }
 
