@@ -128,5 +128,15 @@ sub _curve_to_path {
     );
 }
 
+sub next_piece_offset_builder {
+    my ($self) = @_;
+
+    return Slotcar::Track::Offset->new(
+        x     => 0,                # Not right TODO
+        y     => 0,                # Not right TODO
+        angle => $self->angle,
+    );
+}
+
 no Moose;
 1;

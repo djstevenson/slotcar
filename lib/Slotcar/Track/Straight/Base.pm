@@ -3,6 +3,8 @@ use Moose;
 
 extends 'Slotcar::Track::Base';
 
+use Slotcar::Track::Offset;
+
 # Override this to set a length
 # e.g. has '+length' => (default => 350);
 has length => (
@@ -10,7 +12,6 @@ has length => (
     isa         => 'Num',
     required    => 1,
 );
-
 
 override render_base => sub {
     my ($self, $track) = @_;
@@ -72,6 +73,15 @@ override render_conductors => sub {
     );
 };
 
+sub next_piece_offset_builder {
+    my ($self) = @_;
+
+    return Slotcar::Track::Offset->new(
+        x     => $self->length,
+        y     => 0,
+        angle => 0,
+    );
+}
 
 no Moose;
 1;

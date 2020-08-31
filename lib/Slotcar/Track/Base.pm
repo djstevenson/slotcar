@@ -4,6 +4,8 @@ use Moose;
 # POD docs will follow once the design is a bit
 # more settled.
 
+use Slotcar::Track::Offset;
+
 use Readonly;
 
 has sku => (
@@ -34,6 +36,13 @@ has lane_offset => (
     is          => 'ro',
     isa         => 'Num',
     default     => 39,
+);
+
+has next_piece_offset => (
+    is          => 'ro',
+    isa         => 'Slotcar::Track::Offset',
+    lazy        => 1,
+    builder     => 'next_piece_offset_builder',
 );
 
 # TODO Renderer in different classes?
@@ -152,6 +161,10 @@ sub render_sensor {
         stroke => $self->track_edge_colour,
         'stroke-width' => 1.0,
     );
+}
+
+sub next_piece_offset_builder {
+    die 'did not override next_piece_offset_builder';
 }
 
 no Moose;
