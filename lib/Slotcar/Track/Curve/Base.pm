@@ -58,29 +58,29 @@ override render_base => sub {
 override render_conductors => sub {
     my ($self, $track) = @_;
 
-    # my $track_outer_radius = $self->radius;
-    # my $groove1_radius = $track_outer_radius - $self->joins->{left}->offset_1;
-    # my $groove2_radius = $track_outer_radius - $self->joins->{left}->offset_2;
+    my $track_outer_radius = $self->radius;
+    my $groove1_radius = $track_outer_radius - 1 * $self->lane_offset;
+    my $groove2_radius = $track_outer_radius - 3 * $self->lane_offset;
 
-    # $track->path(
-    #     d => $self->_curve_to_path($groove1_radius + $self->conductor_width / 2.0, $groove1_radius - $self->conductor_width / 2.0),
-    #     fill => $self->conductor_colour,
-    # );
+    $track->path(
+        d => $self->_curve_to_path($groove1_radius + $self->conductor_width / 2.0, $groove1_radius - $self->conductor_width / 2.0),
+        fill => $self->conductor_colour,
+    );
 
-    # $track->path(
-    #     d => $self->_curve_to_path($groove1_radius + $self->groove_width / 2.0, $groove1_radius - $self->groove_width / 2.0),
-    #     fill => $self->groove_colour,
-    # );
+    $track->path(
+        d => $self->_curve_to_path($groove1_radius + $self->groove_width / 2.0, $groove1_radius - $self->groove_width / 2.0),
+        fill => $self->groove_colour,
+    );
 
-    # $track->path(
-    #     d => $self->_curve_to_path($groove2_radius + $self->conductor_width / 2.0, $groove2_radius - $self->conductor_width / 2.0),
-    #     fill => $self->conductor_colour,
-    # );
+    $track->path(
+        d => $self->_curve_to_path($groove2_radius + $self->conductor_width / 2.0, $groove2_radius - $self->conductor_width / 2.0),
+        fill => $self->conductor_colour,
+    );
 
-    # $track->path(
-    #     d => $self->_curve_to_path($groove2_radius + $self->groove_width / 2.0, $groove2_radius - $self->groove_width / 2.0),
-    #     fill => $self->groove_colour,
-    # );
+    $track->path(
+        d => $self->_curve_to_path($groove2_radius + $self->groove_width / 2.0, $groove2_radius - $self->groove_width / 2.0),
+        fill => $self->groove_colour,
+    );
 };
 
 # Helper method for renderers.
