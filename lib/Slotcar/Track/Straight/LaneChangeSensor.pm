@@ -18,8 +18,8 @@ use Readonly;
 
 # Dimensions in mm
 Readonly my $X_OFFSET => 46.0;
-Readonly my $RADIUS   =>  4.0;
 
+# TODO This is used in a few places. DRY it
 override render_conductor_mods => sub {
     my ($self, $track) = @_;
 

@@ -91,6 +91,7 @@ has groove_width => (
     default     => 3.0,
 );
 
+# Readonly const rather than attribute?
 has track_base_colour => (
     is          => 'ro',
     isa         => 'Str',
@@ -133,7 +134,7 @@ has sensor_hole_active => (
     default     => '#005000',
 );
 
-Readonly my $RADIUS   =>  4.0;
+Readonly my $RADIUS   =>  3.5;
 sub render_sensor {
     my ($self, $track, $sensor) = @_;
 
@@ -148,8 +149,8 @@ sub render_sensor {
         cy => $sensor->{y},
         r  => $RADIUS,
         fill => $fill_attr,
-        stroke => $self->track_base_colour,
-        'stroke-width' => 0.5,
+        stroke => $self->track_edge_colour,
+        'stroke-width' => 1.0,
     );
 }
 
