@@ -27,20 +27,20 @@ override render_conductor_mods => sub {
     # Real sensors at 'right' end
     # (cars travelling left to right)
 
-    my $x1 = $X_OFFSET;
-    my $x2 = $self->length - $X_OFFSET;
-    my $y1 = $self->joins->{left}->offset_1;
-    my $y2 = $self->joins->{left}->offset_2;
-    my @sensors = (
-        { x => $x1, y => $y1, type => 'dummy'  },
-        { x => $x1, y => $y2, type => 'dummy'  },
-        { x => $x2, y => $y1, type => 'active' },
-        { x => $x2, y => $y2, type => 'active' },
-    );
+    # my $x1 = $X_OFFSET;
+    # my $x2 = $self->length - $X_OFFSET;
+    # my $y1 = $self->joins->{left}->offset_1;
+    # my $y2 = $self->joins->{left}->offset_2;
+    # my @sensors = (
+    #     { x => $x1, y => $y1, type => 'dummy'  },
+    #     { x => $x1, y => $y2, type => 'dummy'  },
+    #     { x => $x2, y => $y1, type => 'active' },
+    #     { x => $x2, y => $y2, type => 'active' },
+    # );
 
-    foreach my $sensor ( @sensors ) {
-        $self->render_sensor($track, $sensor);
-    }
+    # foreach my $sensor ( @sensors ) {
+    #     $self->render_sensor($track, $sensor);
+    # }
 };
 
 __PACKAGE__->meta->make_immutable;

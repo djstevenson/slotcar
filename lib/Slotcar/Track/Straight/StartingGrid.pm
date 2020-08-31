@@ -25,8 +25,8 @@ override render_markings => sub {
 
     super();
 
-    $self->_starting_position($track, $X_OFFSET_1,  $self->joins->{left}->offset_1);
-    $self->_starting_position($track, $X_OFFSET_2,  $self->joins->{left}->offset_2);
+    # $self->_starting_position($track, $X_OFFSET_1,  $self->joins->{left}->offset_1);
+    # $self->_starting_position($track, $X_OFFSET_2,  $self->joins->{left}->offset_2);
 };
 
 # $x = offset from end of track to start of paint line

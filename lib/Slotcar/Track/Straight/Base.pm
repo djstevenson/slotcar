@@ -3,8 +3,6 @@ use Moose;
 
 extends 'Slotcar::Track::Base';
 
-use Slotcar::Track::Join::Double;
-
 # Override this to set a length
 # e.g. has '+length' => (default => 350);
 has length => (
@@ -31,8 +29,10 @@ override render_base => sub {
 override render_conductors => sub {
     my ($self, $track) = @_;
 
-    my $groove_y1 = $self->joins->{left}->offset_1;
-    my $groove_y2 = $self->joins->{left}->offset_2;
+    # Grooves at 1/4 and 3/4 width
+    my $groove_y1 = 1 * $self->lane_offset;
+    my $groove_y2 = 3 * $self->lane_offset;
+
     my $groove_l = $self->length;
 
     my $groove_1 = $track->group;

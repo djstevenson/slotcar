@@ -44,30 +44,30 @@ Readonly my $FINISH_BOX_HEIGHT => 16.0;
 sub _render_checkered_finish_line {
     my ($self, $track) = @_;
 
-    my $j1 = $self->joins->{left}->offset_1;
-    my $j2 = $self->joins->{left}->offset_2;
-    my @boxes = (
-        { x => $FINISH_X_OFFSET,                     y => $FINISH_Y_OFFSET1                       },
-        { x => $FINISH_X_OFFSET + $FINISH_BOX_WIDTH, y => $FINISH_Y_OFFSET1  + $FINISH_BOX_HEIGHT },
+    # my $j1 = $self->joins->{left}->offset_1;
+    # my $j2 = $self->joins->{left}->offset_2;
+    # my @boxes = (
+    #     { x => $FINISH_X_OFFSET,                     y => $FINISH_Y_OFFSET1                       },
+    #     { x => $FINISH_X_OFFSET + $FINISH_BOX_WIDTH, y => $FINISH_Y_OFFSET1  + $FINISH_BOX_HEIGHT },
 
-        { x => $FINISH_X_OFFSET,                     y => $j1 + $FINISH_Y_OFFSET2                       },
-        { x => $FINISH_X_OFFSET + $FINISH_BOX_WIDTH, y => $j1 + $FINISH_Y_OFFSET2  + $FINISH_BOX_HEIGHT },
-        { x => $FINISH_X_OFFSET,                     y => $j1 + 2.0*$FINISH_BOX_HEIGHT+$FINISH_Y_OFFSET2                       },
-        { x => $FINISH_X_OFFSET + $FINISH_BOX_WIDTH, y => $j1 + 2.0*$FINISH_BOX_HEIGHT+$FINISH_Y_OFFSET2  + $FINISH_BOX_HEIGHT },
+    #     { x => $FINISH_X_OFFSET,                     y => $j1 + $FINISH_Y_OFFSET2                       },
+    #     { x => $FINISH_X_OFFSET + $FINISH_BOX_WIDTH, y => $j1 + $FINISH_Y_OFFSET2  + $FINISH_BOX_HEIGHT },
+    #     { x => $FINISH_X_OFFSET,                     y => $j1 + 2.0*$FINISH_BOX_HEIGHT+$FINISH_Y_OFFSET2                       },
+    #     { x => $FINISH_X_OFFSET + $FINISH_BOX_WIDTH, y => $j1 + 2.0*$FINISH_BOX_HEIGHT+$FINISH_Y_OFFSET2  + $FINISH_BOX_HEIGHT },
 
-        { x => $FINISH_X_OFFSET,                     y => $j2 + $FINISH_Y_OFFSET2                       },
-        { x => $FINISH_X_OFFSET + $FINISH_BOX_WIDTH, y => $j2 + $FINISH_Y_OFFSET2  + $FINISH_BOX_HEIGHT },
-    );
+    #     { x => $FINISH_X_OFFSET,                     y => $j2 + $FINISH_Y_OFFSET2                       },
+    #     { x => $FINISH_X_OFFSET + $FINISH_BOX_WIDTH, y => $j2 + $FINISH_Y_OFFSET2  + $FINISH_BOX_HEIGHT },
+    # );
 
-    foreach my $box (@boxes) {
-        $track->rectangle(
-            x => $box->{x},
-            y => $box->{y},
-            width => $FINISH_BOX_WIDTH,
-            height => $FINISH_BOX_HEIGHT,
-            fill => $self->white_paint,
-        );
-    }
+    # foreach my $box (@boxes) {
+    #     $track->rectangle(
+    #         x => $box->{x},
+    #         y => $box->{y},
+    #         width => $FINISH_BOX_WIDTH,
+    #         height => $FINISH_BOX_HEIGHT,
+    #         fill => $self->white_paint,
+    #     );
+    # }
 
 }
 

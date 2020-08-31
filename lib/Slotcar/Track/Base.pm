@@ -4,8 +4,6 @@ use Moose;
 # POD docs will follow once the design is a bit
 # more settled.
 
-use Slotcar::Track::Join::Base;
-
 use Readonly;
 
 has sku => (
@@ -20,11 +18,22 @@ has description => (
     required    => 1,
 );
 
+# These are attributes rather than constants
+# so that pieces can override them.
 # Units are mm
 has width => (
     is          => 'ro',
     isa         => 'Num',
     default     => 156,
+);
+
+# Distance from origin (centre) to
+# each lane centre.
+# Units are mm
+has lane_offset => (
+    is          => 'ro',
+    isa         => 'Num',
+    default     => 39,
 );
 
 # TODO Renderer in different classes?
