@@ -21,14 +21,10 @@ has radius => (
     required    => 1,
 );
 
-# Angle is the wrong word, find something better.
-# It's the portion of a circle, e.g. 22.5˚ is 
-# represented as 16 here (360/16). A value of
-# 1 would represent a full circle.  Scalextric
-# pieces come in 22.5˚, 45˚ and 90˚ (not all
-# available at all radii), and there are
-# represented as 16, 8, 4 respectively. So the
-# angle in radians is 2π/angle
+# Angle is in units of 1/10 of a degree, so
+# small curves such as 22.5˚ can be represented
+# as integers (225, in this case).  So a full circle
+# is 3600.
 
 has angle => (
     is          => 'ro',

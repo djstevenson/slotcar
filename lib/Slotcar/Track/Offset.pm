@@ -11,13 +11,13 @@ use namespace::autoclean;
 # and oriented to the right. So, for a straight piece,
 # x offset will be the piece's length, y offset will be 0.
 #
-# For curves, the angle is the proportion of a circle that
-# the piece bends. It is signed, +ve means "to the right" 
+# For curves, the angle is the 10 x the number of degrees
+# that the piece bends. It is signed, +ve means "to the right" 
 # (clockwise) as the car travels from the origin.
 #
 # Two examples:
-#  45˚ bend to the right, angle is +8
-#  22.5˚ bend to the left, angle is -16
+#  45˚ bend to the right, angle is +450
+#  22.5˚ bend to the left, angle is -225
 #
 # Angle is 0 for straight pieces.
 
