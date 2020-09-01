@@ -128,7 +128,7 @@ has groove_colour => (
 has white_paint => (
     is          => 'ro',
     isa         => 'Str',
-    default     => '#b0b0b0',
+    default     => '#e0e0d8',
 );
 
 has sensor_hole_dummy => (
