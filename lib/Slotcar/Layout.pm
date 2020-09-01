@@ -77,13 +77,11 @@ has _svg => (
 sub add_piece {
     my ($self, $sku) = @_;
 
-    my $piece = $self->_factory->piece($sku);
+    my $piece = $self->_factory->piece($sku, $self->current_offset);
     $self->append_piece($piece);
 
-    print STDERR "Current Offset x=", $self->current_offset->x, " y=", $self->current_offset->y, " angle=", $self->current_offset->angle, "\n";
     my $new_offset = $self->current_offset->add_offset( $piece->part->next_piece_offset );
     $self->current_offset( $new_offset );
-    print STDERR "New Offset x=", $self->current_offset->x, " y=", $self->current_offset->y, " angle=", $self->current_offset->angle, "\n";
 }
 
 sub add_pieces {
