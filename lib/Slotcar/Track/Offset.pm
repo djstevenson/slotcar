@@ -39,5 +39,19 @@ has angle => (
     required    => 1,
 );
 
+# TODO Document this properly
+# Returns a NEW offset record which adds the
+# passed-in offset to 'this'.
+sub add_offset {
+    my ($self, $new_offset) = @_;
+
+    return Slotcar::Track::Offset->new(
+        x     => $self->x     + $new_offset->x,
+        y     => $self->y     + $new_offset->y,
+        # TODO This is _not_ the correct calculation!!
+        angle => $self->angle + $new_offset->angle,
+    );
+}
+
 __PACKAGE__->meta->make_immutable;
 1;

@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use Slotcar::PieceFactory;
+use Slotcar::Track::Offset;
 
 # TOOD POD
 use SVG (-inline => 1, -nocredits => 1);
@@ -10,8 +11,13 @@ use SVG (-inline => 1, -nocredits => 1);
 # Represents a collection of joined pieces, ie a 
 # layout. Each piece is a Slotcar::Piece instance,
 # which has an x,y coordinate, a rotation angle,
-# and a 'type', which is an instance of 
+# and a 'part', which is an instance of 
 # Slotcar::Track::*
+#
+# If you have, say, four standard straights, that's
+# four pieces, each referencing one part.  Each piece
+# refers to the same part but has its own offset.
+# The first piece has offset x=0, y=0, a=0.
 
 has pieces => (
     is          => 'ro',
@@ -23,7 +29,6 @@ has pieces => (
         piece_count   => 'count',
         all_pieces    => 'elements',
         append_piece  => 'push',
-        append_pieces => 'push',
         map_pieces    => 'map',
     },
 );
@@ -41,6 +46,18 @@ has height => (
     required    => 1,
 );
 
+has current_offset => (
+    is          => 'rw',
+    isa         => 'Slotcar::Track::Offset',
+    lazy        => 1,
+    default     => sub {
+        return Slotcar::Track::Offset->new(
+            x     => 0,
+            y     => 0,
+            angle => 0,
+        )
+    },
+);
 
 has _factory => (
     is          => 'ro',
@@ -62,6 +79,11 @@ sub add_piece {
 
     my $piece = $self->_factory->piece($sku);
     $self->append_piece($piece);
+
+    print STDERR "Current Offset x=", $self->current_offset->x, " y=", $self->current_offset->y, " angle=", $self->current_offset->angle, "\n";
+    my $new_offset = $self->current_offset->add_offset( $piece->part->next_piece_offset );
+    $self->current_offset( $new_offset );
+    print STDERR "New Offset x=", $self->current_offset->x, " y=", $self->current_offset->y, " angle=", $self->current_offset->angle, "\n";
 }
 
 sub add_pieces {
