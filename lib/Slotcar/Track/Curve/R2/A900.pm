@@ -1,4 +1,4 @@
-package Slotcar::Track::Curve::R2::C4;
+package Slotcar::Track::Curve::R2::A900;
 use Moose;
 
 # Only sold via sets, not normally available

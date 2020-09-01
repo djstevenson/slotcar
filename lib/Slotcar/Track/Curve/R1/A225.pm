@@ -1,4 +1,4 @@
-package Slotcar::Track::Curve::R1::C16;
+package Slotcar::Track::Curve::R1::A225;
 use Moose;
 
 extends 'Slotcar::Track::Curve::R1::Base';
