@@ -32,6 +32,42 @@ has angle => (
     required    => 1,
 );
 
+# Delta x/y, from origin to where next piece's
+# origin should be.
+has dx => (
+    is          => 'ro',
+    isa         => 'Num',
+    lazy        => 1,
+    default     => sub {
+        my $self = shift; 
+
+        # TODO There is some code de-duping to be done between
+        # this and the outer_radius calcs when we render the 
+        # track base.
+        my $outer_radius = $self->radius;
+        my $theta = deg2rad($self->angle / 10.0);
+        return $outer_radius * sin($theta);
+    },
+);
+
+has dy => (
+    is          => 'ro',
+    isa         => 'Num',
+    lazy        => 1,
+    default     => sub {
+        my $self = shift; 
+
+        # TODO There is some code de-duping to be done between
+        # this and the outer_radius calcs when we render the 
+        # track base.
+        my $outer_radius = $self->radius;
+        my $theta = deg2rad($self->angle / 10.0);
+        return $outer_radius * (1- cos($theta));
+    },
+);
+
+
+
 override render_base => sub {
     my ($self, $track) = @_;
 
@@ -92,7 +128,7 @@ sub _curve_to_path {
     my ($self, $outer_radius, $inner_radius) = @_;
 
     # Angle in degrees
-    my $theta = 2 * pi / $self->angle;
+    my $theta = deg2rad($self->angle / 10.0);
 
     my $thickness = $outer_radius - $inner_radius;
 
@@ -128,8 +164,8 @@ sub next_piece_offset_builder {
     my ($self) = @_;
 
     return Slotcar::Track::Offset->new(
-        x     => 0,                # Not right TODO
-        y     => 0,                # Not right TODO
+        x     => $self->dx,
+        y     => $self->dy,
         angle => $self->angle,
     );
 }

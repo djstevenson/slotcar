@@ -4,6 +4,8 @@ use namespace::autoclean;
 
 # TODO POD docs
 
+use Math::Trig;
+
 # Defines x/y/angle offset of 'end' of piece relative to
 # start.
 
@@ -45,11 +47,15 @@ has angle => (
 sub add_offset {
     my ($self, $new_offset) = @_;
 
+    my $theta = deg2rad($new_offset->angle / 10.0);
+
+    my $dx = $new_offset->x * sin($theta);
+    my $dy = $new_offset->y * cos($theta);
+
     return Slotcar::Track::Offset->new(
-        x     => $self->x     + $new_offset->x,
-        y     => $self->y     + $new_offset->y,
-        # TODO This is _not_ the correct calculation!!
-        angle => $self->angle + $new_offset->angle,
+        x     => $self->x + $dx,
+        y     => $self->y + $dy,
+        angle => ($self->angle + $new_offset->angle) % 3600,
     );
 }
 
