@@ -3,6 +3,10 @@ use Moose;
 # Not really sure how these need to look yet.
 # POD docs will follow once the design is a bit
 # more settled.
+#
+# The 'origin' of a piece is the centre of the
+# "leading" edge, from the point-of-view of a
+# car travelling the circuit.
 
 use Slotcar::Track::Offset;
 
@@ -23,10 +27,10 @@ has description => (
 # These are attributes rather than constants
 # so that pieces can override them.
 # Units are mm
-has width => (
+has half_width => (
     is          => 'ro',
     isa         => 'Num',
-    default     => 156,
+    default     => 78,
 );
 
 # Distance from origin (centre) to

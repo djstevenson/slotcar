@@ -21,18 +21,18 @@ override render_base => sub {
         stroke => $self->track_edge_colour,
         'stroke-width' => 2,
         x => 0,
-        y => 0,
+        y => -$self->half_width,
         width => $self->length,
-        height => $self->width,
+        height => 2 * $self->half_width,
     );
 };
 
 override render_conductors => sub {
     my ($self, $track) = @_;
 
-    # Grooves at 1/4 and 3/4 width
-    my $groove_y1 = 1 * $self->lane_offset;
-    my $groove_y2 = 3 * $self->lane_offset;
+    # Grooves equidistant either side of centre
+    my $groove_y1 = - $self->lane_offset;
+    my $groove_y2 = + $self->lane_offset;
 
     my $groove_l = $self->length;
 

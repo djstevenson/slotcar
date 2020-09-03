@@ -47,10 +47,10 @@ has angle => (
 sub add_offset {
     my ($self, $new_offset) = @_;
 
-    my $theta = deg2rad($new_offset->angle / 10.0);
+    my $theta = deg2rad($self->angle / 10.0);
 
-    my $dx = $new_offset->x * sin($theta);
-    my $dy = $new_offset->y * cos($theta);
+    my $dx = $new_offset->x * cos($theta);
+    my $dy = $new_offset->y * sin($theta);
 
     return Slotcar::Track::Offset->new(
         x     => $self->x + $dx,

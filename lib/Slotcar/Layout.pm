@@ -52,9 +52,9 @@ has current_offset => (
     lazy        => 1,
     default     => sub {
         return Slotcar::Track::Offset->new(
-            x     => 0,
-            y     => 0,
-            angle => 0,
+            x     =>  50,
+            y     => 100,
+            angle =>   0,
         )
     },
 );

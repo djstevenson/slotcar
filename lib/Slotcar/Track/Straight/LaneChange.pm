@@ -30,8 +30,8 @@ override render_markings => sub {
     my ($self, $track) = @_;
 
     my $start_x = $CROSS_CENTRE_X - $CROSS_LENGTH / 2.0 - $CROSS_LINE_WIDTH / 2.0;
-    my $start_y1 = ($self->width - $CROSS_WIDTH) / 2.0;
-    my $start_y2 = ($self->width + $CROSS_WIDTH) / 2.0;
+    my $start_y1 = ($self->half_width - $CROSS_WIDTH) / 2.0;
+    my $start_y2 = ($self->half_width + $CROSS_WIDTH) / 2.0;
 
     my $path = sprintf('M %f %f l %f 0 l %f %f l %f 0 Z',
         $start_x, $start_y1,

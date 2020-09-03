@@ -52,9 +52,9 @@ override render_conductor_mods => sub {
     my $x1 = $LAP_X_OFFSET;
     my $x2 = $self->length - $LAP_X_OFFSET;
 
-    # Grooves at 1/4 and 3/4 width
-    my $groove_y1 = 1 * $self->lane_offset;
-    my $groove_y2 = 3 * $self->lane_offset;
+    # Grooves equidistant either side of centre
+    my $groove_y1 = - $self->lane_offset;
+    my $groove_y2 =   $self->lane_offset;
     my @sensors = (
         { x => $x1, y => $groove_y1, type => 'active'  },
         { x => $x1, y => $groove_y2, type => 'active'  },
@@ -140,7 +140,7 @@ sub _render_oblique_line {
 
     my $half_w = $OBLIQUE_HEIGHT / 2.0;
 
-    my $y1 = $self->width/2 + $half_w;
+    my $y1 = $self->half_width + $half_w;
 
     $track->path(
         d => sprintf("M %f %f l %f 0 l %f %f l %f 0 Z",

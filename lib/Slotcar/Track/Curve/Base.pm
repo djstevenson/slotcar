@@ -77,8 +77,8 @@ override render_base => sub {
     # Outer lane radius = 370-39 = 331
     # Inner lane radius = 331-78 = 253
 
-    my $track_outer_radius = $self->radius;
-    my $track_inner_radius = $self->radius - $self->width;
+    my $track_outer_radius = $self->radius + $self->half_width;
+    my $track_inner_radius = $self->radius - $self->half_width;
     $track->path(
         d => $self->_curve_to_path($track_outer_radius, $track_inner_radius),
         fill => $self->track_base_colour,
@@ -90,9 +90,8 @@ override render_base => sub {
 override render_conductors => sub {
     my ($self, $track) = @_;
 
-    my $track_outer_radius = $self->radius;
-    my $groove1_radius = $track_outer_radius - 1 * $self->lane_offset;
-    my $groove2_radius = $track_outer_radius - 3 * $self->lane_offset;
+    my $groove1_radius = $self->radius - $self->lane_offset;
+    my $groove2_radius = $self->radius + $self->lane_offset;
 
     $track->path(
         d => $self->_curve_to_path($groove1_radius + $self->conductor_width / 2.0, $groove1_radius - $self->conductor_width / 2.0),
