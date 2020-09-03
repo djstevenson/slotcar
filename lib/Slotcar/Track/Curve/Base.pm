@@ -21,14 +21,10 @@ has radius => (
     required    => 1,
 );
 
-# Angle is in units of 1/10 of a degree, so
-# small curves such as 22.5˚ can be represented
-# as integers (225, in this case).  So a full circle
-# is 3600.
-
+# Angle in degrees (floating point)
 has angle => (
     is          => 'ro',
-    isa         => 'Int',
+    isa         => 'Num',
     required    => 1,
 );
 
@@ -45,7 +41,7 @@ has dx => (
         # this and the outer_radius calcs when we render the 
         # track base.
         my $outer_radius = $self->radius;
-        my $theta = deg2rad($self->angle / 10.0);
+        my $theta = deg2rad($self->angle);
         return $outer_radius * sin($theta);
     },
 );
@@ -61,7 +57,7 @@ has dy => (
         # this and the outer_radius calcs when we render the 
         # track base.
         my $outer_radius = $self->radius;
-        my $theta = deg2rad($self->angle / 10.0);
+        my $theta = deg2rad($self->angle);
         return $outer_radius * (1- cos($theta));
     },
 );
@@ -127,7 +123,7 @@ sub _curve_to_path {
     my ($self, $outer_radius, $inner_radius) = @_;
 
     # Angle in degrees
-    my $theta = deg2rad($self->angle / 10.0);
+    my $theta = deg2rad($self->angle);
 
     my $thickness = $outer_radius - $inner_radius;
 

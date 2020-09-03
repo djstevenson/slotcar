@@ -1,10 +1,12 @@
-package Slotcar::Track::Curve::R2::A450;
+package Slotcar::Track::Curve::R2::C8;
 use Moose;
+
+# 1/8th circle (45˚) Radius 2
 
 extends 'Slotcar::Track::Curve::R2::Base';
 
 # Units = mm
-has '+angle'       => ( default => 450 );
+has '+angle'       => ( default => 45 );
 
 has '+sku'         => (default => 'C8206');
 has '+description' => (default => 'R2 45˚');

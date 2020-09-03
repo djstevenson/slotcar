@@ -13,8 +13,8 @@ use Math::Trig;
 # and oriented to the right. So, for a straight piece,
 # x offset will be the piece's length, y offset will be 0.
 #
-# For curves, the angle is the 10 x the number of degrees
-# that the piece bends. It is signed, +ve means "to the right" 
+# For curves, the angle is the number of degrees that the
+# piece bends through. It is signed, +ve means "to the right" 
 # (clockwise) as the car travels from the origin.
 #
 # Two examples:
@@ -47,7 +47,7 @@ has angle => (
 sub add_offset {
     my ($self, $new_offset) = @_;
 
-    my $theta = deg2rad($self->angle / 10.0);
+    my $theta = deg2rad($self->angle);
 
     my $dx = $new_offset->x * cos($theta);
     my $dy = $new_offset->y * sin($theta);
