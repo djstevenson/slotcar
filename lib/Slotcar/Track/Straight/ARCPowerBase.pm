@@ -69,9 +69,9 @@ override render_conductor_mods => sub {
 sub _render_checkered_finish_line {
     my ($self, $track) = @_;
 
-    # Grooves at 1/4 and 3/4 width
-    my $j1 = 1 * $self->lane_offset;
-    my $j2 = 3 * $self->lane_offset;
+    # This is a bit crap, do it better.
+    my $j1 =  -$self->half_width;
+    my $j2 =  $self->half_width - $self->lane_offset;
     my @boxes = (
         { x => $FINISH_X_OFFSET,                     y => $FINISH_Y_OFFSET1                       },
         { x => $FINISH_X_OFFSET + $FINISH_BOX_WIDTH, y => $FINISH_Y_OFFSET1  + $FINISH_BOX_HEIGHT },
@@ -108,31 +108,31 @@ Readonly my $TEXT_FONT        =>  'italic 26px sans-serif';
 Readonly my @LINE_OFFSETS     => ( 50.0, 63.0, 76.0, 89.0, 256.0, 269.0, 282.0, 295.0 );
 
 sub _render_arc_pro_logo {
-    my ($self, $track) = @_;
+    # my ($self, $track) = @_;
 
-    foreach my $offset (@LINE_OFFSETS) {
-        $self->_render_oblique_line($track, $offset);
-    }
+    # foreach my $offset (@LINE_OFFSETS) {
+    #     $self->_render_oblique_line($track, $offset);
+    # }
 
-    $track->rectangle(
-        x => 125,
-        y => 59,
-        width => 141,
-        height => 38,
-        fill => $self->white_paint,
-        rx => 10, ry => 10,
-        transform => 'skewX(-12)',
-    );
+    # $track->rectangle(
+    #     x => 125,
+    #     y => 59,
+    #     width => 141,
+    #     height => 38,
+    #     fill => $self->white_paint,
+    #     rx => 10, ry => 10,
+    #     transform => 'skewX(-12)',
+    # );
 
-    $track->text(
-        x => $TEXT_X,
-        y => $TEXT_Y,
-        style => {
-            font => $TEXT_FONT,
-            fill => $self->track_base_colour,
-        },
-        transform => 'rotate(180, 178, 80)',
-    )->cdata('ARCPRO');
+    # $track->text(
+    #     x => $TEXT_X,
+    #     y => $TEXT_Y,
+    #     style => {
+    #         font => $TEXT_FONT,
+    #         fill => $self->track_base_colour,
+    #     },
+    #     transform => 'rotate(180, 178, 80)',
+    # )->cdata('ARCPRO');
 }
 
 sub _render_oblique_line {

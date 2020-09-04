@@ -12,6 +12,9 @@ has '+description' => (default => 'Starting Grid Straight');
 
 use Readonly;
 
+# TODO The grids are facing in the wrong direction!!
+
+
 # Dimensions in mm
 Readonly my $X_OFFSET_1           => 15.0;
 Readonly my $X_OFFSET_2           => 75.0;
