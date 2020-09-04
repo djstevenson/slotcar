@@ -30,8 +30,8 @@ override render_markings => sub {
     my ($self, $track) = @_;
 
     my $start_x = $CROSS_CENTRE_X - $CROSS_LENGTH / 2.0 - $CROSS_LINE_WIDTH / 2.0;
-    my $start_y1 = ($self->half_width - $CROSS_WIDTH) / 2.0;
-    my $start_y2 = ($self->half_width + $CROSS_WIDTH) / 2.0;
+    my $start_y1 = - $CROSS_WIDTH / 2.0;
+    my $start_y2 = $CROSS_WIDTH / 2.0;
 
     my $path = sprintf('M %f %f l %f 0 l %f %f l %f 0 Z',
         $start_x, $start_y1,
@@ -65,8 +65,8 @@ override render_conductor_mods => sub {
     my $x1 = $X_OFFSET;
 
     # Grooves at 1/4 and 3/4 width
-    my $groove_y1 = 1 * $self->lane_offset;
-    my $groove_y2 = 3 * $self->lane_offset;
+    my $groove_y1 = - $self->lane_offset;
+    my $groove_y2 =   $self->lane_offset;
 
     my @sensors = (
         { x => $x1, y => $groove_y1, type => 'active' },
