@@ -21,20 +21,69 @@ has radius => (
     required    => 1,
 );
 
-# Angle is the wrong word, find something better.
-# It's the portion of a circle, e.g. 22.5˚ is 
-# represented as 16 here (360/16). A value of
-# 1 would represent a full circle.  Scalextric
-# pieces come in 22.5˚, 45˚ and 90˚ (not all
-# available at all radii), and there are
-# represented as 16, 8, 4 respectively. So the
-# angle in radians is 2π/angle
-
+# Angle in degrees (floating point)
 has angle => (
     is          => 'ro',
-    isa         => 'Int',
+    isa         => 'Num',
     required    => 1,
 );
+
+has _sin_half_angle => (
+    is          => 'ro',
+    isa         => 'Num',
+    lazy        => 1,
+    default     => sub {
+        my $self = shift; 
+
+        # We're going to need sin(θ/2) a few places,
+        # so pre-calc it here
+        my $half_theta = deg2rad($self->angle / 2.0);
+        return sin($half_theta);
+    },
+);
+
+has _chord_length => (
+    is          => 'ro',
+    isa         => 'Num',
+    lazy        => 1,
+    default     => sub {
+        my $self = shift; 
+
+        # Length of chord from this origin to next.
+        # Store here to save calculating it multiple times.
+        # C = 2 * r * sin(θ/2)
+        return 2 * $self->radius * $self->_sin_half_angle;
+    },
+);
+
+# Delta x/y, from origin to where next piece's
+# origin should be.
+has dx => (
+    is          => 'ro',
+    isa         => 'Num',
+    lazy        => 1,
+    default     => sub {
+        my $self = shift; 
+
+        # dx is c * cos(θ/2)
+        my $half_theta = deg2rad($self->angle / 2.0);
+        return $self->_chord_length * cos($half_theta);
+    },
+);
+
+has dy => (
+    is          => 'ro',
+    isa         => 'Num',
+    lazy        => 1,
+    default     => sub {
+        my $self = shift; 
+
+        # dy is c * cos(θ/2)
+        return $self->_chord_length * $self->_sin_half_angle;
+    },
+);
+
+
 
 override render_base => sub {
     my ($self, $track) = @_;
@@ -44,9 +93,8 @@ override render_base => sub {
     # Inner radius = 214
     # Outer lane radius = 370-39 = 331
     # Inner lane radius = 331-78 = 253
-
-    my $track_outer_radius = $self->radius;
-    my $track_inner_radius = $self->radius - $self->width;
+    my $track_outer_radius = $self->radius + $self->half_width;
+    my $track_inner_radius = $self->radius - $self->half_width;
     $track->path(
         d => $self->_curve_to_path($track_outer_radius, $track_inner_radius),
         fill => $self->track_base_colour,
@@ -58,9 +106,8 @@ override render_base => sub {
 override render_conductors => sub {
     my ($self, $track) = @_;
 
-    my $track_outer_radius = $self->radius;
-    my $groove1_radius = $track_outer_radius - 1 * $self->lane_offset;
-    my $groove2_radius = $track_outer_radius - 3 * $self->lane_offset;
+    my $groove1_radius = $self->radius - $self->lane_offset;
+    my $groove2_radius = $self->radius + $self->lane_offset;
 
     $track->path(
         d => $self->_curve_to_path($groove1_radius + $self->conductor_width / 2.0, $groove1_radius - $self->conductor_width / 2.0),
@@ -96,7 +143,7 @@ sub _curve_to_path {
     my ($self, $outer_radius, $inner_radius) = @_;
 
     # Angle in degrees
-    my $theta = 2 * pi / $self->angle;
+    my $theta = deg2rad($self->angle);
 
     my $thickness = $outer_radius - $inner_radius;
 
@@ -125,6 +172,16 @@ sub _curve_to_path {
         $inner_end_delta_x, $inner_end_delta_y,
         $inner_radius, $inner_radius,
         $start_y + $outer_radius - $inner_radius
+    );
+}
+
+sub next_piece_offset_builder {
+    my ($self) = @_;
+
+    return Slotcar::Track::Offset->new(
+        x     => $self->dx,
+        y     => $self->dy,
+        angle => $self->angle,
     );
 }
 

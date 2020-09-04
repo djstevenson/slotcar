@@ -2,22 +2,11 @@ package Slotcar::Piece;
 use Moose;
 use namespace::autoclean;
 
-has x => (
-    is          => 'ro',
-    isa         => 'Num',
-    required    => 1,
-);
+use Slotcar::Track::Offset;
 
-has y => (
+has offset => (
     is          => 'ro',
-    isa         => 'Num',
-    required    => 1,
-);
-
-# Degrees clockwise from "left join is vertical"
-has rotation => (
-    is          => 'ro',
-    isa         => 'Num',
+    isa         => 'Slotcar::Track::Offset',
     required    => 1,
 );
 
@@ -34,10 +23,14 @@ has part => (
 sub render {
     my $self = shift;
 
+    my $offset = $self->offset;
+    my $x = $offset->x;
+    my $y = $offset->y;
+
     $self->part->svg->use(
-        x => 0,
-        y => 0,
-        # transform => 'rotate(-45)',
+        x => $x,
+        y => $y,
+        transform => sprintf('rotate(%f %f %f)', $self->offset->angle, $x, $y),
         '-href' => '#' . $self->part->sku,
     );
 }

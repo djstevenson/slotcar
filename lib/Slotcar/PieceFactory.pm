@@ -24,7 +24,7 @@ has svg => (
 
 
 sub piece {
-    my ($self, $part_sku) = @_;
+    my ($self, $part_sku, $offset) = @_;
 
     my $parts = $self->_parts;
 
@@ -32,9 +32,7 @@ sub piece {
         unless exists $parts->{$part_sku};
 
     return Slotcar::Piece->new(
-        x        => 0,  # Parameter x/y/r
-        y        => 0,
-        rotation => 0,
+        offset   => $offset,
         part     => $parts->{$part_sku},
     );
 }

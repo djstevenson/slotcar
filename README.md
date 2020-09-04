@@ -26,6 +26,8 @@ The angles available in single pieces depend on the radius. Generally, pieces at
 
 Radius of outer edge of track is 214mm.
 
+The origin for pieces defined in this module is the centre of the leading edge, so the radius we use here is 136mm.
+
 Angles available are:
 * 22.5˚ = C8278
 * 45˚ = C8202
@@ -34,6 +36,8 @@ Angles available are:
 #### Radius 2
 
 Radius of outer edge of track is 370mm, so these can fit flush between R1 and R3 curves for multi-lane layouts.
+
+The origin for pieces defined in this module is the centre of the leading edge, so the radius we use here is 292mm.
 
 Angles available are:
 
@@ -49,6 +53,8 @@ Will also need to add curved lane change pieces - they're not in the current cat
 
 Radius of outer edge of track is 526mm, so these can fit flush between R2 and R4 curves for multi-lane layouts.
 
+The origin for pieces defined in this module is the centre of the leading edge, so the radius we use here is 448mm.
+
 Angles available are:
 
 * 22.5˚ = C8204
@@ -59,6 +65,8 @@ Angles available are:
 #### Radius 4
 
 Radius of outer edge of track is 682mm, so these can fit flush outside R3 curves for multi-lane layouts.
+
+The origin for pieces defined in this module is the centre of the leading edge, so the radius we use here is 604mm.
 
 Angles available are:
 

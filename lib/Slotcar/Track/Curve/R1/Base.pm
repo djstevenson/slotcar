@@ -4,7 +4,7 @@ use Moose;
 extends 'Slotcar::Track::Curve::Base';
 
 # Units = mm
-has '+radius' => ( default => 214 );
+has '+radius' => ( default => 136 );
 
 no Moose;
 1;

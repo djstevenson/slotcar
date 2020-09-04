@@ -3,6 +3,12 @@ use Moose;
 # Not really sure how these need to look yet.
 # POD docs will follow once the design is a bit
 # more settled.
+#
+# The 'origin' of a piece is the centre of the
+# "leading" edge, from the point-of-view of a
+# car travelling the circuit.
+
+use Slotcar::Track::Offset;
 
 use Readonly;
 
@@ -21,10 +27,10 @@ has description => (
 # These are attributes rather than constants
 # so that pieces can override them.
 # Units are mm
-has width => (
+has half_width => (
     is          => 'ro',
     isa         => 'Num',
-    default     => 156,
+    default     => 78,
 );
 
 # Distance from origin (centre) to
@@ -34,6 +40,13 @@ has lane_offset => (
     is          => 'ro',
     isa         => 'Num',
     default     => 39,
+);
+
+has next_piece_offset => (
+    is          => 'ro',
+    isa         => 'Slotcar::Track::Offset',
+    lazy        => 1,
+    builder     => 'next_piece_offset_builder',
 );
 
 # TODO Renderer in different classes?
@@ -119,7 +132,7 @@ has groove_colour => (
 has white_paint => (
     is          => 'ro',
     isa         => 'Str',
-    default     => '#b0b0b0',
+    default     => '#e0e0d8',
 );
 
 has sensor_hole_dummy => (
@@ -152,6 +165,10 @@ sub render_sensor {
         stroke => $self->track_edge_colour,
         'stroke-width' => 1.0,
     );
+}
+
+sub next_piece_offset_builder {
+    die 'did not override next_piece_offset_builder';
 }
 
 no Moose;
