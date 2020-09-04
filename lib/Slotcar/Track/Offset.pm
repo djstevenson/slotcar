@@ -18,8 +18,8 @@ use Math::Trig;
 # (clockwise) as the car travels from the origin.
 #
 # Two examples:
-#  45˚ bend to the right, angle is +450
-#  22.5˚ bend to the left, angle is -225
+#  45˚ bend to the right, angle is +45
+#  22.5˚ bend to the left, angle is -22.5
 #
 # Angle is 0 for straight pieces.
 
@@ -48,14 +48,22 @@ sub add_offset {
     my ($self, $new_offset) = @_;
 
     my $theta = deg2rad($self->angle);
+    my $cos_t = cos($theta);
+    my $sin_t = sin($theta);
+    my $x     = $new_offset->x;
+    my $y     = $new_offset->y;
 
-    my $dx = $new_offset->x * cos($theta);
-    my $dy = $new_offset->y * sin($theta);
+    my $dx = ($x * $cos_t) - ($y * $sin_t);
+    my $dy = ($y * $cos_t) + ($x * $sin_t);
 
+    my $new_x = $self->x + $dx;
+    my $new_y = $self->x + $dy;
+
+    print STDERR "DBG1 dx=$dx dy=$dy, new_x=$new_x, new_y=$new_y\n";
     return Slotcar::Track::Offset->new(
         x     => $self->x + $dx,
         y     => $self->y + $dy,
-        angle => ($self->angle + $new_offset->angle) % 3600,
+        angle => $self->angle + $new_offset->angle,
     );
 }
 

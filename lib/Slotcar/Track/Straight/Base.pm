@@ -71,6 +71,15 @@ override render_conductors => sub {
         width => $self->length,
         height => $self->groove_width,
     );
+
+    # Centre-line
+    $track->rectangle(
+        fill  => '#666666',
+        x => 0,
+        y => -1,
+        width => $self->length,
+        height => 2,
+    );
 };
 
 sub next_piece_offset_builder {

@@ -81,7 +81,6 @@ sub add_piece {
     $self->append_piece($piece);
 
     my $new_offset = $self->current_offset->add_offset( $piece->part->next_piece_offset );
-    print STDERR "OFF x=", $new_offset->x, " y=", $new_offset->y, " a=", $new_offset->angle, "\n";
     $self->current_offset( $new_offset );
 }
 

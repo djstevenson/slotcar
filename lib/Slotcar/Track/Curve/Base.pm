@@ -28,6 +28,34 @@ has angle => (
     required    => 1,
 );
 
+has _sin_half_angle => (
+    is          => 'ro',
+    isa         => 'Num',
+    lazy        => 1,
+    default     => sub {
+        my $self = shift; 
+
+        # We're going to need sin(θ/2) a few places,
+        # so pre-calc it here
+        my $half_theta = deg2rad($self->angle / 2.0);
+        return sin($half_theta);
+    },
+);
+
+has _chord_length => (
+    is          => 'ro',
+    isa         => 'Num',
+    lazy        => 1,
+    default     => sub {
+        my $self = shift; 
+
+        # Length of chord from this origin to next.
+        # Store here to save calculating it multiple times.
+        # C = 2 * r * sin(θ/2)
+        return 2 * $self->radius * $self->_sin_half_angle;
+    },
+);
+
 # Delta x/y, from origin to where next piece's
 # origin should be.
 has dx => (
@@ -37,12 +65,9 @@ has dx => (
     default     => sub {
         my $self = shift; 
 
-        # TODO There is some code de-duping to be done between
-        # this and the outer_radius calcs when we render the 
-        # track base.
-        my $outer_radius = $self->radius;
-        my $theta = deg2rad($self->angle);
-        return $outer_radius * sin($theta);
+        # dx is c * cos(θ/2)
+        my $half_theta = deg2rad($self->angle / 2.0);
+        return $self->_chord_length * cos($half_theta);
     },
 );
 
@@ -53,12 +78,8 @@ has dy => (
     default     => sub {
         my $self = shift; 
 
-        # TODO There is some code de-duping to be done between
-        # this and the outer_radius calcs when we render the 
-        # track base.
-        my $outer_radius = $self->radius;
-        my $theta = deg2rad($self->angle);
-        return $outer_radius * (1- cos($theta));
+        # dy is c * cos(θ/2)
+        return $self->_chord_length * $self->_sin_half_angle;
     },
 );
 
@@ -72,7 +93,6 @@ override render_base => sub {
     # Inner radius = 214
     # Outer lane radius = 370-39 = 331
     # Inner lane radius = 331-78 = 253
-
     my $track_outer_radius = $self->radius + $self->half_width;
     my $track_inner_radius = $self->radius - $self->half_width;
     $track->path(
@@ -80,6 +100,10 @@ override render_base => sub {
         fill => $self->track_base_colour,
         stroke => $self->track_edge_colour,
         'stroke-width' => 2,
+    );
+    $track->path(
+        d => $self->_curve_to_path($self->radius+1, $self->radius-1),
+        fill => '#666666',
     );
 };
 
