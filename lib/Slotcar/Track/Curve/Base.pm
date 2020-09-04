@@ -101,10 +101,6 @@ override render_base => sub {
         stroke => $self->track_edge_colour,
         'stroke-width' => 2,
     );
-    $track->path(
-        d => $self->_curve_to_path($self->radius+1, $self->radius-1),
-        fill => '#666666',
-    );
 };
 
 override render_conductors => sub {
