@@ -13,35 +13,25 @@ my $layout = Slotcar::Layout->new(
     height => 2_000,
 );
 
-my @track = qw/
+$layout->add_pieces( [qw/
     C7018
     C7018
     C8435
+    C8235
+    C8204
     C8206
     C8206
-    C8206
-    C8206
+    C8204
+    C8235
     C7036
     C8207
+    C8235
+    C8204
     C8206
     C8206
-    C8206
-    C8206
-/;
-    # C7000
-    # C7018
-    # C8205
-    # C8207
-    # C8435
-    # C8200
-    # C8236
-    # C8278
-    # C8206
-    # C8204
-    # C8235
-    # C8529
-    # C7036
-$layout->add_pieces( \@track );
+    C8204
+    C8235
+/] );
 
 # Can currently only render one piece
 my $output = $layout->render;

@@ -59,7 +59,6 @@ sub add_offset {
     my $new_x = $self->x + $dx;
     my $new_y = $self->x + $dy;
 
-    print STDERR "DBG1 dx=$dx dy=$dy, new_x=$new_x, new_y=$new_y\n";
     return Slotcar::Track::Offset->new(
         x     => $self->x + $dx,
         y     => $self->y + $dy,
