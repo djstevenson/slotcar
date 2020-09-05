@@ -96,7 +96,7 @@ override render_base => sub {
     my $track_inner_radius = $self->radius - $self->half_width;
     $track->path(
         d => $self->_curve_to_path($track_outer_radius, $track_inner_radius),
-        fill => $self->track_base_colour,
+        fill => $self->reversed ? '#553333' : $self->track_base_colour,
         stroke => $self->track_edge_colour,
         'stroke-width' => 2,
     );
