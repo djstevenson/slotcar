@@ -17,20 +17,20 @@ $layout->add_pieces( [qw/
     C7018
     C7018
     C8435
-    C8235
-    C8204
-    C8206
-    C8206
-    C8204
-    C8235
+    C8235R
+    C8204R
+    C8206R
+    C8206R
+    C8204R
+    C8235R
     C7036
     C8207
-    C8235
-    C8204
-    C8206
-    C8206
-    C8204
-    C8235
+    C8235R
+    C8204R
+    C8206R
+    C8206R
+    C8204R
+    C8235R
 /] );
 
 # Can currently only render one piece

@@ -68,8 +68,14 @@ sub _build_parts {
         # behaviour
         Class::Load::load_class($full_class_name);
         my $part_object = $full_class_name->new(svg => $svg);
-        my $sku = $part_object->sku;
-        $parts{$sku} = $part_object;
+        if ( $part_object->reversible ) {
+            my $sku = $part_object->sku . 'R';
+            $parts{$sku} = $part_object;
+        }
+        else {
+            my $sku = $part_object->sku;
+            $parts{$sku} = $part_object;
+        }
     }
 
     return \%parts;

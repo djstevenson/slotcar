@@ -24,6 +24,12 @@ has description => (
     required    => 1,
 );
 
+has reversible => (
+    is          => 'ro',
+    isa         => 'Bool',
+    default     => 0,
+);
+
 # These are attributes rather than constants
 # so that pieces can override them.
 # Units are mm

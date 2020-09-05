@@ -9,10 +9,11 @@ use Math::Trig;
 # POD docs will follow once the design is a bit
 # more settled.
 
-# Note - we're going to need to record which way
-# around an instance of a curve piece is. Does
-# it curve to left or right? Current plan is to have
-# two "fake" SKUs, e.g. C8206L and C8206R
+# Reversible parts (curves) will generate an L
+# sku and an R sku, curving to the left or right
+# from the point-of-view of a car on the circuit.
+
+has '+reversible' => ( default => 1 );
 
 # Units = mm
 has radius => (
@@ -82,8 +83,6 @@ has dy => (
         return $self->_chord_length * $self->_sin_half_angle;
     },
 );
-
-
 
 override render_base => sub {
     my ($self, $track) = @_;
