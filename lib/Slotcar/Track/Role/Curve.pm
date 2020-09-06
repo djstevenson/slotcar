@@ -1,7 +1,7 @@
 package Slotcar::Track::Role::Curve;
 use Moose::Role;
 
-# with 'Slotcar::Track::Role';
+with 'Slotcar::Track::Role';
 
 # mm radius of centre-line of curve
 has radius => (

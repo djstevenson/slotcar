@@ -2,15 +2,12 @@ package Slotcar::Track::Straight::Short;
 use Moose;
 use namespace::autoclean;
 
-extends 'Slotcar::Track::Straight::Base';
+with 'Slotcar::Track::Role::Straight';
+with 'Slotcar::Track::Role';
 
-# Not really sure how these need to look yet.
-# POD docs will follow once the design is a bit
-# more settled.
+sub _build_length { return 78.0; }
 
-has '+length'      => (default => 78);
-has '+sku'         => (default => 'C8236');
-has '+description' => (default => 'Short Straight');
+sub _build_sku { return 'C8236'; }
 
 __PACKAGE__->meta->make_immutable;
 1;

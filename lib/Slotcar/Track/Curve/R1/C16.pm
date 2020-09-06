@@ -7,6 +7,7 @@ use namespace::autoclean;
 with 'Slotcar::Track::Role::Curve::R1';
 with 'Slotcar::Track::Role::Curve::C16';
 with 'Slotcar::Track::Role::Curve';
+with 'Slotcar::Track::Role';
 
 sub _build_sku { return 'C8278'; }
 

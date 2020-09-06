@@ -2,15 +2,12 @@ package Slotcar::Track::Straight::Half;
 use Moose;
 use namespace::autoclean;
 
-extends 'Slotcar::Track::Straight::Base';
+with 'Slotcar::Track::Role::Straight';
+with 'Slotcar::Track::Role';
 
-# Not really sure how these need to look yet.
-# POD docs will follow once the design is a bit
-# more settled.
+sub _build_length { return 175.0; }
 
-has '+length'      => ( default => 175);
-has '+sku'         => (default => 'C8207');
-has '+description' => (default => 'Half Straight');
+sub _build_sku { return 'C8207'; }
 
 __PACKAGE__->meta->make_immutable;
 1;

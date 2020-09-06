@@ -6,6 +6,7 @@ use Moose;
 with 'Slotcar::Track::Role::Curve::R3';
 with 'Slotcar::Track::Role::Curve::C16';
 with 'Slotcar::Track::Role::Curve';
+with 'Slotcar::Track::Role';
 
 sub _build_sku { return 'C8204'; }
 

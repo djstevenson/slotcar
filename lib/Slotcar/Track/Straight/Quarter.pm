@@ -2,15 +2,12 @@ package Slotcar::Track::Straight::Quarter;
 use Moose;
 use namespace::autoclean;
 
-extends 'Slotcar::Track::Straight::Base';
+with 'Slotcar::Track::Role::Straight';
+with 'Slotcar::Track::Role';
 
-# Not really sure how these need to look yet.
-# POD docs will follow once the design is a bit
-# more settled.
+sub _build_length { return 87.5; }
 
-has '+length'      => (default => 87.5);
-has '+sku'         => (default => 'C8200');
-has '+description' => (default => 'Quarter Straight');
+sub _build_sku { return 'C8200'; }
 
 __PACKAGE__->meta->make_immutable;
 1;
