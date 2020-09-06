@@ -7,7 +7,7 @@ use Moose;
 # 1/4 circle (90˚) Radius 2
 
 with 'Slotcar::Track::Role::Curve::R2';
-with 'Slotcar::Track::Role::CurveC4';
+with 'Slotcar::Track::Role::Curve::C4';
 with 'Slotcar::Track::Role::Curve';
 
 sub _build_sku { return 'C8529'; }
