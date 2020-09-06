@@ -1,10 +1,10 @@
-package Slotcar::Track::Role::Curve::A22_5;
+package Slotcar::Track::Role::Curve::C8;
 use Moose::Role;
 
 use Math::Trig;
 
 sub _build_angle {
-    return deg2rad(22.5);
+    return deg2rad(45.0);
 }
 
 no Moose::Role;
