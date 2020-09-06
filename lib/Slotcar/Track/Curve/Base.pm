@@ -80,23 +80,22 @@ has dy => (
         my $self = shift; 
 
         # dy is c * cos(θ/2)
-        return $self->_chord_length * $self->_sin_half_angle;
+        my $v = $self->_chord_length * $self->_sin_half_angle;
+        return $self->reversed ? -$v : $v;
     },
 );
 
 override render_base => sub {
     my ($self, $track) = @_;
 
-    # Radius 2 sample dimentions:
-    # Outer radius = 370, width = 156
-    # Inner radius = 214
-    # Outer lane radius = 370-39 = 331
-    # Inner lane radius = 331-78 = 253
+    # TODO Needs to take 'reversed' into account
+
+
     my $track_outer_radius = $self->radius + $self->half_width;
     my $track_inner_radius = $self->radius - $self->half_width;
     $track->path(
         d => $self->_curve_to_path($track_outer_radius, $track_inner_radius),
-        fill => $self->reversed ? '#553333' : $self->track_base_colour,
+        fill => $self->track_base_colour,
         stroke => $self->track_edge_colour,
         'stroke-width' => 2,
     );
@@ -104,6 +103,8 @@ override render_base => sub {
 
 override render_conductors => sub {
     my ($self, $track) = @_;
+
+    # TODO Needs to take 'reversed' into account
 
     my $groove1_radius = $self->radius - $self->lane_offset;
     my $groove2_radius = $self->radius + $self->lane_offset;
@@ -141,10 +142,14 @@ override render_conductors => sub {
 sub _curve_to_path {
     my ($self, $outer_radius, $inner_radius) = @_;
 
+    # TODO Needs to take 'reversed' into account
+
     # Angle in degrees
     my $theta = deg2rad($self->angle);
 
     my $thickness = $outer_radius - $inner_radius;
+
+    my $reversed = $self->reversed;
 
     my $start_y = $self->radius - $outer_radius;
 
@@ -177,10 +182,13 @@ sub _curve_to_path {
 sub next_piece_offset_builder {
     my ($self) = @_;
 
+    # TODO Needs to take 'reversed' into account
+
+    my $a = $self->angle;
     return Slotcar::Track::Offset->new(
         x     => $self->dx,
         y     => $self->dy,
-        angle => $self->angle,
+        angle => $self->reversed ? -$a : $a,
     );
 }
 
