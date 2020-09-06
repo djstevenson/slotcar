@@ -3,13 +3,11 @@ use Moose;
 
 # 1/16th circle (22.5˚) Radius 2
 
-extends 'Slotcar::Track::Curve::R2::Base';
+with 'Slotcar::Track::Role::Curve::R2';
+with 'Slotcar::Track::Role::Curve::A22_5';
+with 'Slotcar::Track::Role::Curve';
 
-# Units = mm
-has '+angle'       => ( default => 22.5 );
-
-has '+sku'         => (default => 'C8234');
-has '+description' => (default => 'R2 22.5˚');
+sub _build_sku { return 'C8234'; }
 
 no Moose;
 1;

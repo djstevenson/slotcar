@@ -6,13 +6,11 @@ use Moose;
 
 # 1/4 circle (90˚) Radius 2
 
-extends 'Slotcar::Track::Curve::R2::Base';
+with 'Slotcar::Track::Role::Curve::R2';
+with 'Slotcar::Track::Role::Curve::A90';
+with 'Slotcar::Track::Role::Curve';
 
-# Units = mm
-has '+angle'       => ( default => 90.0 );
-
-has '+sku'         => (default => 'C8529');
-has '+description' => (default => 'R2 90˚');
+sub _build_sku { return 'C8529'; }
 
 no Moose;
 1;

@@ -1,15 +1,14 @@
 package Slotcar::Track::Curve::R1::C8;
 use Moose;
+use namespace::autoclean;
 
 # 1/8th circle (45˚) Radius 1
 
-extends 'Slotcar::Track::Curve::R1::Base';
+with 'Slotcar::Track::Role::Curve::R1';
+with 'Slotcar::Track::Role::Curve::A45';
+with 'Slotcar::Track::Role::Curve';
 
-# Units = mm
-has '+angle'       => ( default => 45.0 );
+sub _build_sku { return 'C8202'; }
 
-has '+sku'         => (default => 'C8202');
-has '+description' => (default => 'R1 45˚');
-
-no Moose;
+__PACKAGE__->meta->make_immutable;
 1;
