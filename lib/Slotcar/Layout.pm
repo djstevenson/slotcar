@@ -2,7 +2,7 @@ package Slotcar::Layout;
 use Moose;
 use namespace::autoclean;
 
-use Slotcar::PieceFactory;
+use Slotcar::PartFactory;
 use Slotcar::Track::Offset;
 
 # TOOD POD
@@ -61,7 +61,7 @@ has current_offset => (
 
 has _factory => (
     is          => 'ro',
-    isa         => 'Slotcar::PieceFactory',
+    isa         => 'Slotcar::PartFactory',
     lazy        => 1,
     builder     => '_build_factory',
 );
@@ -119,7 +119,7 @@ sub _build_svg {
 sub _build_factory {
     my $self = shift;
 
-    return Slotcar::PieceFactory->new(svg => $self->_svg);
+    return Slotcar::PartFactory->new(svg => $self->_svg);
 }
 
 __PACKAGE__->meta->make_immutable;

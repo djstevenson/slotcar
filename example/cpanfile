@@ -2,6 +2,7 @@ requires 'Math::Trig';
 requires 'Class::Load';
 requires 'Try::Tiny';
 requires 'Moose';
+requires 'MooseX::Traits';
 requires 'namespace::autoclean';
 requires 'FindBin::libs';
 requires 'List::Util';
