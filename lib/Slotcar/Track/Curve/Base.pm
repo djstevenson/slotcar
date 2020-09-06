@@ -9,10 +9,11 @@ use Math::Trig;
 # POD docs will follow once the design is a bit
 # more settled.
 
-# Note - we're going to need to record which way
-# around an instance of a curve piece is. Does
-# it curve to left or right? Current plan is to have
-# two "fake" SKUs, e.g. C8206L and C8206R
+# Reversible parts (curves) will generate an L
+# sku and an R sku, curving to the left or right
+# from the point-of-view of a car on the circuit.
+
+has '+reversible' => ( default => 1 );
 
 # Units = mm
 has radius => (
@@ -79,20 +80,17 @@ has dy => (
         my $self = shift; 
 
         # dy is c * cos(θ/2)
-        return $self->_chord_length * $self->_sin_half_angle;
+        my $v = $self->_chord_length * $self->_sin_half_angle;
+        return $self->reversed ? -$v : $v;
     },
 );
-
-
 
 override render_base => sub {
     my ($self, $track) = @_;
 
-    # Radius 2 sample dimentions:
-    # Outer radius = 370, width = 156
-    # Inner radius = 214
-    # Outer lane radius = 370-39 = 331
-    # Inner lane radius = 331-78 = 253
+    # TODO Needs to take 'reversed' into account
+
+
     my $track_outer_radius = $self->radius + $self->half_width;
     my $track_inner_radius = $self->radius - $self->half_width;
     $track->path(
@@ -105,6 +103,8 @@ override render_base => sub {
 
 override render_conductors => sub {
     my ($self, $track) = @_;
+
+    # TODO Needs to take 'reversed' into account
 
     my $groove1_radius = $self->radius - $self->lane_offset;
     my $groove2_radius = $self->radius + $self->lane_offset;
@@ -142,10 +142,14 @@ override render_conductors => sub {
 sub _curve_to_path {
     my ($self, $outer_radius, $inner_radius) = @_;
 
+    # TODO Needs to take 'reversed' into account
+
     # Angle in degrees
     my $theta = deg2rad($self->angle);
 
     my $thickness = $outer_radius - $inner_radius;
+
+    my $reversed = $self->reversed;
 
     my $start_y = $self->radius - $outer_radius;
 
@@ -178,10 +182,13 @@ sub _curve_to_path {
 sub next_piece_offset_builder {
     my ($self) = @_;
 
+    # TODO Needs to take 'reversed' into account
+
+    my $a = $self->angle;
     return Slotcar::Track::Offset->new(
         x     => $self->dx,
         y     => $self->dy,
-        angle => $self->angle,
+        angle => $self->reversed ? -$a : $a,
     );
 }
 
