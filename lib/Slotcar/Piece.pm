@@ -24,13 +24,14 @@ sub render {
     my $self = shift;
 
     my $offset = $self->offset;
-    my $x = $offset->x;
-    my $y = $offset->y;
+    my $x      = $offset->x;
+    my $y      = $offset->y;
+    my $angle  = $offset->angle;
 
     $self->part->svg->use(
         x => $x,
         y => $y,
-        transform => sprintf('rotate(%f %f %f)', $self->offset->angle, $x, $y),
+        transform => sprintf('rotate(%f %f %f)', $angle, $x, $y),
         '-href' => '#' . $self->part->sku,
     );
 }
