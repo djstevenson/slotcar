@@ -1,4 +1,4 @@
-package Slotcar::Piece;
+package Slotcar::Track::Piece;
 use Moose;
 use namespace::autoclean;
 

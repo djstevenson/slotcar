@@ -2,14 +2,14 @@ package Slotcar::Layout;
 use Moose;
 use namespace::autoclean;
 
-use Slotcar::PartFactory;
+use Slotcar::Track::PieceFactory;
 use Slotcar::Track::Offset;
 
 # TOOD POD
 use SVG (-inline => 1, -nocredits => 1);
 
 # Represents a collection of joined pieces, ie a 
-# layout. Each piece is a Slotcar::Piece instance,
+# layout. Each piece is a Slotcar::Track::Piece instance,
 # which has an x,y coordinate, a rotation angle,
 # and a 'part', which is an instance of 
 # Slotcar::Track::*
@@ -21,7 +21,7 @@ use SVG (-inline => 1, -nocredits => 1);
 
 has pieces => (
     is          => 'ro',
-    isa         => 'ArrayRef[Slotcar::Piece]',
+    isa         => 'ArrayRef[Slotcar::Track::Piece]',
     lazy        => 1,
     default     => sub { return []; },
     traits      => ['Array'],
@@ -61,7 +61,7 @@ has current_offset => (
 
 has _factory => (
     is          => 'ro',
-    isa         => 'Slotcar::PartFactory',
+    isa         => 'Slotcar::Track::PieceFactory',
     lazy        => 1,
     builder     => '_build_factory',
 );
@@ -119,7 +119,7 @@ sub _build_svg {
 sub _build_factory {
     my $self = shift;
 
-    return Slotcar::PartFactory->new(svg => $self->_svg);
+    return Slotcar::Track::PieceFactory->new(svg => $self->_svg);
 }
 
 __PACKAGE__->meta->make_immutable;

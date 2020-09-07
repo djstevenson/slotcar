@@ -1,8 +1,10 @@
-package Slotcar::PartFactory;
+package Slotcar::Track::PieceFactory;
 use Moose;
 use namespace::autoclean;
 
 use Slotcar::Track::Moose;
+
+# https://www.youtube.com/watch?v=wFcWBrkQ87M
 
 # TODO POD DOCS
 use Try::Tiny;
@@ -95,7 +97,7 @@ sub create_piece {
     # TODO Better error handling
     my $part = $self->parts->{$sku} or die $sku;
 
-    return Slotcar::Piece->new(
+    return Slotcar::Track::Piece->new(
         part   => $part,
         offset => $offset,
     );
