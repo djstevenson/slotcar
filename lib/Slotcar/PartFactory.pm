@@ -17,6 +17,9 @@ has svg => (
     required    => 1,
 );
 
+# A 'part' describes the size/look/etc of
+# an item of track that Scalextric sells. This
+# hash is keyed by the Cxxxx code.
 has parts => (
     is       => 'ro',
     isa      => 'HashRef[Slotcar::Track::Part]',
@@ -80,10 +83,22 @@ has_part C8235 => ( traits => [qw/
     Curve R4 C16
 /]);
 
-sub BUILD {
-    my $self = shift;
-    use Data::Dumper;
-    print STDERR Dumper($self->parts);
+
+# A 'piece' is an individual item of trackwork in
+# the layout.  A piece is a 'part', plus an 'offset',
+# the latter defining the position and orientation.
+# So, if you have 8xC8206 in a circle, you have 
+# eight pieces, sharing a single part.
+sub create_piece {
+    my ($self, $sku, $offset) = @_;
+
+    # TODO Better error handling
+    my $part = $self->parts->{$sku} or die $sku;
+
+    return Slotcar::Piece->new(
+        part   => $part,
+        offset => $offset,
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

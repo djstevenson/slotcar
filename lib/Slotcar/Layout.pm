@@ -77,7 +77,7 @@ has _svg => (
 sub add_piece {
     my ($self, $sku) = @_;
 
-    my $piece = $self->_factory->piece($sku, $self->current_offset);
+    my $piece = $self->_factory->create_piece($sku, $self->current_offset);
     $self->append_piece($piece);
 
     my $new_offset = $self->current_offset->add_offset( $piece->part->next_piece_offset );
