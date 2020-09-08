@@ -3,4 +3,5 @@ use Moose::Role;
 
 sub _build_length { return 175.0 }
 
+no Moose::Role;
 1;

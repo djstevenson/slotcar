@@ -8,4 +8,17 @@ has length => (
     builder     => '_build_length',
 );
 
+use Slotcar::Track::Offset;
+
+sub next_piece_offset {
+    my ($self) = @_;
+
+    return Slotcar::Track::Offset->new(
+        x     => $self->length,
+        y     => 0,
+        angle => 0,
+    );
+}
+
+no Moose::Role;
 1;

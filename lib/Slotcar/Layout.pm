@@ -95,9 +95,17 @@ sub add_pieces {
 sub render {
     my $self = shift;
 
+    for my $piece ( $self->all_pieces ) {
+        printf("%s : x=%f y=%f a=%f\n",
+            $piece->part->sku,
+            $piece->offset->x,
+            $piece->offset->y,
+            $piece->offset->angle,
+        );
+    }
     # Render a defs section which defines what track pieces
     # look like. It's a "library" of track parts, if you like.
-    $self->_factory->render_defs;
+    # $self->_factory->render_defs;
 
     # Now render the actual instances in our layout.
     $self->map_pieces( sub {

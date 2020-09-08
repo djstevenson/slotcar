@@ -13,7 +13,7 @@ has offset => (
 # Defines the dimensions etc of the track part
 has part => (
     is          => 'ro',
-    isa         => 'Slotcar::Track::Base',
+    isa         => 'Slotcar::Track::Part',
     required    => 1,
 );
 
