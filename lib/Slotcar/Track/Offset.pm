@@ -47,7 +47,7 @@ has angle => (
 sub add_offset {
     my ($self, $new_offset) = @_;
 
-    my $theta = deg2rad($self->angle);
+    my $theta = $self->angle;
     my $cos_t = cos($theta);
     my $sin_t = sin($theta);
     my $x     = $new_offset->x;
@@ -62,7 +62,7 @@ sub add_offset {
     return Slotcar::Track::Offset->new(
         x     => $self->x + $dx,
         y     => $self->y + $dy,
-        angle => $self->angle + $new_offset->angle,
+        angle => Math::Trig::rad2rad($self->angle + $new_offset->angle),
     );
 }
 

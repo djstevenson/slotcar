@@ -10,7 +10,7 @@ use Slotcar::Track::Moose;
 use Try::Tiny;
 use Class::Load;
 
-use Slotcar::Track::Part;
+use Slotcar::Track::Piece;
 
 # TODO Support renderer plugins - for now it's just SVG
 has svg => (
@@ -23,10 +23,14 @@ has svg => (
 # an item of track that Scalextric sells. This
 # hash is keyed by the Cxxxx code.
 has parts => (
+    traits   => [ 'Hash' ],
     is       => 'ro',
     isa      => 'HashRef[Slotcar::Track::Part]',
-    required => 1,
+    init_arg => undef,
     default  => sub { ref(shift)->meta->parts },
+    handles  => {
+        get_part => 'get',
+    }
 );
 
 has_part C8205 => ( traits => [qw/
@@ -95,7 +99,7 @@ sub create_piece {
     my ($self, $sku, $offset) = @_;
 
     # TODO Better error handling
-    my $part = $self->parts->{$sku} or die $sku;
+    my $part = $self->get_part($sku) or die $sku;
 
     return Slotcar::Track::Piece->new(
         part   => $part,
