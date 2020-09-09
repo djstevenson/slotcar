@@ -119,10 +119,11 @@ sub create_piece {
 sub render_part_defs {
     my ($self) = @_;
 
-    my $svg = $self->svg;
+    my $svg  = $self->svg;
+    my $defs = $svg->defs(id => 'defs');
 
     for my $part ( $self->all_parts ) {
-        $part->render_part_def($svg);
+        $part->render_part_def($defs);
     }
 
 }

@@ -37,7 +37,7 @@ sub next_piece_offset {
 }
 
 sub render_part_def {
-    my ($self, $svg) = @_;
+    my ($self, $group) = @_;
 
     print STDERR $self->sku, " Render curve R=", $self->radius, "\n";
 }

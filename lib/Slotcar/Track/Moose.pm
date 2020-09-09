@@ -33,6 +33,11 @@ sub has_part {
     my ($meta, $sku, %options) = @_;
 
     my $traits = delete $options{traits};
+    
+    # Automatically add a base role to the start, which will 'require'
+    # some methods that the other roles must satisfy
+    unshift @$traits, 'Part';
+    
     my $trait_classes = [ map { "Slotcar::Track::Part::Role::$_" } @$traits ];
 
     my $part = Slotcar::Track::Part->new_with_traits(
