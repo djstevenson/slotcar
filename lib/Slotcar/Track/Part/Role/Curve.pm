@@ -35,5 +35,12 @@ sub next_piece_offset {
         angle => $a,
     );
 }
+
+sub render_part_def {
+    my ($self, $svg) = @_;
+
+    print STDERR $self->sku, " Render curve R=", $self->radius, "\n";
+}
+
 no Moose::Role;
 1;

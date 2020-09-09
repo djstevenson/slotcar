@@ -20,5 +20,11 @@ sub next_piece_offset {
     );
 }
 
+sub render_part_def {
+    my ($self, $svg) = @_;
+
+    print STDERR $self->sku, " Render straight L=", $self->length, "\n";
+}
+
 no Moose::Role;
 1;

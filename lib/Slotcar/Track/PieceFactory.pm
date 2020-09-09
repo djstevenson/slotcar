@@ -29,7 +29,8 @@ has parts => (
     init_arg => undef,
     default  => sub { ref(shift)->meta->parts },
     handles  => {
-        get_part => 'get',
+        get_part  => 'get',
+        all_parts => 'values',
     }
 );
 
@@ -62,8 +63,8 @@ has_part C7000 => ( traits => [qw/
 /]); # plus ActiveSensors and InactiveSensors
 
 has_part C7018 => ( traits => [qw/
-    Straight Half
-/]); # plus StartingGrid
+    Straight Half StartingGrid
+/]);
 
 has_part C8278 => ( traits => [qw/
     Curve R1 C16
@@ -89,6 +90,11 @@ has_part C8235 => ( traits => [qw/
     Curve R4 C16
 /]);
 
+sub BUILD {
+    my ($self) = @_;
+
+    $self->render_part_defs;
+}
 
 # A 'piece' is an individual item of trackwork in
 # the layout.  A piece is a 'part', plus an 'offset',
@@ -105,6 +111,20 @@ sub create_piece {
         part   => $part,
         offset => $offset,
     );
+}
+
+# Renders a part as a global item that can be
+# referenced via a 'use' item. Part is rendered
+# with its origin (centre of leading edge) at (0,0).
+sub render_part_defs {
+    my ($self) = @_;
+
+    my $svg = $self->svg;
+
+    for my $part ( $self->all_parts ) {
+        $part->render_part_def($svg);
+    }
+
 }
 
 __PACKAGE__->meta->make_immutable;
