@@ -35,5 +35,6 @@ sub next_piece_offset {
         angle => $a,
     );
 }
+
 no Moose::Role;
 1;

@@ -21,14 +21,14 @@ has part => (
 # the definition that's already in the library
 # of track elements in the defs section.
 sub render {
-    my $self = shift;
+    my ($self, $svg) = @_;
 
     my $offset = $self->offset;
     my $x      = $offset->x;
     my $y      = $offset->y;
     my $angle  = $offset->angle;
 
-    $self->part->svg->use(
+    $svg->use(
         x => $x,
         y => $y,
         transform => sprintf('rotate(%f %f %f)', $angle, $x, $y),

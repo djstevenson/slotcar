@@ -20,5 +20,69 @@ sub next_piece_offset {
     );
 }
 
+
+after render_base => sub {
+    my ($self, $track) = @_;
+
+    my $cols = $self->colours;
+    my $dims = $self->dimensions;
+
+    $track->rectangle(
+        fill   => $cols->track_base,
+        x      => 0,
+        y      => -$dims->half_width,
+        width  => $self->length,
+        height => $dims->width,
+    );
+};
+
+after render_grooves => sub {
+    my ($self, $track) = @_;
+
+    my $dims = $self->dimensions;
+    $self->_render_groove($track, -$dims->lane_offset);
+    $self->_render_groove($track,  $dims->lane_offset);
+};
+
+sub _render_groove {
+    my ($self, $track, $y) = @_;
+
+    my $cols = $self->colours;
+    my $dims = $self->dimensions;
+    $track->rectangle(
+        fill   => $cols->conductor,
+        x      => 0,
+        y      => $y - $dims->conductor_offset,
+        width  => $self->length,
+        height => $dims->conductor_width,
+    );
+
+    $track->rectangle(
+        fill   => $cols->groove,
+        x      => 0,
+        y      => $y - $dims->groove_offset,
+        width  => $self->length,
+        height => $dims->groove_width,
+    );
+
+}
+
+after render_border => sub {
+    my ($self, $track) = @_;
+
+    my $cols = $self->colours;
+    my $dims = $self->dimensions;
+
+    $track->rectangle(
+        x      => 0,
+        y      => -$dims->half_width,
+        width  => $self->length,
+        height => $dims->width,
+        stroke => $cols->edge,
+        'stroke-width' => 2,
+        fill   => 'none',
+    );
+};
+
 no Moose::Role;
 1;
