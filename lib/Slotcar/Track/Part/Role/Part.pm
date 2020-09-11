@@ -11,5 +11,24 @@ sub create_part_group {
     $self->render_part_def($group);
 }
 
+use Slotcar::Track::Part::Colours;
+
+has colours => (
+    is          => 'ro',
+    isa         => 'Slotcar::Track::Part::Colours',
+    lazy        => 1,
+    default     => sub { return Slotcar::Track::Part::Colours->new; },
+);
+
+use Slotcar::Track::Part::Dimensions;
+
+has dimensions => (
+    is          => 'ro',
+    isa         => 'Slotcar::Track::Part::Dimensions',
+    lazy        => 1,
+    default     => sub { return Slotcar::Track::Part::Dimensions->new; },
+);
+
+
 no Moose::Role;
 1;

@@ -123,7 +123,8 @@ sub render_part_defs {
     my $defs = $svg->defs(id => 'defs');
 
     for my $part ( $self->all_parts ) {
-        $part->render_part_def($defs);
+        my $track = $defs->group(id => $part->sku);
+        $part->render_part_def($track);
     }
 
 }
