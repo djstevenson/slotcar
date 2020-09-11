@@ -36,11 +36,5 @@ sub next_piece_offset {
     );
 }
 
-sub render_part_def {
-    my ($self, $track) = @_;
-
-    print STDERR $self->sku, " Render curve R=", $self->radius, "\n";
-}
-
 no Moose::Role;
 1;

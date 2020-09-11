@@ -29,6 +29,19 @@ has dimensions => (
     default     => sub { return Slotcar::Track::Part::Dimensions->new; },
 );
 
+sub render_part_def {
+    my ($self, $track) = @_;
+
+    $self->render_base($track);
+    $self->render_grooves($track);
+    $self->render_paint($track);
+    $self->render_border($track);
+}
+
+sub render_base    { } # Please override
+sub render_grooves { } # Please override
+sub render_paint   { } # Please override
+sub render_border  { } # Please override
 
 no Moose::Role;
 1;

@@ -20,16 +20,8 @@ sub next_piece_offset {
     );
 }
 
-# This can probably be in Role::Part, common to all parts
-sub render_part_def {
-    my ($self, $track) = @_;
 
-    $self->_render_base($track);
-    $self->_render_grooves($track);
-    $self->_render_border($track);
-}
-
-sub _render_base {
+after render_base => sub {
     my ($self, $track) = @_;
 
     my $cols = $self->colours;
@@ -42,15 +34,15 @@ sub _render_base {
         width  => $self->length,
         height => $dims->width,
     );
-}
+};
 
-sub _render_grooves {
+after render_grooves => sub {
     my ($self, $track) = @_;
 
     my $dims = $self->dimensions;
     $self->_render_groove($track, -$dims->lane_offset);
     $self->_render_groove($track,  $dims->lane_offset);
-}
+};
 
 sub _render_groove {
     my ($self, $track, $y) = @_;
@@ -75,7 +67,7 @@ sub _render_groove {
 
 }
 
-sub _render_border {
+after render_border => sub {
     my ($self, $track) = @_;
 
     my $cols = $self->colours;
@@ -90,7 +82,7 @@ sub _render_border {
         'stroke-width' => 2,
         fill   => 'none',
     );
-}
+};
 
 no Moose::Role;
 1;
