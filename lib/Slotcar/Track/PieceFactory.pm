@@ -51,16 +51,16 @@ has_part C8236 => ( traits => [qw/
 /]);
 
 has_part C8435 => ( traits => [qw/
-    Straight Standard ARCPro ActiveSensors
-/]); # plus ActiveSensors
+    Straight Standard ARCPro
+/]);
 
 has_part C7036 => ( traits => [qw/
     Straight Extended
 /]); # plus ActiveSensors and CrossOver
 
 has_part C7000 => ( traits => [qw/
-    Straight Half
-/]); # plus ActiveSensors and InactiveSensors
+    Straight Half 
+/]);# LaneChangeSensors
 
 has_part C7018 => ( traits => [qw/
     Straight Half StartingGrid
