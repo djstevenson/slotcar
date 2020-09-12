@@ -27,9 +27,7 @@ my $layout = Slotcar::Layout->new(
 #     C8206
 # /] );
 $layout->add_pieces( [qw/
-    C7000
-    C7018
-    C8435
+    C7036
 /] );
 
 
