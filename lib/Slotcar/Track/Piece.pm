@@ -2,6 +2,8 @@ package Slotcar::Track::Piece;
 use Moose;
 use namespace::autoclean;
 
+use Math::Trig qw/ rad2deg /;
+
 use Slotcar::Track::Offset;
 
 has offset => (
@@ -31,7 +33,7 @@ sub render {
     $svg->use(
         x => $x,
         y => $y,
-        transform => sprintf('rotate(%f %f %f)', $angle, $x, $y),
+        transform => sprintf('rotate(%f %f %f)', rad2deg($angle), $x, $y),
         '-href' => '#' . $self->part->sku,
     );
 }
