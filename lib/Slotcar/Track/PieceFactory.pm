@@ -51,7 +51,7 @@ has_part C8236 => ( traits => [qw/
 /]);
 
 has_part C8435 => ( traits => [qw/
-    Straight Standard ARCPro
+    Straight Standard ARCPro ActiveSensors
 /]); # plus ActiveSensors
 
 has_part C7036 => ( traits => [qw/

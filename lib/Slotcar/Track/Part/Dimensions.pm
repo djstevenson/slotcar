@@ -48,6 +48,13 @@ has groove_width => (
     default     => sub { shift->groove_offset * 2; },
 );
 
+has sensor_radius => (
+    is          => 'ro',
+    isa         => 'Num',
+    lazy        => 1,
+    default     => 3.5,
+);
+
 
 __PACKAGE__->meta->make_immutable;
 1;

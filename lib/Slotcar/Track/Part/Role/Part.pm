@@ -34,12 +34,14 @@ sub render_part_def {
 
     $self->render_base($track);
     $self->render_grooves($track);
+    $self->render_sensors($track);
     $self->render_paint($track);
     $self->render_border($track);
 }
 
 sub render_base    { } # Please override
 sub render_grooves { } # Please override
+sub render_sensors { } # Please override
 sub render_paint   { } # Please override
 sub render_border  { } # Please override
 

@@ -9,7 +9,6 @@ after render_paint => sub {
     my $dims = $self->dimensions;
 
     $self->_render_checkered_finish_line($track);
-    # $self->_render_arc_pro_logo($track);
 };
 
 # Parameters for finish line
