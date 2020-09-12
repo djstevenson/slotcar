@@ -59,8 +59,8 @@ has_part C7036 => ( traits => [qw/
 /]); # plus ActiveSensors and CrossOver
 
 has_part C7000 => ( traits => [qw/
-    Straight Half 
-/]);# LaneChangeSensors
+    Straight Half LaneChangeSensor
+/]);
 
 has_part C7018 => ( traits => [qw/
     Straight Half StartingGrid

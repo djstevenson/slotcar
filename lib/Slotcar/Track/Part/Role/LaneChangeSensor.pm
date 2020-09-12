@@ -1,4 +1,4 @@
-package Slotcar::Track::Part::Role::ARCPro::LapSensors;
+package Slotcar::Track::Part::Role::LaneChangeSensor;
 use Moose::Role;
 
 with 'Slotcar::Track::Part::Role::Sensors';
@@ -8,7 +8,11 @@ sub build_sensors {
 
     return [
         Slotcar::Track::Part::Sensor->new(
-            x      => 11.0,
+            x      => 46.0,
+            active => 0,
+        ),
+        Slotcar::Track::Part::Sensor->new(
+            x      => 129.0,
             active => 1,
         ),
     ];
