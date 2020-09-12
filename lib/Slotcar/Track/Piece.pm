@@ -19,6 +19,16 @@ has part => (
     required    => 1,
 );
 
+# True if 'reversed'. Curve parts, by default,
+# curve to the right (anti-clockwise) for cars
+# traversing the circuit. To curve to the left,
+# set this to true.
+has reversed => (
+    is          => 'ro',
+    isa         => 'Bool',
+    default     => 0,
+);
+
 # Render an svg 'use' tag to reference
 # the definition that's already in the library
 # of track elements in the defs section.

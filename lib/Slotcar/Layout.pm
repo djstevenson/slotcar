@@ -87,7 +87,10 @@ sub add_piece {
     my $piece = $self->_factory->create_piece($sku, $self->current_offset);
     $self->append_piece($piece);
 
-    my $new_offset = $self->current_offset->add_offset( $piece->part->next_piece_offset );
+    my $new_offset = $self->current_offset->add_offset(
+        $piece->part->next_piece_offset,
+        $piece->reversed,
+    );
     $self->current_offset( $new_offset );
 }
 
