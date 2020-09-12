@@ -3,16 +3,6 @@ use Moose::Role;
 
 use Readonly;
 
-after render_paint => sub {
-    my ($self, $track) = @_;
-
-    my $dims = $self->dimensions;
-
-    $self->_render_checkered_finish_line($track);
-};
-
-# Parameters for finish line
-
 Readonly my $FINISH_X_OFFSET   =>  6.0;
 Readonly my $FINISH_Y_MARGIN   =>  1.0;
 Readonly my $FINISH_Y_MARGIN2  =>  2.0;
@@ -20,10 +10,11 @@ Readonly my $FINISH_LINE_WIDTH =>  1.0;
 Readonly my $FINISH_BOX_WIDTH  =>  8.0;
 Readonly my $FINISH_BOX_HEIGHT => 15.75;
 
-sub _render_checkered_finish_line {
+after render_paint => sub {
     my ($self, $track) = @_;
 
     my $dims = $self->dimensions;
+
     my $white_paint = $self->colours->white_paint;
 
     # Finish line markings are not mirrored about the centre
@@ -73,8 +64,7 @@ sub _render_checkered_finish_line {
     # BOTTOM TWO BOXES (RIGHT OUTER)
     $self->_box($track, $x1, $y7, $white_paint);
     $self->_box($track, $x2, $y8, $white_paint);
-
-}
+};
 
 sub _box {
     my ($self, $track, $x, $y, $p) = @_;
