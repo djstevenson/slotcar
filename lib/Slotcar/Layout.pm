@@ -102,10 +102,6 @@ sub add_pieces {
 sub render {
     my $self = shift;
 
-    # Render a defs section which defines what track pieces
-    # look like. It's a "library" of track parts, if you like.
-    # $self->_factory->render_defs;
-
     # Now render the actual instances in our layout.
     $self->map_pieces( sub {
         $_->render($self->_svg);
