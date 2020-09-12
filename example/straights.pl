@@ -10,7 +10,8 @@ use Slotcar::Layout;
 
 my $layout = Slotcar::Layout->new(
     width  => 2_000,
-    height => 2_000,
+    height => 1_000,
+    grid   => 1,
 );
 
 # $layout->add_pieces( [qw/
