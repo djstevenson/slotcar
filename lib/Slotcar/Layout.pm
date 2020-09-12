@@ -7,6 +7,7 @@ use Slotcar::Track::Offset;
 
 # TOOD POD
 use SVG (-inline => 1, -nocredits => 1);
+use Readonly;
 
 # Represents a collection of joined pieces, ie a 
 # layout. Each piece is a Slotcar::Track::Piece instance,
@@ -44,6 +45,12 @@ has height => (
     is          => 'ro',
     isa         => 'Num',
     required    => 1,
+);
+
+has grid => (
+    is          => 'ro',
+    isa         => 'Bool',
+    default     => 0,
 );
 
 has current_offset => (
@@ -107,13 +114,51 @@ sub render {
     return $self->_svg->xmlify;
 }
 
+Readonly my $GRID_1000 => '#808080';
+Readonly my $GRID_500  => '#a0a0a0';
+Readonly my $GRID_100  => '#c0c0c0';
+Readonly my $GRID_25   => '#e8e8e8';
+
 sub _build_svg {
     my $self = shift;
 
-    return SVG->new(
+    my $svg = SVG->new(
         width  => $self->width,
         height => $self->height,
     );
+
+    if ($self->grid) {
+        # Rare valid use of C-style for loop :)
+        for (my $x = 0; $x <= $self->width; $x += 25) {
+            $svg->line(
+                x1 => $x,
+                y1 => 0,
+                x2 => $x,
+                y2 => $self->height,
+                stroke => $self->_grid_col($x),
+            );
+        }
+        for (my $y = 0; $y <= $self->height; $y += 25) {
+            $svg->line(
+                x1 => 0,
+                y1 => $y,
+                x2 => $self->width,
+                y2 => $y,
+                stroke => $self->_grid_col($y),
+            );
+        }
+    }
+
+    return $svg;
+}
+
+sub _grid_col {
+    my ($self, $v) = @_;
+
+    return $GRID_1000 if ($v % 1_000) == 0;
+    return $GRID_500  if ($v %   500) == 0;
+    return $GRID_100  if ($v %   100) == 0;
+    return $GRID_25;
 }
 
 sub _build_factory {
