@@ -53,15 +53,29 @@ has grid => (
     default     => 0,
 );
 
+has start_x => (
+    is          => 'ro',
+    isa         => 'Num',
+    default     => 0,
+);
+
+has start_y => (
+    is          => 'ro',
+    isa         => 'Num',
+    default     => 0,
+);
+
 has current_offset => (
     is          => 'rw',
     isa         => 'Slotcar::Track::Offset',
     lazy        => 1,
     default     => sub {
+        my $self = shift;
+
         return Slotcar::Track::Offset->new(
-            x     => 500,
-            y     => 100,
-            angle =>   0,
+            x     => $self->start_x,
+            y     => $self->start_y,
+            angle => 0,
         )
     },
 );
@@ -87,7 +101,10 @@ sub add_piece {
     my $piece = $self->_factory->create_piece($sku, $self->current_offset);
     $self->append_piece($piece);
 
-    my $new_offset = $self->current_offset->add_offset( $piece->part->next_piece_offset );
+    my $new_offset = $self->current_offset->add_offset(
+        $piece->part->next_piece_offset,
+        $piece->reversed,
+    );
     $self->current_offset( $new_offset );
 }
 
