@@ -53,15 +53,29 @@ has grid => (
     default     => 0,
 );
 
+has start_x => (
+    is          => 'ro',
+    isa         => 'Num',
+    default     => 0,
+);
+
+has start_y => (
+    is          => 'ro',
+    isa         => 'Num',
+    default     => 0,
+);
+
 has current_offset => (
     is          => 'rw',
     isa         => 'Slotcar::Track::Offset',
     lazy        => 1,
     default     => sub {
+        my $self = shift;
+
         return Slotcar::Track::Offset->new(
-            x     => 500,
-            y     => 100,
-            angle =>   0,
+            x     => $self->start_x,
+            y     => $self->start_y,
+            angle => 0,
         )
     },
 );

@@ -2,7 +2,7 @@ package Slotcar::Track::Piece;
 use Moose;
 use namespace::autoclean;
 
-use Math::Trig qw/ rad2deg /;
+use Math::Trig qw/ rad2deg pi /;
 
 use Slotcar::Track::Offset;
 
@@ -40,10 +40,22 @@ sub render {
     my $y      = $offset->y;
     my $angle  = $offset->angle;
 
+    my $extra = '';
+    my ($x2, $y2) = (0,0);
+    if ($self->reversed) {
+        $extra = sprintf('rotate(%f %f %f)',
+            rad2deg(pi - $self->part->next_piece_offset->angle),
+            $x,
+            $y
+        );
+        $x2 = - $self->part->next_piece_offset->x;
+        $y2 = - $self->part->next_piece_offset->y;
+    }
+
     $svg->use(
-        x => $x,
-        y => $y,
-        transform => sprintf('rotate(%f %f %f)', rad2deg($angle), $x, $y),
+        x => $x + $x2,
+        y => $y + $y2,
+        transform => sprintf('rotate(%f %f %f) %s', rad2deg($angle), $x, $y, $extra),
         '-href' => '#' . $self->part->sku,
     );
 }

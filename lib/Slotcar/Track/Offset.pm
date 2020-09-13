@@ -54,20 +54,22 @@ sub add_offset {
     my $x     = $new_offset->x;
     my $y     = $new_offset->y;
 
-    my $dx = ($x * $cos_t) - ($y * $sin_t);
-    my $dy;
-    
-    if ($reversed {
+    my ($dx, $dy);
+    if ($reversed) {
+        $dx =   ($x * $cos_t) + ($y * $sin_t);
         $dy = - ($y * $cos_t) + ($x * $sin_t);
     }
     else {
-        $dy =   ($y * $cos_t) + ($x * $sin_t);
+        $dx = ($x * $cos_t) - ($y * $sin_t);
+        $dy = ($y * $cos_t) + ($x * $sin_t);
     }
+
     my $new_x = $self->x + $dx;
     my $new_y = $self->y + $dy;
 
     my $angle_change = $reversed ? -$new_offset->angle : $new_offset->angle;
     my $new_angle = Math::Trig::rad2rad($self->angle + $angle_change);
+
     return Slotcar::Track::Offset->new(
         x     => $new_x,
         y     => $new_y,
