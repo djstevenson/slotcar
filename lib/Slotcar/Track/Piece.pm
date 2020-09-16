@@ -67,12 +67,21 @@ sub render {
     my $dx = $label_offset->x;
     my $dy = $label_offset->y;
 
+
+
+    # NEED TO DO SOME TWEAK WITH REVERSED PIECES
     my $sa = sin($angle);
     my $ca = cos($angle);
 
     my $textx = $dx * $ca - $dy * $sa;
     my $texty = $dx * $sa + $dy * $ca;
     
+    $svg->circle(
+        cx             => $x + $textx,
+        cy             => $y + $texty,
+        r              => 3,
+        fill           => '#ff0000',
+    ); 
     $svg->text(
         x => $x + $textx - 36,
         y => $y + $texty + 9,

@@ -20,9 +20,13 @@ use Slotcar::Track::Offset;
 sub next_piece_offset {
     my ($self) = @_;
 
-    my $a = $self->angle;
+    return $self->_offset_for_angle($self->angle);
+}
 
-    my $half_angle     = $self->angle / 2.0;
+sub _offset_for_angle {
+    my ($self, $angle) = @_;
+
+    my $half_angle     = $angle / 2.0;
     my $sin_half_angle = sin($half_angle);
     my $chord_length   = 2 * $self->radius * $sin_half_angle;
 
@@ -32,7 +36,7 @@ sub next_piece_offset {
     return Slotcar::Track::Offset->new(
         x     => $dx,
         y     => $dy,
-        angle => $a,
+        angle => $angle,
     );
 }
 
@@ -40,11 +44,8 @@ sub next_piece_offset {
 sub label_offset {
     my ($self) = @_;
 
-    return Slotcar::Track::Offset->new(
-        x     => 20,
-        y     => 20,
-        angle => 0,
-    );
+    # Pick point half-way round centre line
+    return $self->_offset_for_angle($self->angle / 2.0);
 }
 
 after render_base => sub {
