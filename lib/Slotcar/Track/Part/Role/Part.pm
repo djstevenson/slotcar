@@ -3,6 +3,7 @@ use Moose::Role;
 
 requires 'next_piece_offset';
 requires 'render_part_def';
+requires 'label_offset';
 
 sub create_part_group {
     my ($self, $defs) = @_;
