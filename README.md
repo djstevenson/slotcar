@@ -2,7 +2,7 @@
 
 An experimental Perl 5 module for modelling slotcar-racing tracks.  Will initially support just Scalextric Sport track.
 
-Github reports it as Raku (née Perl 6). It's not, it's Perl 5. Tested with v5.32.
+It's Perl 5 - tested with v5.32.
 
 *NOT YET USABLE* This project is on hold while I attend to a few other ideas.
 
