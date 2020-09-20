@@ -141,7 +141,6 @@ sub _build_svg {
     );
 
     if ($self->grid) {
-        # Rare valid use of C-style for loop :)
         for (my $x = 0; $x <= $self->width; $x += 25) {
             $svg->line(
                 x1 => $x,

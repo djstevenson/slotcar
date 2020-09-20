@@ -62,5 +62,16 @@ sub _render_oblique_line {
     );
 }
 
+
+# Put the label to the side, away from
+# the logo
+around label_offset => sub {
+    return Slotcar::Track::Offset->new(
+        x     => 175,
+        y     => -60,
+        angle => 0,
+    );
+};
+
 no Moose::Role;
 1;

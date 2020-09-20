@@ -3,6 +3,7 @@ use Moose::Role;
 
 requires 'next_piece_offset';
 requires 'render_part_def';
+requires 'label_offset';
 
 sub create_part_group {
     my ($self, $defs) = @_;
@@ -33,6 +34,15 @@ sub render_part_def {
     my ($self, $track) = @_;
 
     $self->render_base($track);
+
+    my $offset = $self->label_offset;
+    $track->circle(
+        cx             => $offset->x,
+        cy             => $offset->y,
+        r              => 6,
+        fill           => '#99ccFF',
+    ); 
+
     $self->render_grooves($track);
     $self->render_sensors($track);
     $self->render_paint($track);

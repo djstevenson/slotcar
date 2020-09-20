@@ -20,6 +20,16 @@ sub next_piece_offset {
     );
 }
 
+# Angle not used
+sub label_offset {
+    my ($self) = @_;
+
+    return Slotcar::Track::Offset->new(
+        x     => $self->length/2.0,
+        y     => 0,
+        angle => 0,
+    );
+}
 
 after render_base => sub {
     my ($self, $track) = @_;

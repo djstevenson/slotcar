@@ -8,6 +8,7 @@ has groove          => (is => 'ro', isa => 'Str', default => '#000000');
 has edge            => (is => 'ro', isa => 'Str', default => '#111111');
 
 has white_paint     => (is => 'ro', isa => 'Str', default => '#dddddd');
+has label           => (is => 'ro', isa => 'Str', default => '#eeee00');
 
 has sensor_active   => (is => 'ro', isa => 'Str', default => '#006000');
 has sensor_inactive => (is => 'ro', isa => 'Str', default => '#333333');

@@ -43,6 +43,15 @@ after render_paint => sub {
 
 };
 
+# Put the label at the sensor end, away from
+# the crossover
+around label_offset => sub {
+    return Slotcar::Track::Offset->new(
+        x     => 100,
+        y     => 0,
+        angle => 0,
+    );
+};
 
 no Moose::Role;
 1;

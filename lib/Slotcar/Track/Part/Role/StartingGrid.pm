@@ -65,5 +65,15 @@ sub _starting_position {
     );
 }
 
+
+# Put the label to the side, away from
+# the markings
+around label_offset => sub {
+    return Slotcar::Track::Offset->new(
+        x     => 80,
+        y     => 15,
+        angle => 0,
+    );
+};
 no Moose::Role;
 1;
