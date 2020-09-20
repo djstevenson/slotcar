@@ -39,8 +39,8 @@ sub render_part_def {
     $track->circle(
         cx             => $offset->x,
         cy             => $offset->y,
-        r              => 3,
-        fill           => '#0000FF',
+        r              => 6,
+        fill           => '#99ccFF',
     ); 
 
     $self->render_grooves($track);

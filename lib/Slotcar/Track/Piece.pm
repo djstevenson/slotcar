@@ -61,12 +61,15 @@ sub render {
     );
 
 
-    # Label positioning actually needs to take 
-    # part angle into account.
+    # Get the label position relative to the origin.
     my $label_offset = $part->label_offset;
     my $dx = $label_offset->x;
     my $dy = $label_offset->y;
 
+
+    # See if we can do it assuming not reversed, then rotate
+    # to reverse?
+    # ...
 
 
     # NEED TO DO SOME TWEAK WITH REVERSED PIECES
@@ -79,17 +82,17 @@ sub render {
     $svg->circle(
         cx             => $x + $textx,
         cy             => $y + $texty,
-        r              => 3,
-        fill           => '#ff0000',
+        r              => 6,
+        fill           => '#ffcc99',
     ); 
-    $svg->text(
-        x => $x + $textx - 36,
-        y => $y + $texty + 9,
-        style => {
-            font => sprintf('%dpx sans-serif', 24),
-            fill => $part->colours->label,
-        },
-    )->cdata($part->sku);
+    # $svg->text(
+    #     x => $x + $textx - 36,
+    #     y => $y + $texty + 9,
+    #     style => {
+    #         font => sprintf('%dpx sans-serif', 24),
+    #         fill => $part->colours->label,
+    #     },
+    # )->cdata($part->sku);
 }
 
 __PACKAGE__->meta->make_immutable;
