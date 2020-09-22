@@ -50,14 +50,14 @@ sub render {
     my $textx = $dx * $ca - $dy * $sa;
     my $texty = $dx * $sa + $dy * $ca;
     
-    # $svg->text(
-    #     x => $x + $textx - 36,
-    #     y => $y + $texty + 9,
-    #     style => {
-    #         font => sprintf('%dpx sans-serif', 24),
-    #         fill => $part->colours->label,
-    #     },
-    # )->cdata($part->sku);
+    $svg->text(
+        x => $x + $textx - 36,
+        y => $y + $texty + 9,
+        style => {
+            font => sprintf('%dpx sans-serif', 24),
+            fill => $part->colours->label,
+        },
+    )->cdata($part->sku);
 }
 
 __PACKAGE__->meta->make_immutable;
