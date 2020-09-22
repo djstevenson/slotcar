@@ -57,7 +57,7 @@ sub render {
             font => sprintf('%dpx sans-serif', 24),
             fill => $part->colours->label,
         },
-    )->cdata($part->sku);
+    )->cdata($part->label_sku);
 }
 
 __PACKAGE__->meta->make_immutable;

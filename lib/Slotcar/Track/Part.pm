@@ -10,6 +10,20 @@ has sku => (
     required    => 1,
 );
 
+has label_sku => (
+    is          => 'ro',
+    isa         => 'Str',
+    lazy        => 1,
+    default     => sub {
+        my ($self) = @_;
+
+        my $label = $self->sku;
+        $label =~ s/[LR]$//;
+
+        return $label;
+    }
+);
+
 
 # Traits to be applied to the part
 # e.g. Curve, Straight, ...
