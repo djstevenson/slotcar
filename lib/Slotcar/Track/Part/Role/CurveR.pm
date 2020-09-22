@@ -1,4 +1,4 @@
-package Slotcar::Track::Part::Role::Curve;
+package Slotcar::Track::Part::Role::CurveR;
 use Moose::Role;
 
 has radius => (

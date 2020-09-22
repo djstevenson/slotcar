@@ -102,8 +102,7 @@ sub add_piece {
     $self->append_piece($piece);
 
     my $new_offset = $self->current_offset->add_offset(
-        $piece->part->next_piece_offset,
-        $piece->reversed,
+        $piece->part->next_piece_offset
     );
     $self->current_offset( $new_offset );
 }

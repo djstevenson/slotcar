@@ -45,7 +45,7 @@ has angle => (
 # Returns a NEW offset record which adds the
 # passed-in offset to 'this'.
 sub add_offset {
-    my ($self, $new_offset, $reversed) = @_;
+    my ($self, $new_offset) = @_;
 
     my $theta = $self->angle;
 
@@ -54,20 +54,13 @@ sub add_offset {
     my $x     = $new_offset->x;
     my $y     = $new_offset->y;
 
-    my ($dx, $dy);
-    if ($reversed) {
-        $dx =   ($x * $cos_t) + ($y * $sin_t);
-        $dy = - ($y * $cos_t) + ($x * $sin_t);
-    }
-    else {
-        $dx = ($x * $cos_t) - ($y * $sin_t);
-        $dy = ($y * $cos_t) + ($x * $sin_t);
-    }
+    my $dx = ($x * $cos_t) - ($y * $sin_t);
+    my $dy = ($y * $cos_t) + ($x * $sin_t);
 
     my $new_x = $self->x + $dx;
     my $new_y = $self->y + $dy;
 
-    my $angle_change = $reversed ? -$new_offset->angle : $new_offset->angle;
+    my $angle_change = $new_offset->angle;
     my $new_angle = Math::Trig::rad2rad($self->angle + $angle_change);
 
     return Slotcar::Track::Offset->new(
