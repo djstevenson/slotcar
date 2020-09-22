@@ -128,19 +128,11 @@ sub BUILD {
 sub create_piece {
     my ($self, $sku, $offset) = @_;
 
-    # Extract the reverse marker
-    my $reversed = 0;
-    if ( $sku =~ m{ \A (.*) \- \Z}x ) {
-        $sku = $1;
-        $reversed = 1;
-    }
-
     my $part = $self->get_part($sku) or die $sku;
 
     return Slotcar::Track::Piece->new(
         part     => $part,
         offset   => $offset,
-        reversed => $reversed,
     );
 }
 
