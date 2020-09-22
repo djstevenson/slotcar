@@ -66,28 +66,52 @@ has_part C7018 => ( traits => [qw/
     Straight Half StartingGrid
 /]);
 
-has_part C8278 => ( traits => [qw/
-    Curve R1 C16
+has_part C8278R => ( traits => [qw/
+    CurveR R1 C16
 /]);
 
-has_part C8202 => ( traits => [qw/
-    Curve R1 C8
+has_part C8278L => ( traits => [qw/
+    CurveL R1 C16
 /]);
 
-has_part C8234 => ( traits => [qw/
-    Curve R2 C16
+has_part C8202R => ( traits => [qw/
+    CurveR R1 C8
 /]);
 
-has_part C8206 => ( traits => [qw/
-    Curve R2 C8
+has_part C8202L => ( traits => [qw/
+    CurveL R1 C8
 /]);
 
-has_part C8204 => ( traits => [qw/
-    Curve R3 C16
+has_part C8234R => ( traits => [qw/
+    CurveR R2 C16
 /]);
 
-has_part C8235 => ( traits => [qw/
-    Curve R4 C16
+has_part C8234L => ( traits => [qw/
+    CurveL R2 C16
+/]);
+
+has_part C8206R => ( traits => [qw/
+    CurveR R2 C8
+/]);
+
+has_part C8206L => ( traits => [qw/
+    CurveL R2 C8
+/]);
+
+has_part C8204R => ( traits => [qw/
+    CurveR R3 C16
+/]);
+
+has_part C8204L => ( traits => [qw/
+    CurveL R3 C16
+/]);
+
+has_part C8235R => ( traits => [qw/
+    CurveR R4 C16
+/]);
+
+has_part C8235L => ( traits => [qw/
+    CurveL R4 C16
 /]);
 
 sub BUILD {
