@@ -106,9 +106,9 @@ has parts => (
 #     CurveL R3 C16
 # /]);
 
-# has_part C8235R => ( traits => [qw/
-#     CurveR R4 C16
-# /]);
+has_part C8235R => ( traits => [qw/
+    CurveR R4 C16
+/]);
 
 has_part C8235L => ( traits => [qw/
     CurveL R4 C16
