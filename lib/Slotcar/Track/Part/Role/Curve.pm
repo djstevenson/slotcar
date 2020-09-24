@@ -28,8 +28,6 @@ has reversed => (
 
 requires '_is_reversed';
 
-
-
 use Slotcar::Track::Offset;
 
 # TODO Should be a lazy attribute not a sub, so we don't recalc every time
@@ -40,13 +38,15 @@ sub next_piece_offset {
 }
 
 sub _offset_for_angle {
-    my ($self, $angle) = @_;
+    my ($self, $angle, $radius) = @_;
 
     my $factor = $self->reversed ? -1 : 1;
 
+    my $r = $radius // $self->radius;
+
     my $half_angle     = $angle / 2.0;
     my $sin_half_angle = sin($half_angle);
-    my $chord_length   = 2 * $self->radius * $sin_half_angle;
+    my $chord_length   = 2 * $r * $sin_half_angle;
 
     my $dx = $chord_length * cos($half_angle);
     my $dy = $chord_length * $sin_half_angle;
@@ -66,28 +66,14 @@ sub label_offset {
     return $self->_offset_for_angle($self->angle / 2.0);
 }
 
-sub _polar_to_cartesian {
-    my ($self, $centre_x, $centre_y, $radius, $angle, $width) = @_;   # Angles in radians
-
-    my $x = $centre_x + $radius * cos($angle);
-    my $y = $centre_y + $radius * sin($angle);
-
-    return ($x, $y - $self->radius + $width);
-}
-
 after render_base => sub {
     my ($self, $track) = @_;
 
     my $cols = $self->colours;
     my $dims = $self->dimensions;
 
-    my $path = $self->_curve_path({
-        angle  => $self->angle,
-        radius => $self->radius,
-        width  => $dims->width,
-    });
     $track->path(
-        d    => $path,
+        d    => $self->_curve_path($dims->width),
         fill => $cols->track_base,
     );
 };
@@ -97,41 +83,79 @@ after render_grooves => sub {
 
     my $dims = $self->dimensions;
 
-    $self->_render_single_groove($track, $dims->lane_offset);
-    $self->_render_single_groove($track, -$dims->lane_offset);
+    # $self->_render_single_groove($track, $dims->lane_offset);
+    # $self->_render_single_groove($track, -$dims->lane_offset);
 };
 
+# Width of arc,
+# Offset (default 0) = offset from centre radius
 sub _curve_path {
-    my ($self, $d) = @_;
+    my ($self, $width, $offset) = @_;
 
-    my $angle   = $d->{angle};
-    my $radius  = $d->{radius};
-    my $width   = $d->{width};
+    $offset //= 0;
 
-    my $half_width   = $width / 2.0;
+    my $rev = $self->reversed ? 1 : -1;
+
+    my $angle      = $self->angle;
+    my $radius     = $self->radius + $rev * $offset;
+    my $half_width = $width / 2.0;
+
+    # Short names, three chars
+    # First = i/o for inner/outer
+    # Second = s/e for start/end point of curve
+    # Third  = x/y with obvious meaning
+    # So $isx is 'x' value of start point of inner radius
+    my ($isx, $isy, $iex, $iey);
+    my ($osx, $osy, $oex, $oey);
+
     my $outer_radius = $radius + $half_width;
     my $inner_radius = $radius - $half_width;
+    my $i_offset = $self->_offset_for_angle($angle, $inner_radius);
+    my $o_offset = $self->_offset_for_angle($angle, $outer_radius);
+    $i_offset->log('INNER');
+    $o_offset->log('OUTER');
 
-    my $cx = 0;
-    my $cy = - $width;
+    # S1/S2 = "sweep" from SVG arc definition
+    my ($s1, $s2);
 
-    my ($in_s_x,  $in_s_y)  = $self->_polar_to_cartesian(0, $cy, $inner_radius, deg2rad(90), $width);
-    my ($in_e_x,  $in_e_y)  = $self->_polar_to_cartesian(0, $cy, $inner_radius, deg2rad(90) - $angle, $width);
-    my ($out_s_x, $out_s_y) = $self->_polar_to_cartesian(0, $cy, $outer_radius, deg2rad(90) - $angle, $width);
-    my ($out_e_x, $out_e_y) = $self->_polar_to_cartesian(0, $cy, $outer_radius, deg2rad(90), $width);
+    if ($self->reversed) {
+        ($s1, $s2) = (0,1);
 
-    return sprintf("M %f %f
-        A %f %f 0 0 0 %f %f
+        ($isx, $isy) = (0, - $offset - $half_width);
+        ($iex, $iey) = ($isx + $i_offset->x, $isy - $i_offset->y);
+        ($oex, $oey) = (0, $isy + $width);
+        ($osx, $osy) = ($oex + $o_offset->x, $oey - $o_offset->y);
+    }
+    else {
+        ($s1, $s2) = (1,0);
+
+        ($isx, $isy) = (0, $offset + $half_width);
+        ($iex, $iey) = ($isx + $i_offset->x, $isy + $i_offset->y);
+        ($oex, $oey) = (0, $isy - $width);
+        ($osx, $osy) = ($oex + $o_offset->x, $oey + $o_offset->y);
+    }
+
+    # Start at origin. Line to inner start x/y
+    # Arc to inner end, line to outer start,
+    # arc to outer end, then close off back to
+    # origin (Z)
+    my $y_origin = $offset;
+    return sprintf("M 0 %f
         L %f %f
-        A %f %f 0 0 1 %f %f
+        A %f %f 0 0 %d %f %f
+        L %f %f
+        A %f %f 0 0 %d %f %f
         Z
         ",
-        $in_s_x, $in_s_y,
+        $y_origin,
+        $isx, $isy,
         $inner_radius, $inner_radius,
-        $in_e_x, $in_e_y,
-        $out_s_x, $out_s_y,
+        $s1,
+        $iex, $iey,
+        $osx, $osy,
         $outer_radius, $outer_radius,
-        $out_e_x, $out_e_y
+        $s2,
+        $oex, $oey
     );
 }
 
@@ -141,43 +165,29 @@ sub _render_single_groove {
     my $cols = $self->colours;
     my $dims = $self->dimensions;
 
-    my $path1 = $self->_curve_path({
-        angle   => $self->angle,
-        radius  => $self->radius + $offset,
-        width   => $dims->conductor_width,
-    });
-    my $path2 = $self->_curve_path({
-        angle  => $self->angle,
-        radius => $self->radius + $offset,
-        width  => $dims->groove_width,
-    });
     $track->path(
-        d    => $path1,
+        d    => $self->_curve_path($dims->conductor_width, $offset),
         fill => $cols->conductor,
     );
     $track->path(
-        d    => $path2,
+        d    => $self->_curve_path($dims->groove_width, $offset),
         fill => $cols->groove,
     );
 }
-# after render_border => sub {
-#     my ($self, $track) = @_;
 
-#     my $cols = $self->colours;
-#     my $dims = $self->dimensions;
+after render_border => sub {
+    my ($self, $track) = @_;
 
-#     my $path = $self->_curve_path({
-#         angle  => $self->angle,
-#         radius => $self->radius,
-#         width  => $dims->width,
-#     });
-#     $track->path(
-#         d              => $path,
-#         stroke         => $cols->edge,
-#         'stroke-width' => 2,
-#         fill           => 'none',
-#     );
-# };
+    my $cols = $self->colours;
+    my $dims = $self->dimensions;
+
+    $track->path(
+        d              => $self->_curve_path($dims->width),
+        stroke         => $cols->edge,
+        'stroke-width' => 2,
+        fill           => 'none',
+    );
+};
 
 no Moose::Role;
 1;

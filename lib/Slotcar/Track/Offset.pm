@@ -70,5 +70,11 @@ sub add_offset {
     );
 }
 
+sub log {
+    my ($self, $label) = @_;
+
+    printf STDERR "%s x=%f, y=%f, a=%f\n", $label, $self->x, $self->y, $self->angle;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
