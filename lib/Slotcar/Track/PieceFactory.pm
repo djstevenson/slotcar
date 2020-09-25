@@ -34,77 +34,77 @@ has parts => (
     }
 );
 
-# has_part C8205 => ( traits => [qw/
-#     Straight Standard
-# /]);
+has_part C8205 => ( traits => [qw/
+    Straight Standard
+/]);
 
-# has_part C8207 => ( traits => [qw/
-#     Straight Half
-# /]);
+has_part C8207 => ( traits => [qw/
+    Straight Half
+/]);
 
-# has_part C8200 => ( traits => [qw/
-#     Straight Quarter
-# /]);
+has_part C8200 => ( traits => [qw/
+    Straight Quarter
+/]);
 
-# has_part C8236 => ( traits => [qw/
-#     Straight Short
-# /]);
+has_part C8236 => ( traits => [qw/
+    Straight Short
+/]);
 
-# has_part C8435 => ( traits => [qw/
-#     Straight Standard ARCPro
-# /]);
+has_part C8435 => ( traits => [qw/
+    Straight Standard ARCPro
+/]);
 
-# has_part C7036 => ( traits => [qw/
-#     Straight Extended LaneChanger
-# /]);
+has_part C7036 => ( traits => [qw/
+    Straight Extended LaneChanger
+/]);
 
-# has_part C7000 => ( traits => [qw/
-#     Straight Half LaneChangeSensor
-# /]);
+has_part C7000 => ( traits => [qw/
+    Straight Half LaneChangeSensor
+/]);
 
-# has_part C7018 => ( traits => [qw/
-#     Straight Half StartingGrid
-# /]);
+has_part C7018 => ( traits => [qw/
+    Straight Half StartingGrid
+/]);
 
-# has_part C8278R => ( traits => [qw/
-#     CurveR R1 C16
-# /]);
+has_part C8278R => ( traits => [qw/
+    CurveR R1 C16
+/]);
 
-# has_part C8278L => ( traits => [qw/
-#     CurveL R1 C16
-# /]);
+has_part C8278L => ( traits => [qw/
+    CurveL R1 C16
+/]);
 
-# has_part C8202R => ( traits => [qw/
-#     CurveR R1 C8
-# /]);
+has_part C8202R => ( traits => [qw/
+    CurveR R1 C8
+/]);
 
-# has_part C8202L => ( traits => [qw/
-#     CurveL R1 C8
-# /]);
+has_part C8202L => ( traits => [qw/
+    CurveL R1 C8
+/]);
 
-# has_part C8234R => ( traits => [qw/
-#     CurveR R2 C16
-# /]);
+has_part C8234R => ( traits => [qw/
+    CurveR R2 C16
+/]);
 
-# has_part C8234L => ( traits => [qw/
-#     CurveL R2 C16
-# /]);
+has_part C8234L => ( traits => [qw/
+    CurveL R2 C16
+/]);
 
-# has_part C8206R => ( traits => [qw/
-#     CurveR R2 C8
-# /]);
+has_part C8206R => ( traits => [qw/
+    CurveR R2 C8
+/]);
 
-# has_part C8206L => ( traits => [qw/
-#     CurveL R2 C8
-# /]);
+has_part C8206L => ( traits => [qw/
+    CurveL R2 C8
+/]);
 
-# has_part C8204R => ( traits => [qw/
-#     CurveR R3 C16
-# /]);
+has_part C8204R => ( traits => [qw/
+    CurveR R3 C16
+/]);
 
-# has_part C8204L => ( traits => [qw/
-#     CurveL R3 C16
-# /]);
+has_part C8204L => ( traits => [qw/
+    CurveL R3 C16
+/]);
 
 has_part C8235R => ( traits => [qw/
     CurveR R4 C16
