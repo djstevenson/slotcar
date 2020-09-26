@@ -40,7 +40,7 @@ after render_paint => sub {
         y => $TEXT_Y,
         style => {
             font => $TEXT_FONT,
-            fill => $cols->track_base,
+            fill => $cols->base,
         },
         transform => 'rotate(180, 178, 80)',  # Param this?
     )->cdata('ARCPRO');

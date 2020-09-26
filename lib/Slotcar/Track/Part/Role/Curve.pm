@@ -74,7 +74,7 @@ after render_base => sub {
 
     $track->path(
         d              => $self->_arc,
-        stroke         => $cols->track_base,
+        stroke         => $cols->base,
         'stroke-width' => $dims->width,
         fill           => 'none',
     );
@@ -136,8 +136,11 @@ after render_border => sub {
     # TODO Can't we do a single path here instead of three?
 
     # Leading edge
-    $track->path(
-        d              => sprintf('M 0 %f L 0 %f', $half_width, -$half_width),
+    $track->line(
+        x1             => 0,
+        y1             => $half_width,
+        x2             => 0,
+        y2             => -$half_width,
         stroke         => $colour,
         'stroke-width' => 2, # TODO this should be in $dims
         fill           => 'none',
