@@ -3,45 +3,69 @@ use Moose::Role;
 
 use Readonly;
 
-# Temporary measure, render the crossover as paint
-# markings. Doing the real render is hard! Do that later,
-# there are more important things to work on right now
+# Should these be in the dimensions object? I think
+# it's ok here, as they are specific to this part.
+Readonly my $START_X => 171.0;
+Readonly my $END_X   => 515.0;
+Readonly my $P1_X    => 386.0;
+Readonly my $P2_X    => 374.0;
 
-Readonly my $CROSS_CENTRE_X   => 340.0;
-Readonly my $CROSS_WIDTH      =>  60.0;
-Readonly my $CROSS_LENGTH     => 310.0;
-Readonly my $CROSS_LINE_WIDTH =>  16.0;
+has _path => (
+    is          => 'ro',
+    isa         => 'Str',
+    lazy        => 1,
+    builder     => '_make_path',
+);
 
-after render_paint => sub {
+
+sub _make_path {
+    my ($self) = @_;
+
+    my $lane = $self->dimensions->lane_offset;
+
+    return sprintf('M %f %f C %f %f %f %f %f %f M %f %f C %f %f %f %f %f %f',
+        # Cross 1
+        $START_X, -$lane,
+        $P1_X,    -$lane,
+        $P2_X,     $lane,
+        $END_X,    $lane,
+        # Cross 2
+        $START_X,  $lane,
+        $P1_X,     $lane,
+        $P2_X,    -$lane,
+        $END_X,   -$lane,
+    );
+}
+
+
+before render_grooves => sub {
     my ($self, $track) = @_;
 
-    my $cols = $self->colours;
-    my $dims = $self->dimensions;
-
-    my $start_x  = $CROSS_CENTRE_X - $CROSS_LENGTH / 2.0 - $CROSS_LINE_WIDTH / 2.0;
-    my $start_y1 = - $CROSS_WIDTH / 2.0;
-    my $start_y2 = $CROSS_WIDTH / 2.0;
-
-    my $path = sprintf('M %f %f l %f 0 l %f %f l %f 0 Z',
-        $start_x, $start_y1,
-        $CROSS_LINE_WIDTH,
-        $CROSS_LENGTH, $CROSS_WIDTH,
-        -$CROSS_LINE_WIDTH,
-    );
-
-    $path .= sprintf('M %f %f l %f 0 l %f %f l %f 0 Z',
-        $start_x, $start_y2,
-        $CROSS_LINE_WIDTH,
-        $CROSS_LENGTH, -$CROSS_WIDTH,
-        -$CROSS_LINE_WIDTH,
-    );
+    my $colour = $self->colours->conductor;
+    my $width  = $self->dimensions->conductor_width;
 
     $track->path(
-        d => $path,
-        fill => $cols->white_paint,
+        d              => $self->_path,
+        stroke         => $colour,
+        'stroke-width' => $width,
+        fill           => 'none',
     );
-
 };
+
+after render_grooves => sub {
+    my ($self, $track) = @_;
+
+    my $colour = $self->colours->groove;
+    my $width  = $self->dimensions->groove_width;
+
+    $track->path(
+        d              => $self->_path,
+        stroke         => $colour,
+        'stroke-width' => $width,
+        fill           => 'none',
+    );
+};
+
 
 # Put the label at the sensor end, away from
 # the crossover
