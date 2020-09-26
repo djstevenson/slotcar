@@ -12,8 +12,8 @@ my $layout = Slotcar::Layout->new(
     width   => 3_500,
     height  => 2_000,
     grid    => 1,
-    start_x => 600,
-    start_y => 150,
+    start_x => 610,
+    start_y => 160,
 );
 
 $layout->add_pieces( [qw/
