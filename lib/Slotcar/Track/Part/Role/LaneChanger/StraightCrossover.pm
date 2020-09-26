@@ -1,4 +1,4 @@
-package Slotcar::Track::Part::Role::LaneChanger::FakeCrossover;
+package Slotcar::Track::Part::Role::LaneChanger::StraightCrossover;
 use Moose::Role;
 
 use Readonly;
