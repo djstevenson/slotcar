@@ -3,7 +3,7 @@ use Moose::Role;
 
 use Readonly;
 
-# Paramaters for the 'logo'
+# Parameters for the 'logo'
 Readonly my $OBLIQUE_X_OFFSET =>  8.0;
 Readonly my $OBLIQUE_HEIGHT   => 38.0;
 Readonly my $STROKE_WIDTH     =>  6.0;
