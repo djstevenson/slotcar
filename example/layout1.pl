@@ -76,4 +76,14 @@ $layout->add_pieces( [qw/
 
 
 my $output = $layout->render;
-print $output;
+open(my $fh, ">", "layout.svg")
+    or die "Can't open < layout.svg: $!";
+
+print $fh $output;
+$fh->close;
+
+my $parts = $layout->part_list;
+
+for my $sku ( sort keys %{ $parts } ) {
+    print $sku, ' x ', $parts->{$sku}, "\n";
+}

@@ -178,5 +178,26 @@ sub _build_factory {
     return Slotcar::Track::PieceFactory->new(svg => $self->_svg);
 }
 
+# Returns a hashref, keyed by SKU. The value is the 
+# number of pieces required to build the layout.
+# Note, reversible pieces are counted together. e.g.
+# because C8235L and C8235R are the same physical part,
+# a layout needing one of each would have C8235 => 2.
+#
+# So, the key is not $part->sku, but $part->label_sku, i.e.
+# the value we use for the label on the SVG render.
+sub part_list {
+    my ($self) = @_;
+
+    my %parts;
+
+    for my $piece ( $self->all_pieces ) {
+        my $sku = $piece->part->label_sku;
+        $parts{$sku}++;
+    }
+
+    return \%parts;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
