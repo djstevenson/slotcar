@@ -43,3 +43,4 @@ inc/
 example/cpanfile.snapshot
 example/local
 example/*.svg
+example/output

@@ -7,6 +7,7 @@ use FindBin::libs;
 use List::Util qw( sum );
 
 use Slotcar::Layout;
+use File::Path qw/ make_path remove_tree /;
 
 my $layouts = [
     {
@@ -26,7 +27,6 @@ my $layouts = [
             C8205
             C8235R C8235R C8235R C8204R C8204R C8204R C8204R C8204R C8204R C8235R
         /],
-        svg => '20200516b.svg',
     },
 
     {
@@ -44,7 +44,6 @@ my $layouts = [
             C8207 C8205
             C8235R C8235R C8204R C8204R C8204R C8204R C8204R C8204R C8204R C8204R
         /],
-        svg => '20200516a.svg',
     },
 
     {
@@ -61,7 +60,6 @@ my $layouts = [
             C8205 C8205 C8207 C7018 C7018 C7018 C8435
             C8529R C8207 C8205 C8205 C8529R
         /],
-        svg => '20200108.svg',
     },
 
     {
@@ -74,7 +72,6 @@ my $layouts = [
             C8206R C8207 C8206R C8205 C8207 C7018 C7018 C7018 C8435 C8205
             C8529R C7036 C8205 C8529R
         /],
-        svg => '20200115.svg',
     },
 
     {
@@ -94,10 +91,7 @@ my $layouts = [
             C8207 C7018 C7018 C7018 C8435
             C8235R C8204R C8206R C8207 C7036
             C8235R C8204R C8206R
-
-
         /],
-        svg => '20200125.svg',
     },
 
     {
@@ -115,10 +109,7 @@ my $layouts = [
             C8207 C8236 C8204R C8204R C8207 C8206R
             C8207 C8205 C8207 C7018 C7018 C7018 C8435
             C8204R C8204R C8206R C8205 C7036 C8204R C8204R C8206R
-
-
         /],
-        svg => '20200125b.svg',
     },
 
     {
@@ -135,7 +126,6 @@ my $layouts = [
             C8235L C8204L C8204L C8204L C8204L C8204L C8204L C8204L C8204L C8204L C8204L
             C8235R C8204R C8204R C8204R C8204R C8204R C8204R C8204R C8204R C8204R C8235R
         /],
-        svg => '20200306.svg',
     },
 
     {
@@ -154,27 +144,46 @@ my $layouts = [
             C8207
             C8235R C8204R C8204R C8204R C8204R C8204R C8204R C8204R C8204R 
         /],
-        svg => '20200321.svg',
     },
 ];
 
+my $output = './output';
+if ( -d $output ) {
+    remove_tree($output, { keep_root => 1 });
+}
+else {
+    mkpath($output);
+}
+
 for my $layout ( @{ $layouts } ) {
-    print $layout->{name}, "\n";
+    my $name = $layout->{name};
+    print "$name\n";
+    make_path "$output/$name";
+
     my $base = Slotcar::Layout->new( %{ $layout->{base} } );
 
     $base->add_pieces( $layout->{pieces} );
 
-    my $svg_file = $layout->{svg};
-    open(my $fh, '>', $svg_file)
-        or die "Can't open > $svg_file: $!";
+    {
+        my $svg_file = "$output/$name/layout.svg";
+        open(my $fh, '>', $svg_file)
+            or die "Can't open > $svg_file: $!";
 
-    print $fh $base->render;
-    $fh->close;
+        print $fh $base->render;
+        $fh->close;
+    }
 
+    {
+        my $part_file = "$output/$name/parts.txt";
+        open(my $fh, '>', $part_file)
+            or die "Can't open > $part_file: $!";
 
-    # my $parts = $base->part_list;
+        my $parts = $base->part_list;
 
-    # for my $sku ( sort keys %{ $parts } ) {
-    #     print $sku, ' x ', $parts->{$sku}, "\n";
-    # }
+        for my $sku ( sort keys %{ $parts } ) {
+            print $fh $sku, ' x ', $parts->{$sku}, "\n";
+        }
+        $fh->close;
+    }
+
 }
