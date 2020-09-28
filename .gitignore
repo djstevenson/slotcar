@@ -42,4 +42,5 @@ inc/
 # temp stuff in example dir
 example/cpanfile.snapshot
 example/local
-example/test.svg
+example/*.svg
+example/output
