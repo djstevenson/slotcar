@@ -98,6 +98,22 @@ has_part C8206L => ( traits => [qw/
     CurveL R2 C8
 /]);
 
+has_part C8529R => ( traits => [qw/
+    CurveR R2 C4
+/]);
+
+has_part C8529L => ( traits => [qw/
+    CurveL R2 C4
+/]);
+
+has_part C8297R => ( traits => [qw/
+    CurveR R3 C8
+/]);
+
+has_part C8297L => ( traits => [qw/
+    CurveL R3 C8
+/]);
+
 has_part C8204R => ( traits => [qw/
     CurveR R3 C16
 /]);
